@@ -33,5 +33,6 @@ echo $total_masters;
 <a href="record_min.php"> Min</a><br>
 <a href="record_max.php"> Max</a><br>
 <a href="record_true_mainers.php"> True mainer</a><br>
+<a href="record_early.php"> Didn't play</a><br>
 <a href="record_rang.php"> Rang</a><br>
 <a href="test.php"> My page</a><br>

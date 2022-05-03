@@ -1,4 +1,5 @@
-<form action="test.php" method="get" name="form">
+<link rel="stylesheet" href="style/total.css">
+<form action="full_info.php" method="get" name="form">
     Nick: <input name="nick" type="text" class="form-control inp" value="" placeholder="
     <?php if (isset($_GET['nick'])) {
         echo $_GET['nick'];
@@ -37,6 +38,7 @@ let val = inp.value;
 
 
 <script src="scripts/show_more.js"></script>
+<script src="scripts/sorting.js"></script>
 
 <?php 
 
@@ -110,7 +112,7 @@ let val = inp.value;
             
         }
         
-        // file_put_contents('json/champs_name.json', json_encode($champs_name_arr, JSON_UNESCAPED_UNICODE));
+        file_put_contents('json/champs_name.json', json_encode($champs_name_arr, JSON_UNESCAPED_UNICODE));
          
 
 
@@ -128,27 +130,63 @@ let val = inp.value;
            echo $value." ";
             
         }
+        $last_play = [];
+        foreach ($masters as $key => $row) {
+            // echo $masters[$key]['championId'].' ';
+            $last_play[$masters[$key]['championId']] = $row['lastPlayTime'];
+        }
+        asort($last_play);
+        // echo $last_play[array_key_first($last_play)];
+        // array_multisort($last_play, SORT_ASC, $masters);
        
         echo "<br><br>";
-    //     echo '<table border="1" >     <tr>
-    // <td> № </td>         
-    // <td> Герой </td>          
-    // <td> Очки  </td></tr>';
-            
+        // print_r ($masters);
+        // print_r ($last_play);
+        echo '<div class="blok"> 
+        <table id="sortable" border="1" >     
+        
+        <thead>
+        <tr>
+    <th data-type="number"> № </th>         
+    <th> Герой </th>          
+    <th data-type="number"> Очки  </th>
+    <th data-type="number"> Ранг  </th>
+    <th> Последний раз сыграно  </th>
+    <th> Сундук  </th>
+    <th > Жетонов в инвентаре </th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    
+    '
+    ;
+            // print_r ($masters);
             $champs_of_player = [];
             /// норм, но много текста, далеко листать для отладки
             for ($n = 0; $n < count($masters); $n++) {
-            echo $n + 1 . '. ' .$champs_name_arr[$masters[$n]['championId']]. " " . $masters[$n]['championPoints'] . "<br>\r\n";
-            // echo "<tr><td>". $n + 1 . '</td><td> ' .$champs_name_arr[$masters[$n]['championId']]. "</td><td>" . $masters[$n]['championPoints'] . "</td><tr>";
+            echo  
+            "<tr><td>" . 
+            $n + 1 . 
+            "</td><td>" .
+            $champs_name_arr[$masters[$n]['championId']] . 
+            "</td><td>" .
+            number_format($masters[$n]['championPoints'], 0, "", " ") .
             
-            if ($n == 4){
-                echo '  <div id="more" style="display: none;"> ';
+            "</td><td>" .
+            $masters[$n]['championLevel'] .
+            
+            "</td><td>" .
+            gmdate("Y.m.d H:i", $masters[$n]['lastPlayTime']/1000) . 
+            "</td><td>" .
+            str_replace(1, '+', $masters[$n]["chestGranted"]) .
+            "</td><td>" .
+            
+            str_replace(0, '',  $masters[$n]["tokensEarned"]) .
+            "</td></tr>";
             }
-        }
-        echo '</div><br><a href="javascript:void(0)" onclick="show(\'more\')">Все герои</a>';
         
-
-        
+         echo "</tbody></table></div>";           
         $summoners_top = json_decode(file_get_contents('json/'.$_GET['region'].'_summoners_arr.json'), true);
         // echo "Начальный массив <br>";
        
@@ -163,6 +201,8 @@ let val = inp.value;
             "min_point" => $masters_arr[array_key_last($masters_arr)], 
             "max_key" => array_key_first($masters_arr), 
             "max_point" => $masters_arr[array_key_first($masters_arr)], 
+            "early_key" => array_key_first($last_play),
+            "early_point" => $last_play[array_key_first($last_play)], 
             "7" => array_count_values(array_column($masters, 'championLevel'))[7], 
             "6" => array_count_values(array_column($masters, 'championLevel'))[6],
             "5" => array_count_values(array_column($masters, 'championLevel'))[5],
@@ -176,7 +216,7 @@ let val = inp.value;
         // var_dump($summoners_top);
         // print_r ($summoners_top[$summoner_id]);
 
-        // file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, true));
+        file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, true));
                 
 
     };

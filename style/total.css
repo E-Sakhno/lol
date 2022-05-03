@@ -1,0 +1,5 @@
+#sortable th {
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+}
