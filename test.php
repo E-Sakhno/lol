@@ -4,10 +4,17 @@
         echo $_GET['nick'];
     } ?>
     "><br>
-    Region: <select name="region">
-    <option value="ru"> Ru
-    <option value="euw1"> EuW
-    </select><br><br>    
+    Region: <select name="region"">
+<option value="ru" 
+    <?php if (isset($_GET['region'])){if ($_GET['region'] == "ru"){echo 'selected';}} ?> 
+> Ru
+    <option value="euw1" 
+    <?php if (isset($_GET['region'])){if ($_GET['region'] == "euw1"){echo 'selected';}} ?> 
+> EuW
+
+</select>
+    
+    <br><br>    
     <!-- <input type="submit"> -->
     <button class="btn btn-success btn">Кнопка</button>
 </form>
@@ -27,6 +34,9 @@ let val = inp.value;
   }
 }
 </script>
+
+
+<script src="scripts/show_more.js"></script>
 
 <?php 
 
@@ -78,7 +88,7 @@ let val = inp.value;
         }
         $total_masters = array_sum($masters_arr);
 
-        echo "Всего очков на чемпионах: ".$total_masters;
+        echo "Всего очков на чемпионах: ". number_format($total_masters, 0, "", " ");
         
         $champs_name_json = json_decode(
             file_get_contents(
@@ -110,26 +120,37 @@ let val = inp.value;
         echo "<br><br>";
 
         $dif_champ = array_diff_key($all_champs, $masters_arr);
-        echo "<br>Не сыграно на: <br>";
+        if (count($masters_arr) != count($champs_name_json['data'])){
+            echo "<br>Не сыграно на: <br>";
+
+        }
         foreach ($dif_champ as $key => $value){
            echo $value." ";
             
         }
        
         echo "<br><br>";
-       
+    //     echo '<table border="1" >     <tr>
+    // <td> № </td>         
+    // <td> Герой </td>          
+    // <td> Очки  </td></tr>';
             
             $champs_of_player = [];
             /// норм, но много текста, далеко листать для отладки
             for ($n = 0; $n < count($masters); $n++) {
             echo $n + 1 . '. ' .$champs_name_arr[$masters[$n]['championId']]. " " . $masters[$n]['championPoints'] . "<br>\r\n";
+            // echo "<tr><td>". $n + 1 . '</td><td> ' .$champs_name_arr[$masters[$n]['championId']]. "</td><td>" . $masters[$n]['championPoints'] . "</td><tr>";
             
+            if ($n == 4){
+                echo '  <div id="more" style="display: none;"> ';
+            }
         }
+        echo '</div><br><a href="javascript:void(0)" onclick="show(\'more\')">Все герои</a>';
         
 
         
         $summoners_top = json_decode(file_get_contents('json/'.$_GET['region'].'_summoners_arr.json'), true);
-        echo "Начальный массив <br>";
+        // echo "Начальный массив <br>";
        
     //    echo is_array($summoners_top);
        
@@ -142,13 +163,18 @@ let val = inp.value;
             "min_point" => $masters_arr[array_key_last($masters_arr)], 
             "max_key" => array_key_first($masters_arr), 
             "max_point" => $masters_arr[array_key_first($masters_arr)], 
-            "count_seven" => array_count_values(array_column($masters, 'championLevel'))[7], 
-            "count_six" => array_count_values(array_column($masters, 'championLevel'))[6]
+            "7" => array_count_values(array_column($masters, 'championLevel'))[7], 
+            "6" => array_count_values(array_column($masters, 'championLevel'))[6],
+            "5" => array_count_values(array_column($masters, 'championLevel'))[5],
+            "4" => array_count_values(array_column($masters, 'championLevel'))[4],
+            "3" => array_count_values(array_column($masters, 'championLevel'))[3],
+            "2" => array_count_values(array_column($masters, 'championLevel'))[2],
+            "1" => array_count_values(array_column($masters, 'championLevel'))[1]
         ); 
-        echo "<br><br>";
-        echo "Преобразованный массив <br>";
-        var_dump($summoners_top);
-        print_r ($summoners_top[$summoner_id]);
+        // echo "<br><br>";
+        // echo "Преобразованный массив <br>";
+        // var_dump($summoners_top);
+        // print_r ($summoners_top[$summoner_id]);
 
         file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, true));
                 

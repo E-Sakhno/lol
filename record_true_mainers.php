@@ -1,7 +1,7 @@
 <p>
-    Топ по очкам на героях в сумме
+    Топ мейнеров
 
-    <form action="record_total.php" method="get" name="form">
+    <form action="record_true_mainers.php" method="get" name="form">
     <?php include_once 'scripts/region.php'; ?>
     <br>
     Количество записей: 
@@ -18,9 +18,9 @@
     // print_r($info);
     $summoners = [];
     foreach ($info as $key => $row) {
-        $summoners[$key] = $row['total'];
+        $summoners[$key] = $row['count_champs'];
     }
-    array_multisort($summoners, SORT_DESC, $info);
+    array_multisort($summoners, SORT_ASC, $info);
     // echo "<BR>";
     // echo "<BR>";
     // print_r ($summoners);
@@ -32,27 +32,26 @@
     );
     // print_r($champs_name);
 
-    echo '<table border="1" >     <tr>         
-    <td> № </td>
-    <td> Ник </td>          <td> Регион </td>         <td> Очки </td></tr>';
+    echo '<table border="1" >     <tr>  <td> № </td>       <td> Ник </td>          <td> Регион </td>         <td> Кол-во чампов </td></tr>';
 
     $ctr = 1;
     // print_r($info[$key]);
     foreach ($summoners as $key => $value) {
-        echo '<tr><td>' . $ctr . "</td><td><a href='test.php?nick=" . $info[$key]['nick'] . "&region="  . $info[$key]['region'] . "'>" .
+        echo '<tr><td>'. $ctr . "</td><td><a href='test.php?nick=" . $info[$key]['nick'] . "&region="  . $info[$key]['region'] . "'>" .
             $info[$key]['nick'] .
-            '</td><td>' .
+            '</a></td><td>' .
             $info[$key]['region'] .
             '</td><td>' .
             number_format($value, 0, ',', ' ') .
             '</td></tr>';
-            
+
             $ctr++;
-        if (isset($_GET['amount'])) {
-            if ($ctr > $_GET['amount']) {
-                break;
+            if (isset($_GET['amount'])) {
+                if ($ctr > $_GET['amount']) {
+                    break;
+                }
             }
-        }
+        
     }
     echo '</table>';
 }

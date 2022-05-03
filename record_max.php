@@ -2,11 +2,11 @@
     Топ по очкам на героях
 
     <form action="record_max.php" method="get" name="form">
-    Region: <select name="region">
-    <option value="all"> All
-    <option value="ru"> Ru
-    <option value="euw1"> EuW
-    </select><br><br>    
+    <?php include_once 'scripts/region.php'; ?>
+    <br>
+    Количество записей: 
+    <?php include_once 'scripts/amount.php'; ?>
+    <br><br>    
     <!-- <input type="submit"> -->
     <button class="btn btn-success btn">Кнопка</button>
 </form>
@@ -32,14 +32,24 @@
     );
     // print_r($champs_name);
 
-    echo '<table border="1" >     <tr>         <td> Ник </td>
+    echo '<table border="1" >     <tr>   
+    <td> № </td>         
+    <td> Ник </td>
     <td> Регион </td>
     <td> Очки </td>
     <td> Чемпион </td></tr>';
 
-    print_r($info[$key]);
+    $ctr = 1;
+
+    // print_r($info[$key]);
     foreach ($summoners as $key => $value) {
-        echo "<tr><td>".$info[$key]['nick'].'</td><td>'.$info[$key]['region'].'</td><td>'.$value."</td><td>".$champs_name[$info[$key]['max_key']]."</td></tr>";
+        echo '<tr><td>' . $ctr . "</td><td><a href='test.php?nick=" . $info[$key]['nick'] . "&region="  . $info[$key]['region'] . "'>" . $info[$key]['nick'].'</td><td>'.$info[$key]['region'].'</td><td>'. number_format($value, 0, "", " ")."</td><td>".$champs_name[$info[$key]['max_key']]."</td></tr>";
+    $ctr++;
+        if (isset($_GET['amount'])) {
+            if ($ctr > $_GET['amount']) {
+                break;
+            }
+        }
     }
     echo '</table>';
 }
