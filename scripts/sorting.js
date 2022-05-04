@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const newRows = Array.from(rows);
 
         newRows.sort(function(rowA, rowB) {
-            const cellA = rowA.querySelectorAll('td')[index].innerHTML;
-            const cellB = rowB.querySelectorAll('td')[index].innerHTML;
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML.replace(" ", "");
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML.replace(" ", "");
 
             const a = transform(index, cellA);
             const b = transform(index, cellB);    
@@ -62,7 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     [].forEach.call(headers, function(header, index) {
         header.addEventListener('click', function() {
+        if (Yone){if (Yone.innerHTML == "Ёнэ"){Yone.innerHTML = 'Енэ';}}
+
             sortColumn(index);
+        if (Yone){if (Yone.innerHTML == "Енэ"){Yone.innerHTML = 'Ёнэ';}}
+
         });
     });
 });

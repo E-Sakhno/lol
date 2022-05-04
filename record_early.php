@@ -15,32 +15,41 @@
 </p>
 
 <?php 
+include "header.php";
+
 if (isset($_GET['region'])) {
     include 'scripts/info.php';
     // print_r($info);
     $summoners = [];
+    
 foreach ($info as $key => $row)
 {
-    $summoners[$key] = $row['early_point'];
+    $summoners[$key] = $row[$k['early_point']];
+    
 }
 
 // print_r($summoners);
 array_multisort($summoners, SORT_ASC, $info);
 // echo "<BR>";
 // echo "<BR>";
-// print_r ($summoners);
 
 $champs_name = json_decode(file_get_contents('json/champs_name.json'), true,  JSON_UNESCAPED_UNICODE);
 // print_r($champs_name);
-
 echo '
-<table border="1" >
-    <tr>
-        <td> № </td>
-        <td> Ник </td>
-        <td> Регион </td>
-        <td> Время </td>
-        <td> Чемпион </td>
+<table id="sortable" border="1" >     
+        
+        <thead>
+        <tr>
+    <th> № </th>
+        <th> Ник </th>
+        <th> Регион </th>
+        <th data-type="number"> Уровень </th>
+        <th> Эло </th>
+        <th> Время </th>
+        <th> Чемпион </th>
+        </tr>
+        </thead>
+        <tbody>
         ';
 
 
@@ -48,13 +57,18 @@ echo '
 foreach ($summoners as $key => $value){
     echo "<tr><td>" . 
     $ctr . 
-    "</td><td><a href='full_info.php?nick=" .     $info[$key]['nick'] .     "&region="  .     $info[$key]['region'] . "'>" . 
-    $info[$key]['nick'].
+    "</td><td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/" . $info[$key][$k['icon']] . '.png">'.    
+    "<a href='full_info.php?nick=" . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "'>" . 
+    $info[$key][$k['nick']].
+    '</a></td><td>'.
+    $info[$key][$k['region']].
     '</td><td>'.
-    $info[$key]['region'].
+    $info[$key][$k['lvl']].
+    '</td><td>'.
+    $info[$key][$k['elo']].
     '</td><td>'.
     gmdate("Y.m.d H:i", $value/1000).
-    "</td><td>".$champs_name[$info[$key]['early_key']]."</td></tr>";
+    "</td><td>".$champs_name[$info[$key][$k['early_key']]]."</td></tr>";
     $ctr++;
         if (isset($_GET['amount'])) {
             if ($ctr > $_GET['amount']) {
@@ -63,6 +77,7 @@ foreach ($summoners as $key => $value){
         }
 }
 
-echo '</table>';
+echo "</tbody></table></div>";     
 }
+include "footer.php";
 ?>

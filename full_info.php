@@ -37,38 +37,61 @@ let val = inp.value;
 </script>
 
 
-<script src="scripts/show_more.js"></script>
-<script src="scripts/sorting.js"></script>
+
 
 <?php 
-
 
     if (isset($_GET['nick'])) {
         echo 'Имя призывателя: ' . $_GET['nick'] . '<br>';
         echo 'Регион: ' . $_GET['region'] . '<br>';
-
+        
         include 'api.php';
         $nick = $_GET['nick'];
         $region = $_GET['region'];
         $summoner_info = json_decode(
             file_get_contents(
                 'https://' .
+                $region .
+                '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
+                $nick .
+                    '?api_key=' .
+                    $api
+                ),
+                true
+            );
+            
+            
+        if ($summoner_info == NULL){
+            echo "Такого пользователя не найдено!";
+        }
+        else{
+            $summoner_id = $summoner_info['id'];
+            
+            $rank = json_decode(
+                file_get_contents(
+                    'https://' .
                     $region .
-                    '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
-                    $nick .
+                    '.api.riotgames.com/lol/league/v4/entries/by-summoner/' .
+                    $summoner_id .
                     '?api_key=' .
                     $api
             ),
             true
         );
+          echo "<BR>";
+          if (empty($rank)){
+              $elo = "-";
+          }
+          else{
 
-        
-        if ($summoner_info == NULL){
-            echo "Такого пользователя не найдено!";
-        }
-        else{
-        $summoner_id = $summoner_info['id'];
+              $elo = $rank[array_key_last($rank)]['tier'] . ' ' . $rank[array_key_last($rank)]['rank'];
+          }
+        //   echo empty($rank);
+        echo '<img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $summoner_info['profileIconId'] . '.png">';
+          
+          echo "<BR>";
 
+// print_r ($summoner_info);
         $masters = json_decode(
             file_get_contents(
                 'https://' .
@@ -94,38 +117,47 @@ let val = inp.value;
         
         $champs_name_json = json_decode(
             file_get_contents(
-                'http://ddragon.leagueoflegends.com/cdn/12.8.1/data/ru_RU/champion.json' .
-                '?api_key=' .
-                $api
-            ),
+                'json/en_US_champs.json'),
             true
         );
-        
-        // print_r (($champs_name_json)['key']);
-        $champs_name_arr = [];
-        // echo  count($champs_name_json['data']);
-        $all_champs = [];
-        foreach ($champs_name_json['data'] as $key => $value){
-            $champs_name_arr[$value['key']] =
-            $value['name'];
-            $all_champs[$value['key']] =  $value['name'];
-            
-        }
-        
-        file_put_contents('json/champs_name.json', json_encode($champs_name_arr, JSON_UNESCAPED_UNICODE));
          
 
 
+        // print_r (($champs_name_json)['key']);
+        $champs_name_arr = json_decode(
+            file_get_contents(
+                'json/champs_name.json'
+            ),
+            true
+        );;
+        // echo  count($champs_name_json['data']);
+       foreach ($champs_name_json['data'] as $key => $value){
+            $champs_name_arr[$value['key']] =
+            $value['name'];
+                        
+        }
+       
 
         echo "<br>";
         echo "Сыграно на ". count($masters_arr) . " из " . count($champs_name_json['data']);
         echo "<br><br>";
-
-        $dif_champ = array_diff_key($all_champs, $masters_arr);
+        
+        $dif_champ = array_diff_key($champs_name_arr, $masters_arr);
         if (count($masters_arr) != count($champs_name_json['data'])){
             echo "<br>Не сыграно на: <br>";
 
         }
+        
+        if (array_key_exists(777, $dif_champ)){
+            if ($dif_champ[777] == "Ёнэ"){
+            $dif_champ[777] = "Енэ";}
+        };
+        asort($dif_champ);
+        if (array_key_exists(777, $dif_champ)){
+            if ($dif_champ[777] == "Енэ"){
+                $dif_champ[777] = "Ёнэ";}
+        };
+        // print_r($dif_champ);
         foreach ($dif_champ as $key => $value){
            echo $value." ";
             
@@ -168,7 +200,7 @@ let val = inp.value;
             echo  
             "<tr><td>" . 
             $n + 1 . 
-            "</td><td>" .
+            "</td><td id=\"" . $masters[$n]['championId'] . "\">" .
             $champs_name_arr[$masters[$n]['championId']] . 
             "</td><td>" .
             number_format($masters[$n]['championPoints'], 0, "", " ") .
@@ -193,33 +225,36 @@ let val = inp.value;
     //    echo is_array($summoners_top);
        
         $summoners_top[$summoner_id] = array(
-            "nick" => $nick, 
-            "region" => $_GET['region'],
-            "total" => $total_masters, 
-            "count_champs" => count($masters_arr), 
-            "min_key" => array_key_last($masters_arr), 
-            "min_point" => $masters_arr[array_key_last($masters_arr)], 
-            "max_key" => array_key_first($masters_arr), 
-            "max_point" => $masters_arr[array_key_first($masters_arr)], 
-            "early_key" => array_key_first($last_play),
-            "early_point" => $last_play[array_key_first($last_play)], 
-            "7" => array_count_values(array_column($masters, 'championLevel'))[7], 
-            "6" => array_count_values(array_column($masters, 'championLevel'))[6],
-            "5" => array_count_values(array_column($masters, 'championLevel'))[5],
-            "4" => array_count_values(array_column($masters, 'championLevel'))[4],
-            "3" => array_count_values(array_column($masters, 'championLevel'))[3],
-            "2" => array_count_values(array_column($masters, 'championLevel'))[2],
-            "1" => array_count_values(array_column($masters, 'championLevel'))[1]
+            $nick, 
+            $_GET['region'],
+            $summoner_info['profileIconId'],
+            $summoner_info['summonerLevel'],
+            $elo,
+            $total_masters, 
+            count($masters_arr), 
+            array_key_last($masters_arr), 
+            $masters_arr[array_key_last($masters_arr)], 
+            array_key_first($masters_arr), 
+            $masters_arr[array_key_first($masters_arr)], 
+            array_key_first($last_play),
+            $last_play[array_key_first($last_play)], 
+            array_count_values(array_column($masters, 'championLevel'))[7], 
+            array_count_values(array_column($masters, 'championLevel'))[6],
+            array_count_values(array_column($masters, 'championLevel'))[5],
+            array_count_values(array_column($masters, 'championLevel'))[4],
+            array_count_values(array_column($masters, 'championLevel'))[3],
+            array_count_values(array_column($masters, 'championLevel'))[2],
+            array_count_values(array_column($masters, 'championLevel'))[1]
         ); 
-        // echo "<br><br>";
-        // echo "Преобразованный массив <br>";
-        // var_dump($summoners_top);
-        // print_r ($summoners_top[$summoner_id]);
 
-        file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, true));
+        file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, JSON_UNESCAPED_UNICODE), );
                 
 
     };
 }
 
 ?>
+
+
+<script src="scripts/show_more.js"></script>
+<script src="scripts/sorting.js"></script>
