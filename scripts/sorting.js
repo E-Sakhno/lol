@@ -1,3 +1,4 @@
+Yone = document.getElementById('777');
 document.addEventListener('DOMContentLoaded', function() {
     const table = document.getElementById('sortable');
     const headers = table.querySelectorAll('th');
