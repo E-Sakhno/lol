@@ -78,13 +78,35 @@ let val = inp.value;
             ),
             true
         );
+        // [queueType] => RANKED_FLEX_SR
+        $num_rank = 0;
+        foreach ($rank as $key => $value){
+            if ($value['queueType'] == 'RANKED_SOLO_5x5'){
+                break;
+            }
+            // print_r ($value['queueType']);
+            $num_rank++;
+        }
+        // echo $num_rank;
+
           echo "<BR>";
+        //   print_r ($rank);
+          $add = ["IRON" => "", 
+          "BRONZE" => "&shy;", 
+          "SILVER" =>  "&shy;", 
+          "GOLD" => "&shy;&shy;", 
+          "PLATINUM" =>  "&shy;&shy;", 
+          "DIAMOND" => "&zwnj;", 
+          "MASTER" => "&zwnj;", 
+          "GRANDMASTER" => "&zwnj;&zwnj;", 
+          "CHALLENGER" => "&zwnj;&zwnj;&zwnj;", 
+          "-" => ''];
           if (empty($rank)){
               $elo = "-";
           }
           else{
 
-              $elo = $rank[array_key_last($rank)]['tier'] . ' ' . $rank[array_key_last($rank)]['rank'];
+              $elo = $rank[$num_rank]['tier'];
           }
         //   echo empty($rank);
         echo '<img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $summoner_info['profileIconId'] . '.png">';
@@ -117,16 +139,21 @@ let val = inp.value;
         
         $champs_name_json = json_decode(
             file_get_contents(
-                'json/en_US_champs.json'),
+                'json/'. $_COOKIE['lang'] . '_champs.json'),
             true
         );
-         
+        
+        $ava = json_decode(
+            file_get_contents(
+                'json/ava_champs.json'),
+            true
+        );
 
 
         // print_r (($champs_name_json)['key']);
         $champs_name_arr = json_decode(
             file_get_contents(
-                'json/champs_name.json'
+                'json/'. $_COOKIE['lang'] . '_champs_name.json'
             ),
             true
         );;
@@ -179,8 +206,9 @@ let val = inp.value;
         
         <thead>
         <tr>
-    <th data-type="number"> № </th>         
-    <th> Герой </th>          
+        <th data-type="number"> № </th>         
+        <th> Ava </th>          
+        <th> Герой </th>          
     <th data-type="number"> Очки  </th>
     <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
@@ -200,7 +228,9 @@ let val = inp.value;
             echo  
             "<tr><td>" . 
             $n + 1 . 
-            "</td><td id=\"" . $masters[$n]['championId'] . "\">" .
+            "</td><td>" .
+            "<img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $ava[$masters[$n]['championId']] . '">' .
+            "</td><td id=\"" . $masters[$n]['championId'] . "\">" . 
             $champs_name_arr[$masters[$n]['championId']] . 
             "</td><td>" .
             number_format($masters[$n]['championPoints'], 0, "", " ") .
@@ -244,10 +274,12 @@ let val = inp.value;
             array_count_values(array_column($masters, 'championLevel'))[4],
             array_count_values(array_column($masters, 'championLevel'))[3],
             array_count_values(array_column($masters, 'championLevel'))[2],
-            array_count_values(array_column($masters, 'championLevel'))[1]
+            array_count_values(array_column($masters, 'championLevel'))[1],
+            $rank[$num_rank]['rank'],
+            $add[$rank[$num_rank]['tier']]
         ); 
 
-        file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, JSON_UNESCAPED_UNICODE), );
+        file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, JSON_UNESCAPED_UNICODE));
                 
 
     };
