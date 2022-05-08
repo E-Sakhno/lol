@@ -47,13 +47,15 @@ let val = inp.value;
         
         include 'api.php';
         $nick = $_GET['nick'];
+        $nick_repl = str_replace(' ', '%20', $nick);
+        // echo $nick_repl;
         $region = $_GET['region'];
         $summoner_info = json_decode(
             file_get_contents(
                 'https://' .
                 $region .
                 '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
-                $nick .
+                $nick_repl .
                     '?api_key=' .
                     $api
                 ),
@@ -91,15 +93,15 @@ let val = inp.value;
 
           echo "<BR>";
         //   print_r ($rank);
-          $add = ["IRON" => "", 
-          "BRONZE" => "&shy;", 
-          "SILVER" =>  "&shy;", 
+          $add = ["IRON" => "&zwnj;", 
+          "BRONZE" => "&zwnj;", 
+          "SILVER" =>  "&shy;&shy;", 
           "GOLD" => "&shy;&shy;", 
-          "PLATINUM" =>  "&shy;&shy;", 
-          "DIAMOND" => "&zwnj;", 
-          "MASTER" => "&zwnj;", 
-          "GRANDMASTER" => "&zwnj;&zwnj;", 
-          "CHALLENGER" => "&zwnj;&zwnj;&zwnj;", 
+          "PLATINUM" =>  "&shy;", 
+          "DIAMOND" => "&shy;", 
+          "MASTER" => "", 
+          "GRANDMASTER" => "", 
+          "CHALLENGER" => "", 
           "-" => ''];
           if (empty($rank)){
               $elo = "-";
@@ -111,6 +113,10 @@ let val = inp.value;
         //   echo empty($rank);
         echo '<img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $summoner_info['profileIconId'] . '.png">';
           
+          echo "<BR>";
+          echo 'Ранг (соло): '.$elo . ' ' . $rank[$num_rank]['rank'];
+          echo "<BR>";
+          echo 'Уровень: ' . $summoner_info['summonerLevel'];
           echo "<BR>";
 
 // print_r ($summoner_info);

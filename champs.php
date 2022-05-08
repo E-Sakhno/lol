@@ -10,6 +10,11 @@
     <th data-type="number"> Сложность </th>          
     <th data-type="number"> HP  </th>
     <th data-type="number"> hpperlevel  </th>
+    <th data-type="number"> HP MAX </th>
+    <th data-type="number"> MP </th>
+    <th data-type="number"> Mpperlevel  </th>
+    <th data-type="number"> MP  MAX</th>
+    <th data-type="number"> movespeed  </th>
     <th> Последний раз сыграно  </th>
     <th> Сундук  </th>
     <th > Жетонов в инвентаре </th>
@@ -47,8 +52,21 @@ $value['stats']['hp'] .
 <td>' . 
 $value['stats']['hpperlevel'] . 
 '</td>
-<td>'
+<td>' .
+$value['stats']['hp'] +  18 * $value['stats']['hpperlevel'] . 
 
+'</td><td>' .  
+
+$value['stats']['mp'] . 
+'</td>
+<td>' . 
+$value['stats']['mpperlevel'] . 
+'</td><td>' .  
+$value['stats']['mp'] + 18*$value['stats']['mpperlevel'] . 
+'</td><td>' .  
+
+$value['stats']['movespeed'] . 
+'</td><td>'  
 ;
 }
 print_r ($champsInfo['data']["Aatrox"]["stats"]["hp"]);

@@ -13,23 +13,25 @@
 
 </p>
 
-<?php if (isset($_GET['region'])) {
+<?php 
+include "header.php";
+if (isset($_GET['region'])) {
     include 'scripts/info.php';
     // print_r($info);
     $summoners = [];
     foreach ($info as $key => $row) {
-        $summoners[$key] = $row['count_champs'];
+        $summoners[$key] = $row[$k['count_champs']];
     }
     array_multisort($summoners, SORT_ASC, $info);
     // echo "<BR>";
     // echo "<BR>";
     // print_r ($summoners);
 
-    $champs_name = json_decode(
-        file_get_contents('json/champs_name.json'),
-        true,
-        JSON_UNESCAPED_UNICODE
-    );
+    // $champs_name = json_decode(
+    //     file_get_contents('json/'. $_COOKIE['lang'] . '_champs.json'),
+    //     true,
+    //     JSON_UNESCAPED_UNICODE
+    // );
     // print_r($champs_name);
 
     echo '<table border="1" >     <tr>  <td> № </td>       <td> Ник </td>          <td> Регион </td>         <td> Кол-во чампов </td></tr>';
@@ -37,10 +39,10 @@
     $ctr = 1;
     // print_r($info[$key]);
     foreach ($summoners as $key => $value) {
-        echo '<tr><td>'. $ctr . "</td><td><a href='test.php?nick=" . $info[$key]['nick'] . "&region="  . $info[$key]['region'] . "'>" .
-            $info[$key]['nick'] .
+        echo '<tr><td>'. $ctr . "</td><td><a href='test.php?nick=" . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "'>" .
+            $info[$key][$k['nick']] .
             '</a></td><td>' .
-            $info[$key]['region'] .
+            $info[$key][$k['region']] .
             '</td><td>' .
             number_format($value, 0, ',', ' ') .
             '</td></tr>';

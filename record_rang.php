@@ -38,21 +38,23 @@ if (isset($_GET['rang'])){
 
 </p>
 
-<?php if (isset($_GET['region'])) {
+<?php 
+include 'header.php';
+if (isset($_GET['region'])) {
     include 'scripts/info.php';
     // print_r($info);
     $summoners = [];
     foreach ($info as $key => $row) {
-        $summoners[$key] = $row[$_GET['rang']];
+        $summoners[$key] = $row[$k[$_GET['rang']]];
     }
     array_multisort($summoners, SORT_DESC, $info);
 
-    $champs_name = json_decode(
-        file_get_contents('json/champs_name.json'),
-        true,
-        JSON_UNESCAPED_UNICODE
-    );
-    // print_r($champs_name);
+    // $champs_name = json_decode(
+    //     file_get_contents('json/'. $_COOKIE['lang'] . '_champs_name.json'),
+    //     true,
+    //     JSON_UNESCAPED_UNICODE
+    // );
+    // // print_r($champs_name);
 
     echo '<table border="1" >     <tr>
     <td> № </td>         
@@ -65,11 +67,11 @@ if (isset($_GET['rang'])){
     foreach ($summoners as $key => $value) {
         echo '<tr><td>' .
             $ctr .
-            "</td><td><a href='test.php?nick=" . $info[$key]['nick'] . "&region="  . $info[$key]['region'] . "'>" .
+            "</td><td><a href='full_info.php?nick=" . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "'>" .
 
-            $info[$key]['nick'] .
+            $info[$key][$k['nick']] .
             '</td><td>' .
-            $info[$key]['region'] .
+            $info[$key][$k['region']] .
             '</td><td>' .
             $value .
             '</td></tr>';
