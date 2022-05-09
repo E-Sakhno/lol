@@ -261,7 +261,7 @@ let val = inp.value;
     //    echo is_array($summoners_top);
        
         $summoners_top[$summoner_id] = array(
-            $nick, 
+            $summoner_info['name'], 
             $_GET['region'],
             $summoner_info['profileIconId'],
             $summoner_info['summonerLevel'],
