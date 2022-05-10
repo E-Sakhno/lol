@@ -80,6 +80,20 @@ include 'header.php';
             true
         );
 
+        // print_r ($game);
+        foreach ($game['participants'] as $key => $value){
+            if ($value['summonerName'] == $summoner_info['name']){
+                if ($value['teamId'] == 100){
+                    $enemy = 200;
+                }
+                else{
+                    $enemy = 100;
+                }
+            $vs = [$value['teamId'] => 'allytips', $enemy => 'enemytips'];
+            $advice = [$value['teamId'] => 'за', $enemy => 'против'];
+            }
+        }
+                
         $champs_name_json = json_decode(
             file_get_contents(
                 'json/' . $_COOKIE['lang'] . '_champs.json'
@@ -111,7 +125,7 @@ include 'header.php';
         <th> Nick </th>          
         <th> Icon </th>          
     <th > Champ  </th>
-    <th > Советы по игре за  </th>
+    <th > Советы по игре <?php echo $advice[100]; ?>  </th>
     <!-- <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
     <th> Сундук  </th>
@@ -128,18 +142,24 @@ $ava = json_decode(
     true
 );
 
-$champs_name_ava = json_decode(file_get_contents('json/en_US_champs_name.json'), true);
+$champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), true);
     // print_r($champs_name_ava);
     foreach ($game['participants'] as $key => $value){
         if ($value['teamId'] == '100'){
             //сделать нормальный массив для имен json'ов для получения советов
             $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/12.8.1/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
-        echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
+            $tips = '';
+            foreach ($info['data'][$champs_name_ava[$value['championId']]][$vs[$value['teamId']]] as $ky => $vle){
+        $tips .= '<p>' . $vle . '</p>';
+
+            }
+            echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
         '<td>' . $value['summonerName'] . '</td>' .
         "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $ava[$value['championId']] . '">' .
 
-        '<td>' . $champs_name_arr[$value['championId']] . '</td>' . 
-        '<td>' . $info['data'][$champs_name_ava[$value['championId']]]['allytips'][0] . '</td></tr>'
+        '<td id="'. $value['championId'] . '">' . $champs_name_arr[$value['championId']] . '</td>' . 
+
+        '<td>' . $tips . '</td></tr>'
         ;
         }
     }
@@ -147,8 +167,11 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_name.json'),
 </tbody>
 </table>
 </div>
+<br>
+<br>
+<br>
 <div class="blok"> 
-        <table id="sortable" border="1" >     
+        <table id="srtble" border="1" >     
         
         <thead>
         <tr>
@@ -156,7 +179,7 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_name.json'),
         <th> Nick </th>          
         <th> Icon </th>          
     <th > Champ  </th>
-    <th > Советы по игре против  </th>
+    <th > Советы по игре <?php echo $advice[200]; ?>  </th>
     <!-- <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
     <th> Сундук  </th>
@@ -172,15 +195,24 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_name.json'),
         if ($value['teamId'] == '200'){
             //сделать нормальный массив для имен json'ов для получения советов
             $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/12.8.1/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
-        echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
+        $tips = '';
+        foreach ($info['data'][$champs_name_ava[$value['championId']]][$vs[$value['teamId']]] as $ky => $vle){
+        $tips .= '<p>' . $vle . '</p>';
+        }
+            echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
         '<td>' . $value['summonerName'] . '</td>' .
         "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $ava[$value['championId']] . '">' .
 
-        '<td>' . $champs_name_arr[$value['championId']] . '</td>' . 
-        '<td>' . $info['data'][$champs_name_ava[$value['championId']]]['enemytips'][0] . '</td></tr>'
+        '<td id="'. $value['championId'] . '">' . $champs_name_arr[$value['championId']] . '</td>' . 
+        '<td>' . $tips . '</td></tr>
+        
+        '
         ;
         }
     }
+    echo '</tbody>
+    </table>
+    </div>';
 
         // echo $summoner_id;
         // print_r($game);
@@ -250,5 +282,6 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_name.json'),
 
     };
 }
+
 include 'footer.php';
 ?>

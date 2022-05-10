@@ -29,12 +29,12 @@ $region = "ru";
 
 ?> -->
 
-<a href="record_total.php"> Total</a><br>
-<a href="record_min.php"> Min</a><br>
-<a href="record_max.php"> Max</a><br>
-<a href="record_true_mainers.php"> True mainer</a><br>
+<a href="record_total.php?region=all&amount=15"> Total</a><br>
+<a href="record_min.php?region=all&amount=15"> Min</a><br>
+<a href="record_max.php?region=all&amount=15"> Max</a><br>
+<a href="record_true_mainers.php?region=all&amount=15"> True mainer</a><br>
 <a href="record_early.php?region=all&amount=15"> Didn't play</a><br>
-<a href="record_rang.php"> Rang</a><br>
+<a href="record_rang.php?rang=7&region=all&amount=15"> Rang</a><br>
 <a href="full_info.php"> My page</a><br>
 
 <form action="index.php" method="post" name="form">

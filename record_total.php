@@ -13,12 +13,14 @@
 
 </p>
 
-<?php if (isset($_GET['region'])) {
+<?php
+include 'header.php';
+if (isset($_GET['region'])) {
     include 'scripts/info.php';
     // print_r($info);
     $summoners = [];
     foreach ($info as $key => $row) {
-        $summoners[$key] = $row['total'];
+        $summoners[$key] = $row[$k['total']];
     }
     array_multisort($summoners, SORT_DESC, $info);
     // echo "<BR>";
@@ -26,25 +28,49 @@
     // print_r ($summoners);
 
     $champs_name = json_decode(
-        file_get_contents('json/champs_name.json'),
-        true,
-        JSON_UNESCAPED_UNICODE
-    );
+            file_get_contents('json/'. $_COOKIE['lang'] . '_champs_name.json'),
+            true,
+            JSON_UNESCAPED_UNICODE
+        );
     // print_r($champs_name);
 
-    echo '<table border="1" >     <tr>         
-    <td> № </td>
-    <td> Ник </td>          <td> Регион </td>         <td> Очки </td></tr>';
+    echo '<table id="sortable" border="1" >
+    <thead>
+    <tr>
+    <th data-type="number"> № </th>
+    <th> Ник </th>          
+    <th> Регион </th>         
+    <th data-type="number"> Лвл </th>
+    <th data-type="number"> Очки </th>
+    <th> Ранг </th></tr>
+    </thead>
+        <tbody>'
+    ;
 
     $ctr = 1;
     // print_r($info[$key]);
     foreach ($summoners as $key => $value) {
-        echo '<tr><td>' . $ctr . "</td><td><a href='test.php?nick=" . $info[$key]['nick'] . "&region="  . $info[$key]['region'] . "'>" .
-            $info[$key]['nick'] .
-            '</td><td>' .
-            $info[$key]['region'] .
-            '</td><td>' .
+        if ($info[$key][$k['elo']] != '-'){
+
+            $img = '<img src="img/Emblem_' . $info[$key][$k['elo']] . ".png\">";
+        }
+        else{
+            $img = '';
+        }
+
+        echo '<tr><td>' . $ctr . 
+        "</td><td>
+        <img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/" . $info[$key][$k['icon']] . '.png">
+        <a href="full_info.php?nick=' . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "\">" .
+            $info[$key][$k['nick']] .
+            '</a></td><td>' .
+            $info[$key][$k['region']] .
+            '</td><td>'.
+            $info[$key][$k['lvl']].
+            '</td><td>' . 
             number_format($value, 0, ',', ' ') .
+            '</td><td>' . $info[$key][$k['add']]. $img .
+            $info[$key][$k['elo']] . ' ' . $info[$key][$k['rank']] .  
             '</td></tr>';
             
             $ctr++;
@@ -57,4 +83,6 @@
     echo '</table>';
 }
 
+
+include 'footer.php';
 ?>

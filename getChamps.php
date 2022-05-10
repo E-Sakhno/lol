@@ -18,12 +18,12 @@ $champs_name_json = json_decode(
         // $all_champs = [];
         foreach ($champs_name_json['data'] as $key => $value){
             $champs_name_arr[$value['key']] =
-            $value['name'];
-            $all_champs[$value['key']] =  $value['name'];
+            $value['id'];
+            $all_champs[$value['key']] =  $value['id'];
             
         }
         
-        file_put_contents('json/'. $lang . '_champs_name.json', json_encode($champs_name_arr, JSON_UNESCAPED_UNICODE));
+        file_put_contents('json/'. $lang . '_champs_id.json', json_encode($champs_name_arr, JSON_UNESCAPED_UNICODE));
          
         
 ?>
