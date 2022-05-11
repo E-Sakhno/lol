@@ -1,7 +1,7 @@
 <p>
-    Топ по очкам на героях в сумме
+    Топ по счету мастерства на героях в сумме
 
-    <form action="record_total.php" method="get" name="form">
+    <form action="record_total_mastery.php" method="get" name="form">
     <?php include_once 'scripts/region.php'; ?>
     <br>
     Количество записей: 
@@ -20,7 +20,7 @@ if (isset($_GET['region'])) {
     // print_r($info);
     $summoners = [];
     foreach ($info as $key => $row) {
-        $summoners[$key] = $row[$k['total']];
+        $summoners[$key] = $row[$k['7']]*7 + $row[$k['6']]*6 + $row[$k['5']]*5 + $row[$k['4']]*4 + $row[$k['3']]*3 + $row[$k['2']]*2 + $row[$k['1']];
     }
     array_multisort($summoners, SORT_DESC, $info);
     // echo "<BR>";
@@ -41,7 +41,7 @@ if (isset($_GET['region'])) {
     <th> Ник </th>          
     <th> Регион </th>         
     <th data-type="number"> Лвл </th>
-    <th data-type="number"> Очки </th>
+    <th data-type="number"> Счет мастерства </th>
     <th> Ранг </th></tr>
     </thead>
         <tbody>'

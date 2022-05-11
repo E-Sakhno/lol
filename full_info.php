@@ -42,8 +42,6 @@ let val = inp.value;
 <?php 
 
     if (isset($_GET['nick'])) {
-        echo 'Имя призывателя: ' . $_GET['nick'] . '<br>';
-        echo 'Регион: ' . $_GET['region'] . '<br>';
         
         include 'api.php';
         $nick = $_GET['nick'];
@@ -56,19 +54,24 @@ let val = inp.value;
                 $region .
                 '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
                 $nick_repl .
-                    '?api_key=' .
-                    $api
-                ),
-                true
-            );
-            
-            
+                '?api_key=' .
+                $api
+            ),
+            true
+        );
+        
+        
         if ($summoner_info == NULL){
-            echo "Такого пользователя не найдено!";
+            echo $_GET['nick'];
+            echo "<br>Такого пользователя не найдено! Проверьте имя и регион";
         }
         else{
             $summoner_id = $summoner_info['id'];
             
+        
+            echo 'Имя призывателя: ' . $summoner_info['name'] . '<br>';
+            echo 'Регион: ' . $_GET['region'] . '<br>';
+
             $rank = json_decode(
                 file_get_contents(
                     'https://' .
@@ -80,6 +83,7 @@ let val = inp.value;
             ),
             true
         );
+        // print_r($rank);
         // [queueType] => RANKED_FLEX_SR
         $num_rank = 0;
         foreach ($rank as $key => $value){
@@ -103,8 +107,8 @@ let val = inp.value;
           "GRANDMASTER" => "", 
           "CHALLENGER" => "", 
           "-" => ''];
-          if (empty($rank)){
-              $elo = "-";
+          if (empty($rank) or ($rank[$num_rank]['queueType'] != 'RANKED_SOLO_5x5')){
+              $elo = "&zwnj;&zwnj;-";
           }
           else{
 
