@@ -54,7 +54,7 @@ include 'header.php';
                 'https://' .
                     $region .
                     '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
-                    $nick .
+                    $nick_repl .
                     '?api_key=' .
                     $api
             ),
@@ -150,7 +150,7 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
     foreach ($game['participants'] as $key => $value){
         if ($value['teamId'] == '100'){
             //сделать нормальный массив для имен json'ов для получения советов
-            $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/12.8.1/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
+            $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/' . $version . '/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
             $tips = '';
             foreach ($info['data'][$champs_name_ava[$value['championId']]][$vs[$value['teamId']]] as $ky => $vle){
                 $tips .= '<p>' . $vle . '</p>';
@@ -180,14 +180,14 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
                     $champs_of_player .= '<p>' . $n+1 . ". " . $champs_name_arr[$masters[$n]['championId']] . ": " .  number_format($masters[$n]['championPoints'], 0, '', ' ') . "</p>";
                     }
         
-                    echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
+                    echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.9.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
                     '<td><a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . $value['summonerName'] . '</td>' .
                 
                 "<td>" . number_format($total_masters, 0, "", " ") . "</td>". 
                 "<td>" . count($masters_arr) . " / " . count($champs_name_json['data']) . "</td>" . 
                 "<td>" . $champs_of_player . "</td>" . 
                 
-                "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $ava[$value['championId']] . '">' . "</td>" . 
+                "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.9.1/img/champion/" . $ava[$value['championId']] . '">' . "</td>" . 
                 
                 '<td id="'. $value['championId'] . '">' . $champs_name_arr[$value['championId']] . '</td>' . 
                 '<td>' . $tips . '</td></tr>'
@@ -228,7 +228,7 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
     foreach ($game['participants'] as $key => $value){
         if ($value['teamId'] == '200'){
             //сделать нормальный массив для имен json'ов для получения советов
-            $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/12.8.1/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
+            $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/12.9.1/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
         $tips = '';
         foreach ($info['data'][$champs_name_ava[$value['championId']]][$vs[$value['teamId']]] as $ky => $vle){
         $tips .= '<p>' . $vle . '</p>';
@@ -258,14 +258,14 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
             $champs_of_player .= '<p>' . $n+1 . ". " . $champs_name_arr[$masters[$n]['championId']] . ": " . number_format($masters[$n]['championPoints'], 0, '', ' ') . "</p>";
             }
 
-            echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
+            echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.9.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
             '<td><a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . $value['summonerName'] . '</td>' .
         
         "<td>" . number_format($total_masters, 0, "", " ") . "</td>". 
         "<td>" . count($masters_arr) . " / " . count($champs_name_json['data']) . "</td>" . 
         "<td>" . $champs_of_player . "</td>" . 
         
-        "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $ava[$value['championId']] . '">' . "</td>" . 
+        "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.9.1/img/champion/" . $ava[$value['championId']] . '">' . "</td>" . 
         
         '<td id="'. $value['championId'] . '">' . $champs_name_arr[$value['championId']] . '</td>' . 
         '<td>' . $tips . '</td></tr>

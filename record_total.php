@@ -17,7 +17,7 @@
 include 'header.php';
 if (isset($_GET['region'])) {
     include 'scripts/info.php';
-    // print_r($info);
+    // print_r($info_rang);
     $summoners = [];
     foreach ($info as $key => $row) {
         $summoners[$key] = $row[$k['total']];
@@ -50,14 +50,22 @@ if (isset($_GET['region'])) {
     $ctr = 1;
     // print_r($info[$key]);
     foreach ($summoners as $key => $value) {
-        if ($info[$key][$k['elo']] != '&zwnj;&zwnj;-'){
-
-            $img = '<img src="img/Emblem_' . $info[$key][$k['elo']] . ".png\">";
+        if (array_key_exists($key, $info_rang)){
+            $img = $info_rang[$key][$l['add']]. '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
+            if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
+                $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['lp']];
+            }
+            else{
+                
+                $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']];
+            }
         }
         else{
             $img = '';
+            $elo = '&zwnj;&zwnj; - ';
+            
         }
-
+    
         echo '<tr><td>' . $ctr . 
         "</td><td>
         <img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/" . $info[$key][$k['icon']] . '.png">
@@ -69,8 +77,10 @@ if (isset($_GET['region'])) {
             $info[$key][$k['lvl']].
             '</td><td>' . 
             number_format($value, 0, ',', ' ') .
-            '</td><td>' . $info[$key][$k['add']]. $img .
-            $info[$key][$k['elo']] . ' ' . $info[$key][$k['rank']] .  
+            // $value .
+            '</td><td>' . 
+            $img .
+            $elo .   
             '</td></tr>';
             
             $ctr++;

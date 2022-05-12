@@ -72,7 +72,7 @@ let val = inp.value;
             echo 'Имя призывателя: ' . $summoner_info['name'] . '<br>';
             echo 'Регион: ' . $_GET['region'] . '<br>';
 
-            $rank = json_decode(
+            $rang = json_decode(
                 file_get_contents(
                     'https://' .
                     $region .
@@ -83,10 +83,10 @@ let val = inp.value;
             ),
             true
         );
-        // print_r($rank);
+        print_r($rang);
         // [queueType] => RANKED_FLEX_SR
         $num_rank = 0;
-        foreach ($rank as $key => $value){
+        foreach ($rang as $key => $value){
             if ($value['queueType'] == 'RANKED_SOLO_5x5'){
                 break;
             }
@@ -107,18 +107,50 @@ let val = inp.value;
           "GRANDMASTER" => "", 
           "CHALLENGER" => "", 
           "-" => ''];
-          if (empty($rank) or ($rank[$num_rank]['queueType'] != 'RANKED_SOLO_5x5')){
-              $elo = "&zwnj;&zwnj;-";
-          }
-          else{
+          if ((!empty($rang)) and ($rang[$num_rank]['queueType'] == 'RANKED_SOLO_5x5')){
 
-              $elo = $rank[$num_rank]['tier'];
+            
+              $tier = $rang[$num_rank]['tier'];
+              $rank = $rang[$num_rank]['rank'];
+              $add_r = $add[$tier];
+            //   echo "ДОБАВОЧКА: " . $add_r;
+              $lp = $rang[$num_rank]['leaguePoints'];
+              $wins = $rang[$num_rank]['wins'];
+              $losses = $rang[$num_rank]['losses'];
+
+
+              $summoners_rang = json_decode(file_get_contents('json/'.$_GET['region'].'_summoners_rang.json'), true);
+        // echo "Начальный массив <br>";
+       
+    //    echo is_array($summoners_top);
+       
+        $summoners_rang[$summoner_id] = array(
+            $summoner_info['name'], 
+            $_GET['region'],
+            $tier,
+            $rank,
+            $add_r,
+            $lp,
+            $wins,
+            $losses
+        ); 
+
+        file_put_contents('json/'.$_GET['region'].'_summoners_rang.json', json_encode($summoners_rang, JSON_UNESCAPED_UNICODE));
+                
+
+
+              
           }
         //   echo empty($rank);
-        echo '<img src="http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/' . $summoner_info['profileIconId'] . '.png">';
+        echo '<img src="http://ddragon.leagueoflegends.com/cdn/' . $version . '/img/profileicon/' . $summoner_info['profileIconId'] . '.png">';
           
           echo "<BR>";
-          echo 'Ранг (соло): '.$elo . ' ' . $rank[$num_rank]['rank'];
+          if (empty($tier)){
+              echo "Ранг: - ";
+          }
+          else {
+          echo 'Ранг (соло): '.$tier . ' ' . $rank;
+          }
           echo "<BR>";
           echo 'Уровень: ' . $summoner_info['summonerLevel'];
           echo "<BR>";
@@ -239,7 +271,7 @@ let val = inp.value;
             "<tr><td>" . 
             $n + 1 . 
             "</td><td>" .
-            "<img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $ava[$masters[$n]['championId']] . '">' .
+            "<img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $ava[$masters[$n]['championId']] . '">' .
             "</td><td id=\"" . $masters[$n]['championId'] . "\">" . 
             $champs_name_arr[$masters[$n]['championId']] . 
             "</td><td>" .
@@ -269,9 +301,7 @@ let val = inp.value;
             $_GET['region'],
             $summoner_info['profileIconId'],
             $summoner_info['summonerLevel'],
-            $elo,
             $total_masters, 
-            count($masters_arr), 
             array_key_last($masters_arr), 
             $masters_arr[array_key_last($masters_arr)], 
             array_key_first($masters_arr), 
@@ -285,8 +315,6 @@ let val = inp.value;
             array_count_values(array_column($masters, 'championLevel'))[3],
             array_count_values(array_column($masters, 'championLevel'))[2],
             array_count_values(array_column($masters, 'championLevel'))[1],
-            $rank[$num_rank]['rank'],
-            $add[$rank[$num_rank]['tier']]
         ); 
 
         file_put_contents('json/'.$_GET['region'].'_summoners_arr.json', json_encode($summoners_top, JSON_UNESCAPED_UNICODE));
