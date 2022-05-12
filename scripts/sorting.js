@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const type = headers[index].getAttribute('data-type');
         switch (type) {
             case 'number':
+                // console.log(content);
                 return parseFloat(content);
             case 'string':
             default:
@@ -33,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const newRows = Array.from(rows);
 
         newRows.sort(function(rowA, rowB) {
-            const cellA = rowA.querySelectorAll('td')[index].innerHTML.replace(" ", "");
-            const cellB = rowB.querySelectorAll('td')[index].innerHTML.replace(" ", "");
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML.replaceAll(" ", "");
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML.replaceAll(" ", "");
 
             const a = transform(index, cellA);
             const b = transform(index, cellB);    
