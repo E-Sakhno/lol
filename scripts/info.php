@@ -6,9 +6,9 @@ if ($_GET['region'] == 'all') {
     $info = array_merge($ru, $euw1);
     
     
-    $ru_rang = json_decode(file_get_contents('json/ru_summoners_rang.json'), true);
-    $euw1_rang = json_decode(file_get_contents('json/euw1_summoners_rang.json'), true);
-    $info_rang = array_merge($ru, $euw1);
+    $ru_rang = json_decode(file_get_contents('json/ru_summoners_rang_solo.json'), true);
+    $euw1_rang = json_decode(file_get_contents('json/euw1_summoners_rang_solo.json'), true);
+    $info_rang = array_merge($ru_rang, $euw1_rang);
 } 
 
 else {
@@ -18,7 +18,7 @@ else {
     );
 
     $info_rang = json_decode(
-        file_get_contents('json/'.$_GET['region'] . '_summoners_rang.json'),
+        file_get_contents('json/'.$_GET['region'] . '_summoners_rang_' . $_GET['qu'] .'.json'),
         true
     );
 }

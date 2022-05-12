@@ -28,12 +28,19 @@ $k = [
 $l = [
     'nick' => 0,
     'region' => 1,
-    'tier' => 2,
-    'rank' => 3,
-    'add' => 4,
-    'lp' => 5,
-    'wins' => 6,
-    'losses' => 7
+    'lp' => 2,
+    'wins' => 3,
+    'losses' => 4,
+    'tier' => 5,
+    'rank' => 6,
+    'add' => 7
 ];
 
+// $t = [
+//     'nick' => 0,
+//     'region' => 1,
+//     'lp' => 2,
+//     'wins' => 3,
+//     'losses' => 4
+// ];
 ?>
