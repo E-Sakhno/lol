@@ -4,6 +4,9 @@
     <form action="record_min.php" method="get" name="form">
     <?php include_once 'scripts/region.php'; ?>
     <br>
+    <?php include_once 'scripts/queue.php'; ?>
+    <br>
+
      Количество записей: 
     <?php include_once 'scripts/amount.php'; ?>
     <br><br>  
@@ -58,12 +61,20 @@ echo '
 
         $ctr = 1;
 foreach ($summoners as $key => $value){
-    if ($info[$key][$k['elo']] != '-'){
-
-        $img = '<img src="img/Emblem_' . $info[$key][$k['elo']] . ".png\">";
+    if (array_key_exists($key, $info_rang)){
+        $img = $info_rang[$key][$l['add']]. '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
+        if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
+            $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['lp']];
+        }
+        else{
+            
+            $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']];
+        }
     }
     else{
         $img = '';
+        $elo = '&zwnj;&zwnj; - ';
+        
     }
 
     echo "<tr><td>" . 
@@ -75,8 +86,8 @@ foreach ($summoners as $key => $value){
         $info[$key][$k['region']].
         '</td><td>'.
         $info[$key][$k['lvl']].
-        '</td><td>' . $info[$key][$k['add']]. $img .
-        $info[$key][$k['elo']] . ' ' . $info[$key][$k['rank']] .  
+        '</td><td>' . $img .
+        $elo .  
         
     '</td><td>'.
     $value."</td><td>".

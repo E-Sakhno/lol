@@ -2,8 +2,8 @@
 
 // echo "Hiiiii";
 include "api.php";
-$nick = 'Медоed';
-$region = "ru";
+// $nick = 'Медоed';
+// $region = "ru";
 
 // $summoner_info = json_decode(file_get_contents('https://'.$region.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$nick.'?api_key='.$api), true);
 // $summoner_id = $summoner_info["id"];
@@ -29,11 +29,11 @@ $region = "ru";
 
 ?> -->
 
-<a href="record_total.php?region=all&amount=15"> Total</a><br>
-<a href="record_min.php?region=all&amount=15"> Min</a><br>
-<a href="record_max.php?region=all&amount=15"> Max</a><br>
+<a href="record_total.php?region=all&qu=solo&amount=15"> Total</a><br>
+<a href="record_min.php?region=all&qu=solo&amount=15"> Min</a><br>
+<a href="record_max.php?region=all&qu=solo&amount=15"> Max</a><br>
 <a href="record_true_mainers.php?region=all&amount=15"> True mainer</a><br>
-<a href="record_early.php?region=all&amount=15"> Didn't play</a><br>
+<a href="record_early.php?region=all&qu=solo&amount=15"> Didn't play</a><br>
 <a href="record_rang.php?rang=7&region=all&amount=15"> Rang</a><br>
 <a href="full_info.php"> My page</a><br>
 
@@ -50,7 +50,7 @@ $region = "ru";
 </form>
 
 <?php
-if (empty($_COOKIE)){
+if (!isset($_COOKIE['lang'])){
     setcookie('lang', 'en_US');
 }
 if (!empty($_POST)){

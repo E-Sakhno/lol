@@ -4,9 +4,14 @@
     <form action="record_total.php" method="get" name="form">
     <?php include_once 'scripts/region.php'; ?>
     <br>
+    <?php include_once 'scripts/queue.php'; ?>
+
+    <br>
     Количество записей: 
     <?php include_once 'scripts/amount.php'; ?>
-<br><br>    
+<br>
+
+<br>    
     <!-- <input type="submit"> -->
     <button class="btn btn-success btn">Кнопка</button>
 </form>

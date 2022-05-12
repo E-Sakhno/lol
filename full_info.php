@@ -5,7 +5,7 @@
         echo $_GET['nick'];
     } ?>
     "><br>
-    Region: <select name="region"">
+    <!-- Region: <select name="region"">
 <option value="ru" 
     <?php if (isset($_GET['region'])) {
         if ($_GET['region'] == 'ru') {
@@ -21,7 +21,10 @@
     } ?> 
 > EuW
 
-</select>
+</select> -->
+
+<?php 
+include 'scripts/region.php'; ?>
     
     <br><br>    
     <!-- <input type="submit"> -->

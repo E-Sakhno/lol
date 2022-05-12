@@ -20,8 +20,7 @@ if (isset($_GET['region'])) {
     // print_r($info);
     $summoners = [];
     foreach ($info as $key => $row) {
-        $summoners[$key] = $row[$k['count_champs']];
-    }
+        $summoners[$key] = $row[$k['7']] + $row[$k['6']] + $row[$k['5']] + $row[$k['4']] + $row[$k['3']] + $row[$k['2']] + $row[$k['1']];    }
     array_multisort($summoners, SORT_ASC, $info);
     // echo "<BR>";
     // echo "<BR>";
