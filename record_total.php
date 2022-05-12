@@ -90,7 +90,7 @@ if (isset($_GET['region'])) {
             }
         }
     }
-    echo '</table>';
+    echo '</tbody></table>';
 }
 
 

@@ -48,12 +48,23 @@ if (isset($_GET['region'])) {
     // );
     // // print_r($champs_name);
 
-    echo '<table border="1" >     <tr>
-    <td> № </td>         
-    <td> Ник </td>          
-    <td> Регион </td>         
-    <td> Побед  </td></tr>';
 
+    echo '<table id="sortable" border="1" >
+    <thead>
+    <tr>
+    <th data-type="number"> № </th>         
+    <th> Ник </th>          
+    <th> Регион </th>         
+    <th data-type="number"> Винрейт  </th>
+    <th data-type="number"> Игр  </th>
+    <th data-type="number"> Побед  </th>
+    <th data-type="number"> Поражений  </th>';
+    if ($_GET['qu'] != "tft"){
+        echo '
+    <th> Ранг </th>         
+    ';
+    }
+    echo '</tr></thead>';
     $ctr = 1;
     // print_r($info[$key]);
     foreach ($summoners as $key => $value) {
@@ -66,7 +77,18 @@ if (isset($_GET['region'])) {
             $info[$key][$k['region']] .
             '</td><td>' .
             number_format($value, 2, ',', '') .
-            '</td></tr>';
+            '</td><td>' .
+            number_format($info_rang[$key][$l['wins']] + $info_rang[$key][$l['losses']], 0, '', ' ') .
+            '</td><td>' .
+            number_format($info_rang[$key][$l['wins']], 0, '', ' ') .
+            '</td><td>' .
+            number_format($info_rang[$key][$l['losses']], 0, '', ' ') .
+            '</td>';
+    if ($_GET['qu'] != "tft"){
+        echo '<td>' . $info_rang[$key][$l['add']]. 
+        '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">" . $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']] . '</td>';
+    };
+    echo '</tr>';
         $ctr++;
         if (isset($_GET['amount'])) {
             if ($ctr > $_GET['amount']) {
@@ -75,7 +97,8 @@ if (isset($_GET['region'])) {
         }
     }
 
-    echo '</table>';
-}
+    echo '</tbody></table>';
 
+    }
+    include "footer.php";
 ?>
