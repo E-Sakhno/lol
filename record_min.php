@@ -90,7 +90,7 @@ foreach ($summoners as $key => $value){
         $elo .  
         
     '</td><td>'.
-    $value."</td><td>".
+    number_format($value, 0, '', ' ') ."</td><td>".
     $champs_name[$info[$key][$k['min_key']]].
     "</td></tr>";
     $ctr++;

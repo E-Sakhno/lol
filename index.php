@@ -30,7 +30,7 @@ include "api.php";
 ?> -->
 
 <a href="record_total.php?region=all&qu=solo&amount=15"> Total</a><br>
-<a href="record_total_mastery.php?region=ru&amount=45"> Total mastery</a><br>
+<a href="record_total_mastery.php?region=ru&qu=solo&amount=45"> Total mastery</a><br>
 <a href="record_min.php?region=all&qu=solo&amount=15"> Min</a><br>
 <a href="record_max.php?region=all&qu=solo&amount=15"> Max</a><br>
 <a href="record_true_mainers.php?region=all&amount=15"> True mainer</a><br>
