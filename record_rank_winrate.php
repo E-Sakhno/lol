@@ -85,7 +85,7 @@ if (isset($_GET['region'])) {
             number_format($info_rang[$key][$l['losses']], 0, '', ' ') .
             '</td>';
     if ($_GET['qu'] != "tft"){
-        echo '<td>' . $info_rang[$key][$l['add']]. 
+        echo '<td>' . $add[$info_rang[$key][$l['tier']]]. 
         '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">" . $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']] . '</td>';
     };
     echo '</tr>';

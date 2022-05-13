@@ -89,18 +89,18 @@ let val = inp.value;
             true
         );
         print_r($rang);
-        $add = [
-            'IRON' => '&zwnj;',
-            'BRONZE' => '&zwnj;',
-            'SILVER' => '&shy;&shy;',
-            'GOLD' => '&shy;&shy;',
-            'PLATINUM' => '&shy;',
-            'DIAMOND' => '&shy;',
-            'MASTER' => '',
-            'GRANDMASTER' => '',
-            'CHALLENGER' => '',
-            '-' => '',
-        ];
+        // $add = [
+        //     'IRON' => '&zwnj;',
+        //     'BRONZE' => '&zwnj;',
+        //     'SILVER' => '&shy;&shy;',
+        //     'GOLD' => '&shy;&shy;',
+        //     'PLATINUM' => '&shy;',
+        //     'DIAMOND' => '&shy;',
+        //     'MASTER' => '',
+        //     'GRANDMASTER' => '',
+        //     'CHALLENGER' => '',
+        //     '-' => '',
+        // ];
         // [queueType] => RANKED_FLEX_SR
         $num_rank = 0;
         $num_rank_flex = 0;
@@ -118,7 +118,7 @@ let val = inp.value;
         ) {
             $tier = $rang[$num_rank]['tier'];
             $rank = $rang[$num_rank]['rank'];
-            $add_r = $add[$tier];
+            // $add_r = $add[$tier];
             $lp = $rang[$num_rank]['leaguePoints'];
             $wins = $rang[$num_rank]['wins'];
             $losses = $rang[$num_rank]['losses'];
@@ -138,7 +138,7 @@ let val = inp.value;
                 $losses,
                 $tier,
                 $rank,
-                $add_r,
+                // $add_r,
             ];
 
             file_put_contents(
@@ -163,7 +163,7 @@ let val = inp.value;
         ) {
             $tier = $rang[$num_rank_flex]['tier'];
             $rank = $rang[$num_rank_flex]['rank'];
-            $add_r = $add[$tier];
+            // $add_r = $add[$tier];
             $lp = $rang[$num_rank_flex]['leaguePoints'];
             $wins = $rang[$num_rank_flex]['wins'];
             $losses = $rang[$num_rank_flex]['losses'];
@@ -183,7 +183,7 @@ let val = inp.value;
                 $losses,
                 $tier,
                 $rank,
-                $add_r,
+                // $add_r,
             ];
 
             file_put_contents(

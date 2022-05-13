@@ -1,5 +1,5 @@
 <form action="current_game.php" method="get" name="form">
-    Nick: <input name="nick" type="text" class="form-control inp" value="" placeholder="
+    Nick: <input name="nick" type="text" class="form-control inp" value="
     <?php if (isset($_GET['nick'])) {
         echo $_GET['nick'];
     } ?>

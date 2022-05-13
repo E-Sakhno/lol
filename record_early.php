@@ -59,7 +59,7 @@ echo '
         $ctr = 1;
 foreach ($summoners as $key => $value){
     if (array_key_exists($key, $info_rang)){
-        $img = $info_rang[$key][$l['add']]. '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
+        $img = $add[$info_rang[$key][$l['tier']]] .  '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
         if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
             $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['lp']];
         }

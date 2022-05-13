@@ -43,4 +43,20 @@ $l = [
 //     'wins' => 3,
 //     'losses' => 4
 // ];
+
+$add = [
+    'IRON' => '&zwnj;',
+    'BRONZE' => '&zwnj;',
+    'SILVER' => '&shy;&shy;',
+    'GOLD' => '&shy;&shy;',
+    'PLATINUM' => '&shy;',
+    'DIAMOND' => '&shy;',
+    'MASTER' => '',
+    'GRANDMASTER' => '',
+    'CHALLENGER' => '',
+    '-' => '',
+];
+$version = '12.9.1';
+
 ?>
+
