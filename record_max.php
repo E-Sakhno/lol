@@ -85,7 +85,8 @@ if (isset($_GET['region'])) {
             $info[$key][$k['region']].
             '</td><td>'.
             $info[$key][$k['lvl']].
-            '</td><td>' . $img .
+            '</td><td>' . 
+             $img .
             $elo .  
             
         '</td><td>'.
