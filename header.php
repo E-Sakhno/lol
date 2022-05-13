@@ -58,5 +58,7 @@ $add = [
 ];
 $version = '12.9.1';
 
+$lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), true);
+    
 ?>
 
