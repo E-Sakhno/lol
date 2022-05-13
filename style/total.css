@@ -1,3 +1,28 @@
+html, body {
+    width: 100%;
+}
+
+h1{
+    font-size: 1em;
+}
+
+select{
+    margin: .5em;
+}
+table {
+    margin: 0 auto;
+}
+
+td{
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
+
+td a{
+    padding: 0;
+}
+
+
 #sortable th {
     cursor: pointer;
     text-decoration: underline;
@@ -12,7 +37,82 @@
 }
 
 img{
-    height: 20px;
+height: 1em;
+}
+
+
+.summoner{
+    padding-left: 0.3em;
+    position: relative;
+
+}
+
+.summoner img{
+    height: 1.5em;
     padding-right: 0.5em;
-    margin-top: 0.2em;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.nick{
+    display: inline-block;
+    padding-left: 2em;
+}
+
+.region{
+position: relative;
+/* text-align: left; */
+}
+
+.rank {
+    position: relative;
+    
+}
+
+.elo{
+    display: inline-block;
+
+    padding-left: 2em;
+
+}
+.rank img{
+    height: 1.7em;
+    padding-right: 0.5em;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+   
+}
+
+.pages {
+    padding-top: 2em;
+    text-align: center;
+}
+
+.pagenum {
+    display: inline-block;
+    margin: 0.2em;
+}
+
+
+.pagenum a{
+    border:1px solid black;
+
+}
+.pagenum a:hover, .pagenum a:visited, .pagenum a:link, .pagenum a:active
+{
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    /* padding: 0.2em; */
+    text-decoration: none;
+}
+
+.current{
+    background-color: rgb(243, 222, 225);
+
+}
+.pagenum :hover{
+    background-color: rgb(243, 222, 225);
 }
