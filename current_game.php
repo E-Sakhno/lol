@@ -46,6 +46,9 @@ include 'header.php';
         echo 'Регион: ' . $_GET['region'] . '<br>';
 
         include 'api.php';
+    include 'scripts/info.php';
+    // print_r($info);
+
         $nick = $_GET['nick'];
         $nick_repl = str_replace(' ', '%20', $nick);
         $region = $_GET['region'];
@@ -103,12 +106,12 @@ include 'header.php';
         
         // print_r (($champs_name_json)['key']);
         $champs_name_arr = [];
-        // echo  count($champs_name_json['data']);
+        // echo  $champs_max;
         $all_champs = [];
-        foreach ($champs_name_json['data'] as $key => $value){
-            $champs_name_arr[$value['key']] =
-            $value['name'];
-            $all_champs[$value['key']] =  $value['name'];
+        foreach ($champs_name_json['data'] as $ke => $valu){
+            $champs_name_arr[$valu['key']] =
+            $valu['name'];
+            $all_champs[$valu['key']] =  $valu['name'];
             
         }
         
@@ -121,14 +124,12 @@ include 'header.php';
         
         <thead>
         <tr>
-        <th> Ava </th>         
-        <th> Nick </th>          
-        <th data-type="number"> Total </th>          
-        <th data-type="number"> Сыграно на </th>          
-        <th> Чемпионы с наибольшим количеством очков </th>          
-        <th> Icon </th>          
-    <th > Champ  </th>
-    <th > Советы по игре <?php echo $advice[100]; ?>  </th>
+        <th  width="9%"> Nick </th>          
+        <th data-type="number"  width="8%"> Total </th>          
+        <th  width="8%"> Сыграно на </th>          
+        <th width="14%"> Чемпион с наибольшим количеством очков </th>          
+        <th width="10%"> Champ  </th>
+        <th  width="50%"> Советы по игре <?php echo $advice[100]; ?>  </th>
     <!-- <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
     <th> Сундук  </th>
@@ -145,54 +146,15 @@ $ava = json_decode(
     true
 );
 
+
 $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), true);
     // print_r($champs_name_ava);
+$champs_max = count($champs_name_json['data']);
+
     foreach ($game['participants'] as $key => $value){
         if ($value['teamId'] == '100'){
-            //сделать нормальный массив для имен json'ов для получения советов
-            $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/' . $version . '/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
-            $tips = '';
-            foreach ($info['data'][$champs_name_ava[$value['championId']]][$vs[$value['teamId']]] as $ky => $vle){
-                $tips .= '<p>' . $vle . '</p>';
-                }
-                $masters = json_decode(
-                    file_get_contents(
-                        'https://' .
-                            $region .
-                            '.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/' .
-                            $value['summonerId'] .
-                            '?api_key=' .
-                            $api
-                    ),
-                    true
-                );
-        
-                $masters_arr = [];
-                for ($i = 0; $i < count($masters); $i++) {
-                    $masters_arr[$masters[$i]['championId']] =
-                        $masters[$i]['championPoints'];
-                }
-                $total_masters = array_sum($masters_arr);
-        
-                $champs_of_player = ' ';
-                    /// норм, но много текста, далеко листать для отладки
-                    for ($n = 0; $n < 3; $n++) {
-                    $champs_of_player .= '<p>' . $n+1 . ". " . $champs_name_arr[$masters[$n]['championId']] . ": " .  number_format($masters[$n]['championPoints'], 0, '', ' ') . "</p>";
-                    }
-        
-                    echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.9.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
-                    '<td><a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . $value['summonerName'] . '</td>' .
-                
-                "<td>" . number_format($total_masters, 0, "", " ") . "</td>". 
-                "<td>" . count($masters_arr) . " / " . count($champs_name_json['data']) . "</td>" . 
-                "<td>" . $champs_of_player . "</td>" . 
-                
-                "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.9.1/img/champion/" . $ava[$value['championId']] . '">' . "</td>" . 
-                
-                '<td id="'. $value['championId'] . '">' . $champs_name_arr[$value['championId']] . '</td>' . 
-                '<td>' . $tips . '</td></tr>'
-        ;
-        }
+            include "scripts/game.php";
+        }      
     }
     ?>
 </tbody>
@@ -206,14 +168,12 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
         
         <thead>
         <tr>
-        <th> Ava </th>         
-        <th> Nick </th>          
-        <th data-type="number"> Total </th>          
-        <th data-type="number"> Сыграно на </th>          
-        <th> Чемпионы с наибольшим количеством очков </th>          
-        <th> Icon </th>          
-    <th > Champ  </th>
-    <th > Советы по игре <?php echo $advice[200]; ?>  </th>
+        <th  width="9%"> Nick </th>          
+        <th data-type="number"  width="8%"> Total </th>          
+        <th  width="8%"> Сыграно на </th>          
+        <th width="14%"> Чемпион с наибольшим количеством очков </th>          
+        <th width="10%"> Champ  </th>
+        <th  width="50%"> Советы по игре <?php echo $advice[200]; ?>  </th>
     <!-- <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
     <th> Сундук  </th>
@@ -227,53 +187,12 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
     
     foreach ($game['participants'] as $key => $value){
         if ($value['teamId'] == '200'){
-            //сделать нормальный массив для имен json'ов для получения советов
-            $info = json_decode(file_get_contents('http://ddragon.leagueoflegends.com/cdn/12.9.1/data/' . $_COOKIE['lang'] . '/champion/' .  $champs_name_ava[$value['championId']] . '.json'), true);
-        $tips = '';
-        foreach ($info['data'][$champs_name_ava[$value['championId']]][$vs[$value['teamId']]] as $ky => $vle){
-        $tips .= '<p>' . $vle . '</p>';
-        }
-        $masters = json_decode(
-            file_get_contents(
-                'https://' .
-                    $region .
-                    '.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/' .
-                    $value['summonerId'] .
-                    '?api_key=' .
-                    $api
-            ),
-            true
-        );
-
-        $masters_arr = [];
-        for ($i = 0; $i < count($masters); $i++) {
-            $masters_arr[$masters[$i]['championId']] =
-                $masters[$i]['championPoints'];
-        }
-        $total_masters = array_sum($masters_arr);
-
-        $champs_of_player = ' ';
-            /// норм, но много текста, далеко листать для отладки
-            for ($n = 0; $n < 3; $n++) {
-            $champs_of_player .= '<p>' . $n+1 . ". " . $champs_name_arr[$masters[$n]['championId']] . ": " . number_format($masters[$n]['championPoints'], 0, '', ' ') . "</p>";
-            }
-
-            echo '<tr><td><img src="http://ddragon.leagueoflegends.com/cdn/12.9.1/img/profileicon/' . $value['profileIconId'] . '.png"></td>' .
-            '<td><a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . $value['summonerName'] . '</td>' .
-        
-        "<td>" . number_format($total_masters, 0, "", " ") . "</td>". 
-        "<td>" . count($masters_arr) . " / " . count($champs_name_json['data']) . "</td>" . 
-        "<td>" . $champs_of_player . "</td>" . 
-        
-        "<td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.9.1/img/champion/" . $ava[$value['championId']] . '">' . "</td>" . 
-        
-        '<td id="'. $value['championId'] . '">' . $champs_name_arr[$value['championId']] . '</td>' . 
-        '<td>' . $tips . '</td></tr>
-        
-        '
-        ;
-        }
+            include "scripts/game.php";
+        }      
     }
+            
+     
+    
     echo '</tbody>
     </table>
     </div>';
@@ -311,11 +230,11 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
 
 
         // echo "<br>";
-        // echo "Сыграно на ". count($masters_arr) . " из " . count($champs_name_json['data']);
+        // echo "Сыграно на ". count($masters_arr) . " из " . $champs_max;
         // echo "<br><br>";
 
         // $dif_champ = array_diff_key($all_champs, $masters_arr);
-        // if (count($masters_arr) != count($champs_name_json['data'])){
+        // if (count($masters_arr) != $champs_max){
         //     echo "<br>Не сыграно на: <br>";
 
         // }
@@ -345,6 +264,10 @@ $champs_name_ava = json_decode(file_get_contents('json/en_US_champs_id.json'), t
    
 
     };
+    file_put_contents(
+        'json/' . $_GET['region'] . '_summoners_arr.json',
+        json_encode($info, JSON_UNESCAPED_UNICODE)
+    );
 }
 
 include 'footer.php';
