@@ -37,8 +37,8 @@ if (isset($_GET['region'])) {
     // echo "<BR>";
     // echo "<BR>";
     // print_r ($summoners);
-    echo "<BR>";
-    echo "<BR>";
+    // echo "<BR>";
+    // echo "<BR>";
     // print_r($sum_by_num);
 
     $champs_name = json_decode(
@@ -48,30 +48,141 @@ if (isset($_GET['region'])) {
         );
     // print_r($champs_name);
 
-    echo '<table id="sortable" border="1" >
-    <thead>
-    <tr>
-    <th data-type="number"> № </th>
-    <th> Ник </th>          
-    <th data-type="number"> Лвл </th>
-    <th data-type="number"> Очки </th>
-    <th> Ранг </th></tr>
-    </thead>
-        <tbody>'
-    ;
-    
+   
+
+    $amount = ceil(str_replace(',', '.', $_GET['amount']));
+
     if (isset($_GET['p'])){
 
-        $page = $_GET['p'];
+        $page = ceil(str_replace(',', '.', $_GET['p']));
     }
     else{
         $page = 1;
     }
 
-    $ctr = 1 +  $_GET['amount'] * ($page-1);
+    $ctr = 1 +  $amount * ($page-1);
     // echo $page;
     // print_r($info[$key]);
-    for ($ctr; $ctr <= $_GET['amount']*$page; $ctr++){
+    $urlParams = '&region=' . $_GET['region'] . '&qu=' . $_GET['qu'] . '&amount=' . $amount . '&p=';
+    $page_last = ceil(count($sum_by_num)/$amount);
+
+    if ($page_last <=6){
+    echo '<div class="pages">';
+    if ($page != 1){
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page-1 . '"> < </a></div>';
+
+    }
+
+        for ($n=1; $n<=$page_last; $n++){
+            $url = $urlParams . $n;
+        if ($n == $page){
+            $cur = ' current';
+        }
+        else{
+            $cur = '';
+        }
+        echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+
+    }
+    if ($page != $page_last){
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
+
+    }
+    
+}
+    else{
+    if ($amount > 10){
+    echo '<div class="pages">';
+    if ($page > 1){
+
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page-1 . '"> < </a></div>';
+    }
+
+    if ($page >= 5 and $page_last >= 7 and $page < $page_last - 3){
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . 1 . '"> 1 </a></div>';
+        echo '<div class="pagenum">...</div>';
+        for ($n=$page-2; $n<=$page+2; $n++){
+            $url = $urlParams . $n;
+        if ($n == $page){
+            $cur = ' current';
+        }
+        else{
+            $cur = '';
+        }
+        echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+
+        
+    }
+    echo '<div class="pagenum">...</div>';
+    echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page_last . '">' . $page_last . " </a></div>";
+
+    }
+    else{
+
+        if ($page < 5){
+
+
+    for ($n=1; $n <= 5; $n++){
+        $url = $urlParams . $n;
+        if ($n == $page){
+            $cur = ' current';
+        }
+        else{
+            $cur = '';
+        }
+        echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+    }
+    echo '<div class="pagenum">...</div>';
+    echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page_last . '">' . $page_last . " </a></div>";
+
+    }
+    else{
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . 1 . '"> 1 </a></div>';
+        echo '<div class="pagenum">...</div>';
+        for ($n=$page_last-4; $n<=$page_last; $n++){
+            $url = $urlParams . $n;
+        if ($n == $page){
+            $cur = ' current';
+        }
+        else{
+            $cur = '';
+        }
+        echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+    
+    }
+    }
+    }
+
+
+
+
+
+
+    if ($page < ceil(count($sum_by_num)/$amount)){
+
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
+    }
+    echo "</div>";
+}
+
+    // echo ceil(count($sum_by_num)/$_GET['amount']);
+
+}
+
+echo '<br><br><table id="sortable" border="1" >
+<thead>
+<tr>
+<th data-type="number"> № </th>
+<th> Ник </th>          
+<th data-type="number"> Лвл </th>
+<th data-type="number"> Очки </th>
+<th> Ранг </th></tr>
+</thead>
+    <tbody>'
+;
+
+
+    for ($ctr; $ctr <= $amount*$page; $ctr++){
 
         $key = $sum_by_num[$ctr-1];
         if (array_key_exists($sum_by_num[$ctr-1], $info_rang)){
@@ -93,7 +204,7 @@ if (isset($_GET['region'])) {
     
         echo '<tr><td>' . $ctr . 
         "</td><td><div class=\"summoner\">
-        <img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/" . $info[$key][$k['icon']] . '.png">
+        <img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/profileicon/" . $info[$key][$k['icon']] . '.png">
         <a href="full_info.php?nick=' . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "\">" .
         '<div class="nick">'  .  
         $info[$key][$k['nick']] .
@@ -119,30 +230,110 @@ if (isset($_GET['region'])) {
         }
     }
     echo '</tbody></table>';
-    
-    $urlParams = '&region=' . $_GET['region'] . '&qu=' . $_GET['qu'] . '&amount=' . $_GET['amount'] . '&p=';
-    echo '<div class="pages">';
-    if ($page > 1){
 
-        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page-1 . '"> < </a></div>';
+
+    if ($page_last <=6){
+        echo '<div class="pages">';
+        if ($page != 1){
+            echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page-1 . '"> < </a></div>';
+    
+        }
+    
+            for ($n=1; $n<=$page_last; $n++){
+                $url = $urlParams . $n;
+            if ($n == $page){
+                $cur = ' current';
+            }
+            else{
+                $cur = '';
+            }
+            echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+    
+        }
+        if ($page != $page_last){
+            echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
+    
+        }
+        
     }
-    for ($n=1; $n <= ceil(count($sum_by_num)/$_GET['amount']); $n++){
-        $url = $urlParams . $n;
-        if ($n == $page){
-            $cur = 'current';
+        else{
+        echo '<div class="pages">';
+        if ($page > 1){
+    
+            echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page-1 . '"> < </a></div>';
+        }
+    
+        if ($page >= 5 and $page_last >= 7 and $page < $page_last - 3){
+            echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . 1 . '"> 1 </a></div>';
+            echo '<div class="pagenum">...</div>';
+            for ($n=$page-2; $n<=$page+2; $n++){
+                $url = $urlParams . $n;
+            if ($n == $page){
+                $cur = ' current';
+            }
+            else{
+                $cur = '';
+            }
+            echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+    
+            
+        }
+        echo '<div class="pagenum">...</div>';
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page_last . '">' . $page_last . " </a></div>";
+    
         }
         else{
-            $cur = '';
+    
+            if ($page < 5){
+    
+    
+        for ($n=1; $n <= 5; $n++){
+            $url = $urlParams . $n;
+            if ($n == $page){
+                $cur = ' current';
+            }
+            else{
+                $cur = '';
+            }
+            echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
         }
-        echo '<div class="pagenum ' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+        echo '<div class="pagenum">...</div>';
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page_last . '">' . $page_last . " </a></div>";
+    
+        }
+        else{
+            echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . 1 . '"> 1 </a></div>';
+            echo '<div class="pagenum">...</div>';
+            for ($n=$page_last-4; $n<=$page_last; $n++){
+                $url = $urlParams . $n;
+            if ($n == $page){
+                $cur = ' current';
+            }
+            else{
+                $cur = '';
+            }
+            echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+        
+        }
+        }
+        }
+    
+    
+    
+    
+    
+    
+        if ($page < ceil(count($sum_by_num)/$amount)){
+    
+            echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
+        }
+        echo "</div>";
+    
+    
+        // echo ceil(count($sum_by_num)/$_GET['amount']);
+    
     }
-    if ($page < ceil(count($sum_by_num)/$_GET['amount'])){
-
-        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
-    }
-    echo "</div>";
-    // echo ceil(count($sum_by_num)/$_GET['amount']);
-
+    
 }
 
 
