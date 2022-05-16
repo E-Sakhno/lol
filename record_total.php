@@ -1,6 +1,7 @@
 <?php  
 include 'header.php';
 
+
 echo '<h1>'.$lang['Top-h'] . '</h1>';
 ?>
 
@@ -12,7 +13,12 @@ echo '<h1>'.$lang['Top-h'] . '</h1>';
     <!-- <input type="submit"> -->
     <button class="btn btn-success btn">&#128269;</button>
     <br>
-<form action="record_total.php?" method="get" name="form">
+    <?php
+// $param = '&region=' . $_GET['region'] . '&qu=' . $_GET['qu'] . '&amount=' . ceil(str_replace(',', '.', $_GET['amount'])) . '&nick=' . $nick . "&region_s=" . $region_s. '&p=';
+
+    ?>
+<form action="record_total.php" method="get" name="form">
+
 Nick: <input name="nick" type="text" class="form-control inp" value="" placeholder="">
 <?php include 'scripts/region_search.php'; ?>
 <button class="btn btn-success btn">&#128269;</button>
@@ -57,10 +63,10 @@ if (isset($_GET['region'])) {
         if ($sum_num == 0){
             // echo 'не нашли';
             include "scripts/sum_info.php";
+            unset($info);
+            include 'scripts/info.php';
          }}
-         unset($info);
-    include 'scripts/info.php';
-
+        }
 
 
     // print_r($info_rang);
@@ -76,8 +82,7 @@ if (isset($_GET['region'])) {
         $counter++;
 
     }
-    $sum_num = array_search($summoner_id, $sum_by_num);
-
+    
     // // print_r  (array_count_values($sum_by_num)) ;
     // echo '<B>' .  count($sum_by_num) . ' </B>';
     // echo '<B>' .  count($summoners) . ' </B>';
@@ -99,10 +104,11 @@ if (isset($_GET['region'])) {
 //    echo "KEY: ";
 //    (print_r($sum_num));
     //    echo $sum_num;
-        if ($sum_num !=0){
-        echo "Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1;
-        }
-}
+    // if (isset($_GET['nick']) and $_GET['nick'] != ''){
+        
+    
+    // }
+
 
 
     $amount = ceil(str_replace(',', '.', $_GET['amount']));
@@ -119,8 +125,22 @@ if (isset($_GET['region'])) {
     $ctr = 1 +  $amount * ($page-1);
     // echo $page;
     // print_r($info[$key]);
+    if (!isset($nick)){
+        $nick = '';
+        $region_s = '';
+    }
     $urlParams = '&region=' . $_GET['region'] . '&qu=' . $_GET['qu'] . '&amount=' . $amount . '&nick=' . $nick . "&region_s=" . $region_s. '&p=';
     $page_last = ceil(count($sum_by_num)/$amount);
+
+    if (isset($_GET['nick']) and $_GET['nick'] != ''){
+
+        $sum_num = array_search($summoner_id, $sum_by_num);
+        $page_summoner = ceil($sum_num/$amount);
+        if ($sum_num !=0){
+            echo "Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1 . '<a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '"> -> </a>';
+        }
+    
+        }
 
     if ($page_last <=6){
     echo '<div class="pages">';
@@ -257,8 +277,19 @@ echo '<br><br><table id="sortable" border="1" >
             $elo = '';
             
         }
-    
-        echo '<tr><td>' . $ctr . 
+         
+        if (isset($page_summoner)){
+            if ($ctr == $sum_num+1){
+            $add_param = ' current';
+        }
+        else{
+            $add_param = '';
+        }}
+        else{
+            $add_param = '';
+        }
+
+        echo '<tr class="' . $add_param . '" id="' . $ctr .'"><td>' . $ctr . 
         "</td><td><div class=\"summoner\">
         <img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/profileicon/" . $info[$key][$k['icon']] . '.png">
         <a href="full_info.php?nick=' . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "\">" .
