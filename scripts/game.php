@@ -6,6 +6,10 @@
             $tips .= '<p>' . $vle . '</p>';
             }
 
+            if (!array_key_exists(mb_strtolower(str_replace(' ', '%20', $value['summonerName']), 'UTF-8'), $sum_ids)){
+            $sum_ids[mb_strtolower(str_replace(' ', '%20', $value['summonerName']), 'UTF-8')] = $value['summonerId'];
+            }
+
             if (!array_key_exists($value['summonerId'], $info)){
            
             
