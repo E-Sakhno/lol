@@ -301,7 +301,7 @@ echo '<br><br><table id="sortable" border="1" >
             
             $info[$key][$k['lvl']].
             '</td><td>' . 
-            number_format($summoners[$key], 0, ',', ' ') .
+            number_format($summoners[$key], 0, '', '&nbsp;') .
             // $value .
             '</td><td>' . '<div class="rank">' .
             $img .

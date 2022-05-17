@@ -62,7 +62,7 @@
                 ];
             
             }
-            $champs_of_player = "<img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $ava[$info[$value['summonerId']][$k['max_key']]] . '">' . $champs_name_arr[$info[$value['summonerId']][$k['max_key']]] . ': ' . number_format($info[$value['summonerId']][$k['max_point']], 0, '', ' ');
+            $champs_of_player = "<img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $ava[$info[$value['summonerId']][$k['max_key']]] . '">' . $champs_name_arr[$info[$value['summonerId']][$k['max_key']]] . ': ' . number_format($info[$value['summonerId']][$k['max_point']], 0, '', '&nbsp;');
             $total_masters = $info[$value['summonerId']][$k['total']];
             $champs_count = $info[$value['summonerId']][$k['7']] + $info[$value['summonerId']][$k['6']] + $info[$value['summonerId']][$k['5']]+$info[$value['summonerId']][$k['4']] + $info[$value['summonerId']][$k['3']] + $info[$value['summonerId']][$k['2']] + $info[$value['summonerId']][$k['1']]; 
                 
@@ -73,7 +73,7 @@
                 '<a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . 
                 '<div class="nick">' . $value['summonerName'] . '</div></div></td>' .
             
-            '<td>'.  number_format($total_masters, 0, "", " ") . "</td>". 
+            '<td>'.  number_format($total_masters, 0, "", "&nbsp;") . "</td>". 
             "<td>" . $champs_count . " / " . $champs_max . "</td>" . 
             "<td id=\"" . $champs_name_arr[$info[$value['summonerId']][$k['max_key']]] . '"><div class="curchamps">' . $champs_of_player . "</div></td>" . 
             

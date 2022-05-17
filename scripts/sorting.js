@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const newRows = Array.from(rows);
 
         newRows.sort(function(rowA, rowB) {
-            const cellA = rowA.querySelectorAll('td')[index].innerHTML.replaceAll(" ", "");
-            const cellB = rowB.querySelectorAll('td')[index].innerHTML.replaceAll(" ", "");
+            const cellA = rowA.querySelectorAll('td')[index].innerHTML.replaceAll("&nbsp;", "");
+            const cellB = rowB.querySelectorAll('td')[index].innerHTML.replaceAll("&nbsp;", "");
 
             const a = transform(index, cellA);
             const b = transform(index, cellB);    

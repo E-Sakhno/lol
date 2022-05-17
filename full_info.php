@@ -287,7 +287,7 @@ let val = inp.value;
         $total_masters = array_sum($masters_arr);
 
         echo 'Всего очков на чемпионах: ' .
-            number_format($total_masters, 0, '', ' ');
+            number_format($total_masters, 0, '', '&nbsp;');
 
         $champs_name_json = json_decode(
             file_get_contents('json/' . $_COOKIE['lang'] . '_champs.json'),
@@ -382,7 +382,7 @@ let val = inp.value;
                 "\">" .
                 $champs_name_arr[$masters[$n]['championId']] .
                 '</td><td>' .
-                number_format($masters[$n]['championPoints'], 0, '', ' ') .
+                number_format($masters[$n]['championPoints'], 0, '', '&nbsp;') .
                 '</td><td>' .
                 $masters[$n]['championLevel'] .
                 '</td><td>' .

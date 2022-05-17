@@ -83,6 +83,9 @@ include 'header.php';
             true
         );
 
+        // file_put_contents('json/game.json', json_encode($game, JSON_UNESCAPED_UNICODE));
+
+
         // print_r ($game);
         foreach ($game['participants'] as $key => $value){
             if ($value['summonerName'] == $summoner_info['name']){
