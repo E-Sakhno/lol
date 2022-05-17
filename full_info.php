@@ -1,10 +1,6 @@
 <link rel="stylesheet" href="style/total.css">
 <form action="full_info.php" method="get" name="form">
-    Nick: <input name="nick" type="text" class="form-control inp" value="" placeholder="
-    <?php if (isset($_GET['nick'])) {
-        echo $_GET['nick'];
-    } ?>
-    "><br>
+    Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>"><br>
     <!-- Region: <select name="region"">
 <option value="ru" 
     <?php if (isset($_GET['region'])) {
@@ -429,6 +425,20 @@ let val = inp.value;
         file_put_contents(
             'json/' . $_GET['region'] . '_summoners_arr.json',
             json_encode($summoners_top, JSON_UNESCAPED_UNICODE)
+        );
+
+        $sum_ids = json_decode(
+            file_get_contents(
+                'json/ids/' . $_GET['region'] . '_summoners_ids.json'
+            ),
+            true
+        );
+
+        $sum_ids[mb_strtolower($nick_repl, 'UTF-8')] = $summoner_id;
+        // print_r($sum_ids);
+        file_put_contents(
+            'json/ids/' . $_GET['region'] . '_summoners_ids.json',
+            json_encode($sum_ids, JSON_UNESCAPED_UNICODE)
         );
     }
 } ?>

@@ -1,9 +1,6 @@
 <form action="current_game.php" method="get" name="form">
-    Nick: <input name="nick" type="text" class="form-control inp" value="
-    <?php if (isset($_GET['nick'])) {
-        echo $_GET['nick'];
-    } ?>
-    "><br>
+    Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];}?>" 
+    placeholder="Введите ник"><br>
     Region: <select name="region"">
 <option value="ru" 
     <?php if (isset($_GET['region'])){if ($_GET['region'] == "ru"){echo 'selected';}} ?> 
