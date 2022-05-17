@@ -360,10 +360,17 @@ let val = inp.value;
     
     
     ';
+    $millons = [];
+
         // print_r ($masters);
         $champs_of_player = [];
         /// норм, но много текста, далеко листать для отладки
         for ($n = 0; $n < count($masters); $n++) {
+            if ($masters[$n]['championPoints'] >= 1000000){
+                $millons[$masters[$n]['championId']] = $masters[$n]['championPoints'];   
+
+            }
+
             echo '<tr><td>' .
                 $n +
                 1 .
@@ -435,11 +442,28 @@ let val = inp.value;
         );
 
         $sum_ids[mb_strtolower($nick_repl, 'UTF-8')] = $summoner_id;
-        // print_r($sum_ids);
+
         file_put_contents(
             'json/ids/' . $_GET['region'] . '_summoners_ids.json',
             json_encode($sum_ids, JSON_UNESCAPED_UNICODE)
         );
+
+        $sum_mln = json_decode(
+            file_get_contents(
+                'json/mln/' . $_GET['region'] . '_summoners_mln.json'
+            ),
+            true
+        );
+
+        $sum_mln[$summoner_id] = $millons;
+
+        // print_r($sum_ids);
+        file_put_contents(
+            'json/mln/' . $_GET['region'] . '_summoners_mln.json',
+            json_encode($sum_mln, JSON_UNESCAPED_UNICODE)
+        );
+
+        
     }
 } ?>
 
