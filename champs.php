@@ -10,11 +10,14 @@
     <th data-type="number"> Сложность </th>          
     <th data-type="number"> HP  </th>
     <th data-type="number"> hpperlevel  </th>
-    <th data-type="number"> HP MAX </th>
+    <th data-type="number"> HP at 18 </th>
     <th data-type="number"> MP </th>
     <th data-type="number"> Mpperlevel  </th>
-    <th data-type="number"> MP  MAX</th>
+    <th data-type="number"> MP  at 18</th>
     <th data-type="number"> movespeed  </th>
+    <th data-type="number"> attackdamage  </th>
+    <th data-type="number"> attackdamageperlevel  </th>
+    <th data-type="number"> attackdamage at 18  </th>
     <th> Последний раз сыграно  </th>
     <th> Сундук  </th>
     <th > Жетонов в инвентаре </th>
@@ -25,6 +28,7 @@
 
 
 <?php
+include 'api.php';
 
 $champsInfo = json_decode(file_get_contents('json/'.$_COOKIE['lang'].'_champs.json'), true);
 
@@ -40,7 +44,7 @@ $champsInfo = json_decode(file_get_contents('json/'.$_COOKIE['lang'].'_champs.js
 
 foreach ($champsInfo['data'] as $key => $value){
 echo "
-<tr><td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/champion/" . $value['image']['full'] . "\">" .  "</td><td>" .
+<tr><td><img src=\"http://ddragon.leagueoflegends.com/cdn/". $version . "/img/champion/" . $value['image']['full'] . "\">" .  "</td><td>" .
 $value['name'] .
 '</td>
 <td>' . 
@@ -66,6 +70,16 @@ $value['stats']['mp'] + 18*$value['stats']['mpperlevel'] .
 '</td><td>' .  
 
 $value['stats']['movespeed'] . 
+'</td><td>' .  
+
+$value['stats']['attackdamage'] . 
+'</td><td>' .  
+
+$value['stats']['attackdamageperlevel'] . 
+'</td><td>' .  
+$value['stats']['attackdamage'] +  18 * $value['stats']['attackdamageperlevel'] . 
+
+
 '</td><td>'  
 ;
 }
