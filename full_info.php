@@ -441,29 +441,37 @@ let val = inp.value;
             true
         );
 
-        $sum_ids[mb_strtolower($nick_repl, 'UTF-8')] = $summoner_id;
+        if (!array_key_exists(mb_strtolower($nick_repl, 'UTF-8'), $sum_ids)){
 
-        file_put_contents(
-            'json/ids/' . $_GET['region'] . '_summoners_ids.json',
-            json_encode($sum_ids, JSON_UNESCAPED_UNICODE)
-        );
-
-        $sum_mln = json_decode(
-            file_get_contents(
-                'json/mln/' . $_GET['region'] . '_summoners_mln.json'
-            ),
-            true
-        );
-
-        $sum_mln[$summoner_id] = $millons;
-
-        // print_r($sum_ids);
-        file_put_contents(
-            'json/mln/' . $_GET['region'] . '_summoners_mln.json',
-            json_encode($sum_mln, JSON_UNESCAPED_UNICODE)
-        );
-
-        
+            
+            
+            $sum_ids[mb_strtolower($nick_repl, 'UTF-8')] = $summoner_id;
+            
+            file_put_contents(
+                'json/ids/' . $_GET['region'] . '_summoners_ids.json',
+                json_encode($sum_ids, JSON_UNESCAPED_UNICODE)
+            );
+        }
+            
+        if ($millons != NULL){
+// echo 'MIL';
+            $sum_mln = json_decode(
+                file_get_contents(
+                    'json/mln/' . $_GET['region'] . '_summoners_mln.json'
+                ),
+                true
+            );
+            
+            $sum_mln[$summoner_id] = $millons;
+            
+            // print_r($sum_ids);
+            file_put_contents(
+                'json/mln/' . $_GET['region'] . '_summoners_mln.json',
+                json_encode($sum_mln, JSON_UNESCAPED_UNICODE)
+            );
+        }
+            
+            
     }
 } ?>
 
