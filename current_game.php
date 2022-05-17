@@ -49,6 +49,25 @@ include 'header.php';
         $nick = $_GET['nick'];
         $nick_repl = str_replace(' ', '%20', $nick);
         $region = $_GET['region'];
+        $sum_ids = json_decode(
+            file_get_contents(
+                'json/ids/' . $_GET['region'] . '_summoners_ids.json'
+            ),
+            true
+        );
+        // print_r ($sum_ids);
+        if (array_key_exists(mb_strtolower($nick_repl, 'UTF-8'), $sum_ids)){
+            $summoner_info = [];
+            
+            $summoner_info['id'] = $sum_ids[mb_strtolower($nick_repl, 'UTF-8')];
+            $summoner_info['name'] = $nick;
+        // print_r ($summoner_info);
+
+        }
+        else{
+
+        // print_r($sum_ids);
+        
         $summoner_info = json_decode(
             file_get_contents(
                 'https://' .
@@ -60,12 +79,15 @@ include 'header.php';
             ),
             true
         );
+    }
+
         // print_r ($summoner_info);
         
         if ($summoner_info == NULL){
             echo "Такого пользователя не найдено!";
         }
         else{
+            // print_r ($summoner_info);
         $summoner_id = $summoner_info['id'];
 
         $game = json_decode(
@@ -85,7 +107,7 @@ include 'header.php';
 
         // print_r ($game);
         foreach ($game['participants'] as $key => $value){
-            if ($value['summonerName'] == $summoner_info['name']){
+            if (mb_strtolower($value['summonerName'], 'UTF-8')== $summoner_info['name']){
                 if ($value['teamId'] == 100){
                     $enemy = 200;
                 }
@@ -267,6 +289,10 @@ $champs_max = count($champs_name_json['data']);
     file_put_contents(
         'json/' . $_GET['region'] . '_summoners_arr.json',
         json_encode($info, JSON_UNESCAPED_UNICODE)
+    );
+    file_put_contents(
+        'json/ids/' . $_GET['region'] . '_summoners_ids.json',
+        json_encode($sum_ids, JSON_UNESCAPED_UNICODE)
     );
 }
 
