@@ -63,4 +63,15 @@ if (!empty($_POST)){
     setcookie("lang", $lang);
     header("Refresh:0");
 }
+
 ?>
+<script src="scripts/cookies.js"></script>
+
+<script>
+if (!get_cookie('tz')){
+    
+var timezone = (Intl.DateTimeFormat().resolvedOptions().timeZone);
+set_cookie('tz', timezone);
+
+}
+</script>

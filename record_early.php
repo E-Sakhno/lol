@@ -18,6 +18,11 @@
 </p>
 
 <?php 
+if ($_COOKIE['tz']){
+    
+    $tz = $_COOKIE['tz'];
+    date_default_timezone_set($tz);
+   }
 include "header.php";
 
 if (isset($_GET['region'])) {

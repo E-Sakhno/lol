@@ -20,6 +20,11 @@
 </select> -->
 
 <?php 
+if ($_COOKIE['tz']){
+    
+    $tz = $_COOKIE['tz'];
+    date_default_timezone_set($tz);
+   }
 include 'scripts/region.php'; ?>
     
     <br><br>    
@@ -389,7 +394,7 @@ let val = inp.value;
                 '</td><td>' .
                 $masters[$n]['championLevel'] .
                 '</td><td>' .
-                gmdate('Y.m.d H:i', $masters[$n]['lastPlayTime'] / 1000) .
+                date('Y.m.d H:i', $masters[$n]['lastPlayTime'] / 1000) .
                 '</td><td>' .
                 str_replace(1, '+', $masters[$n]['chestGranted']) .
                 '</td><td>' .
