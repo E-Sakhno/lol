@@ -40,6 +40,16 @@ img{
 height: 1em;
 }
 
+.champsDP{
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.champDP{
+    padding-right: .5em;
+
+    display: inline-block;
+}
 
 .summoner{
     padding-left: 0.3em;
