@@ -278,6 +278,39 @@ let val = inp.value;
             true
         );
 
+        $seven = array_count_values(array_column($masters, 'championLevel'))[7];
+        $six = array_count_values(array_column($masters, 'championLevel'))[6];
+        $five = array_count_values(array_column($masters, 'championLevel'))[5];
+        $four = array_count_values(array_column($masters, 'championLevel'))[4];
+        $three = array_count_values(array_column($masters, 'championLevel'))[3];
+        $two = array_count_values(array_column($masters, 'championLevel'))[2];
+        $one = array_count_values(array_column($masters, 'championLevel'))[1];
+
+
+        echo '
+        <table border="1" style="border-collapse: collapse; margin: 0 0;">
+        <tr>
+        <td>Ранг</td>
+        <td>7</td>
+        <td>6</td>
+        <td>5</td>
+        <td>4</td>
+        <td>3</td>
+        <td>2</td>
+        <td>1</td>
+        </tr>
+        <tr>
+        <td>Кол-во</td>' .
+        '<td>' . $seven . "</td>" .   
+        '<td>' . $six . "</td>" .   
+        '<td>' . $five . "</td>" .   
+        '<td>' . $four . "</td>" .   
+        '<td>' . $three . "</td>" .   
+        '<td>' . $two . "</td>" .   
+        '<td>' . $one . "</td></tr>" .
+        "<tr><td>Сумма очков мастерства</td>
+        <td colspan=7>" . $seven * 7 + $six * 6 + $five*5 + $four*4 + $three*3 + $two * 2 + $one   
+        . "</td><tr></table>";
         // print_r($masters);
         // echo (array_count_values(array_column($masters, 'championLevel'))[7]);
         $masters_arr = [];
@@ -312,11 +345,13 @@ let val = inp.value;
             count($masters_arr) .
             ' из ' .
             count($champs_name_json['data']);
-        echo '<br><br>';
+        // echo '<br><br>';
+         
 
         $dif_champ = array_diff_key($champs_name_arr, $masters_arr);
         if (count($masters_arr) != count($champs_name_json['data'])) {
-            echo '<br>Не сыграно на: <br>';
+        echo '<div class="champsDP">Не сыграно на:<br>';
+            
         }
 
         if (array_key_exists(777, $dif_champ)) {
@@ -332,8 +367,9 @@ let val = inp.value;
         }
         // print_r($dif_champ);
         foreach ($dif_champ as $key => $value) {
-            echo $value . ' ';
+            echo '<div class="champDP">' . $value . '</div>';
         }
+        echo '</div>';
         $last_play = [];
         foreach ($masters as $key => $row) {
             // echo $masters[$key]['championId'].' ';
@@ -343,7 +379,7 @@ let val = inp.value;
         // echo $last_play[array_key_first($last_play)];
         // array_multisort($last_play, SORT_ASC, $masters);
 
-        echo '<br><br>';
+        // echo '<br><br>';
         // print_r ($masters);
         // print_r ($last_play);
         echo '<div class="blok"> 
@@ -425,13 +461,13 @@ let val = inp.value;
             $masters_arr[array_key_first($masters_arr)],
             array_key_first($last_play),
             $last_play[array_key_first($last_play)],
-            array_count_values(array_column($masters, 'championLevel'))[7],
-            array_count_values(array_column($masters, 'championLevel'))[6],
-            array_count_values(array_column($masters, 'championLevel'))[5],
-            array_count_values(array_column($masters, 'championLevel'))[4],
-            array_count_values(array_column($masters, 'championLevel'))[3],
-            array_count_values(array_column($masters, 'championLevel'))[2],
-            array_count_values(array_column($masters, 'championLevel'))[1],
+            $seven,
+            $six,
+            $five,
+            $four,
+            $three,
+            $two,
+            $one
         ];
 
         file_put_contents(
@@ -478,8 +514,6 @@ let val = inp.value;
             
             
     }
-} ?>
-
-
-<script src="scripts/show_more.js"></script>
-<script src="scripts/sorting.js"></script>
+} 
+include "footer.php";
+?>
