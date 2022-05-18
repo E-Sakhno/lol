@@ -13,10 +13,7 @@ echo '<h1>'.$lang['Top-h'] . '</h1>';
     <!-- <input type="submit"> -->
     <button class="btn btn-success btn">&#128269;</button>
     <br>
-    <?php
-// $param = '&region=' . $_GET['region'] . '&qu=' . $_GET['qu'] . '&amount=' . ceil(str_replace(',', '.', $_GET['amount'])) . '&nick=' . $nick . "&region_s=" . $region_s. '&p=';
-
-    ?>
+<br>    
 <form action="record_total.php" method="get" name="form">
 
 Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];}?>" placeholder="Введите ник">
@@ -118,7 +115,7 @@ if (isset($_GET['region'])) {
         $sum_num = array_search($summoner_id, $sum_by_num);
         $page_summoner = ceil(($sum_num+1)/$amount);
         if ($sum_num !=0){
-            echo "Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1 . '<a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '"> -> </a>';
+            echo "Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a>';
         }
     
         }
