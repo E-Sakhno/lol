@@ -124,7 +124,7 @@ if (isset($_GET['region'])) {
 
     
 
-echo '<br><br><table id="sortable" border="1" >
+echo '<table id="sortable" border="1" >
 <thead>
 <tr>
 <th data-type="number"> № </th>
@@ -135,6 +135,67 @@ echo '<br><br><table id="sortable" border="1" >
 </thead>
     <tbody>'
 ;
+
+for ($ctr; $ctr <= $amount*$page; $ctr++){
+
+    $key = $sum_by_num[$ctr-1];
+    if (array_key_exists($sum_by_num[$ctr-1], $info_rang)){
+        
+        $img =  $add[$info_rang[$key][$l['tier']]] .  '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
+        if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
+            $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['lp']];
+        }
+        else{
+            
+            $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']];
+        }
+    }
+    else{
+        $img = '&zwnj;&zwnj;';
+        $elo = '';
+        
+    }
+     
+    if (isset($page_summoner)){
+        if ($ctr == $sum_num+1){
+        $add_param = ' current';
+    }
+    else{
+        $add_param = '';
+    }}
+    else{
+        $add_param = '';
+    }
+
+    echo '<tr class="' . $add_param . '" id="' . $ctr .'"><td>' . $ctr . 
+    "</td><td><div class=\"summoner\">
+    <img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/profileicon/" . $info[$key][$k['icon']] . '.png">
+    <a href="full_info.php?nick=' . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "\">" .
+    '<div class="nick">'  .  
+    $info[$key][$k['nick']] .
+        '</a><div class="region"> ' .
+        $info[$key][$k['region']] .
+        '</div></div></td><td>'.
+        
+        $info[$key][$k['lvl']].
+        '</td><td>' . 
+        number_format($summoners[$key], 0, '', '&nbsp;') .
+        // $value .
+        '</td><td>' . '<div class="rank">' .
+        $img .
+        '<div class="elo">' .  $elo .   
+        '</div></div>' 
+        .
+        '</td></tr>';
+        
+    if (isset($_GET['amount'])) {
+        if ($ctr == count($sum_by_num)) {
+            break;
+        }
+    }
+}
+echo '</tbody></table>';
+
 
 include "scripts/nav_bot.php";
     
