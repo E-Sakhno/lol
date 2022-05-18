@@ -60,7 +60,7 @@ include 'header.php';
             $summoner_info = [];
             
             $summoner_info['id'] = $sum_ids[mb_strtolower($nick_repl, 'UTF-8')];
-            $summoner_info['name'] = $nick;
+            $summoner_info['name'] = mb_strtolower($nick, 'UTF-8');
         // print_r ($summoner_info);
 
         }
