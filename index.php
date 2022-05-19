@@ -38,8 +38,10 @@ include "api.php";
 <a href="record_rang.php?rang=7&region=all&amount=15"> <b>Rang</b></a><br>
 <a href="record_rank_winrate.php?qu=solo&region=ru&amount=15"> Winrate</a><br>
 <a href="antirecord_rank_winrate.php?qu=solo&region=ru&amount=15"> <b>ANTIWinrate</b></a><br>
+<a href="millions.php?qu=solo&region=ru&amount=15"> <b>Millions</b></a><br>
 <a href="current_game.php"> Current game</a><br>
 <a href="full_info.php"> My page</a><br>
+<a href="champs.php"> Champs</a><br>
 
 <form action="index.php" method="post" name="form">
 <select name="lang">
