@@ -19,7 +19,7 @@ if ($page_last <=6){
 
     }
     if ($page != $page_last){
-        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div></div>';
 
     }
     
@@ -81,7 +81,7 @@ if ($page_last <=6){
         else{
             $cur = '';
         }
-        echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div>";
+        echo '<div class="pagenum' .$cur. '"><a href="record_total.php?'. $url . '">' . $n . " </a></div></div>";
     
     }
     }
