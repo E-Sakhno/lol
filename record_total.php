@@ -33,6 +33,22 @@ if (isset($_GET['region'])) {
         $nick = $_GET['nick'];
         $nick_repl = str_replace(' ', '%20', $nick);
         $region_s = $_GET['region_s'];
+        $sum_ids = json_decode(
+            file_get_contents(
+                'json/ids/' . $_GET['region_s'] . '_summoners_ids.json'
+            ),
+            true
+        );
+        // print_r ($sum_ids);
+        if (array_key_exists(mb_strtolower($nick_repl, 'UTF-8'), $sum_ids)) {
+            $summoner_info = [];
+    
+            $summoner_info['id'] = $sum_ids[mb_strtolower($nick_repl, 'UTF-8')];
+            $summoner_info['name'] = mb_strtolower($nick, 'UTF-8');
+            // print_r ($summoner_info);
+        } else {
+            // print_r($sum_ids);
+    
         $summoner_info = json_decode(
             file_get_contents(
                 'https://' .
@@ -44,6 +60,7 @@ if (isset($_GET['region'])) {
             ),
             true
         );
+    }
         // print_r ($summoner_info);
         
         if ($summoner_info == NULL){
@@ -67,11 +84,14 @@ if (isset($_GET['region'])) {
 
 
     // print_r($info_rang);
+    // $time_start = microtime(true);
     $summoners = [];
     foreach ($info as $key => $row) {
         $summoners[$key] = $row[$k['total']];
     }
     array_multisort($summoners, SORT_DESC, $info);
+
+    
     $counter = 0;
     $sum_by_num = [];
     foreach ($summoners as $key => $value){
@@ -115,12 +135,16 @@ if (isset($_GET['region'])) {
         $sum_num = array_search($summoner_id, $sum_by_num);
         $page_summoner = ceil(($sum_num+1)/$amount);
         if ($sum_num !=0){
-            echo "Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a>';
+            echo "<div class=\"sum_place\"> Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
         }
     
         }
-
+        // $time_end = microtime(true);
+        // $time = $time_end - $time_start;
+        
+        // echo "Ничего не делал $time секунд\n";
     include "scripts/nav_top.php";
+   
 
     
 
