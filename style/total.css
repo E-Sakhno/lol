@@ -4,6 +4,7 @@ html, body {
 
 h1{
     font-size: 1em;
+    text-align: center;
 }
 
 select{
@@ -102,8 +103,8 @@ position: relative;
 }
 
 .pages {
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     text-align: center;
 }
 
@@ -131,4 +132,8 @@ position: relative;
 }
 .pagenum :hover{
     background-color: rgb(243, 222, 225);
+}
+
+.sum_place{
+    margin-bottom: 1em;
 }
