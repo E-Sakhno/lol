@@ -99,6 +99,20 @@ if (isset($_GET['nick'])) {
         // print_r ($summoner_info);
         $summoner_id = $summoner_info['id'];
 
+        $url = 'https://' .
+        $region .
+        '.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' .
+        $summoner_id .
+        '?api_key=' .
+        $api; 
+        function get_http_response_code($url) {
+            $headers = get_headers($url);
+            return substr($headers[0], 9, 3);
+        }
+        if(get_http_response_code($url) != "200"){
+            echo "Призыватель не в игре. Попробуйте позже";
+        }else{
+
         $game = json_decode(
             file_get_contents(
                 'https://' .
@@ -286,6 +300,7 @@ if (isset($_GET['nick'])) {
         'json/ids/' . $_GET['region'] . '_summoners_ids.json',
         json_encode($sum_ids, JSON_UNESCAPED_UNICODE)
     );
+}
 }
 
 include 'footer.php';
