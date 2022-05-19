@@ -256,10 +256,22 @@ let val = inp.value;
             '.png">';
 
         echo '<BR>';
-        if (empty($tier)) {
+        if (empty($rang)) {
             echo 'Ранг: - ';
         } else {
-            echo 'Ранг (соло): ' . $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['rank'];;
+            if ($rang[$num_rank]){
+
+                echo 'Ранг (соло): ' . $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['rank'];;
+            }
+            if ($rang[$num_rank_flex]){
+
+            echo '<BR>';
+            echo 'Ранг (флекс): ' . $rang[$num_rank_flex]['tier'] . ' ' . $rang[$num_rank_flex]['rank'];;
+        }
+        else{
+            echo 'Ранг (флекс): - ';
+
+        }
         }
         echo '<BR>';
         echo 'Уровень: ' . $summoner_info['summonerLevel'];
