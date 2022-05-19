@@ -4,7 +4,7 @@ include 'api.php';
 $lang = "ru_RU";
 $champs_name_json = json_decode(
             file_get_contents(
-                'http://ddragon.leagueoflegends.com/cdn/12.9.1/data/' . $lang . '/champion.json' .
+                'http://ddragon.leagueoflegends.com/cdn/' . $version . '/data/' . $lang . '/champion.json' .
                 '?api_key=' .
                 $api
             ),
