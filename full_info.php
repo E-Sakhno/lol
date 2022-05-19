@@ -1,3 +1,13 @@
+<script>
+    function show(element_id) {
+  var obj = document.getElementById(element_id)
+  if (obj.style.display != 'block') {
+    obj.style.display = 'block'
+  } else {
+    obj.style.display = 'none'
+  }
+}
+</script>
 <link rel="stylesheet" href="style/total.css">
 <form action="full_info.php" method="get" name="form">
     Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>"><br>
@@ -379,8 +389,16 @@ let val = inp.value;
             }
         }
         // print_r($dif_champ);
+        $ctr = 1;
         foreach ($dif_champ as $key => $value) {
             echo '<div class="champDP">' . $value . '</div>';
+            if ($ctr == 5){
+                echo '<div id="more" style="display: none;">';
+            }
+            $ctr++;
+        }
+        if ($ctr > 5){
+            echo '</div><a href="javascript:void(0)" onclick="show(\'more\')">Все герои</a>';
         }
         echo '</div>';
         $last_play = [];
