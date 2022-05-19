@@ -29,9 +29,14 @@ $total_masters = array_sum($masters_arr);
     
     $champs_count = count($masters_arr);
 
+    $info = json_decode(
+        file_get_contents('json/'.$_GET['region_s'] . '_summoners_arr.json'),
+        true
+    );
+
     $info[$summoner_id] = [
         $summoner_info['name'],
-        $_GET['region'],
+        $_GET['region_s'],
         $summoner_info['profileIconId'],
         '?',
         $total_masters,
