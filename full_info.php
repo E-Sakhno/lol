@@ -341,16 +341,17 @@ let val = inp.value;
         }
 
         echo '<br>';
-        echo 'Сыграно на ' .
+        echo '<div class="champsDP">Сыграно на ' .
             count($masters_arr) .
             ' из ' .
             count($champs_name_json['data']);
         // echo '<br><br>';
+        echo '<br>';
          
 
         $dif_champ = array_diff_key($champs_name_arr, $masters_arr);
         if (count($masters_arr) != count($champs_name_json['data'])) {
-        echo '<div class="champsDP">Не сыграно на:<br>';
+        echo 'Не сыграно на:<br>';
             
         }
 
