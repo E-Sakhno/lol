@@ -20,7 +20,7 @@ if ($page_last <=6){
 
     }
     if ($page != $page_last){
-        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div>';
+        echo '<div class="pagenum"><a href="record_total.php?'. $urlParams . $page+1 . '"> > </a></div></div>';
 
     }
     
