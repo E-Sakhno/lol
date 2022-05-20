@@ -4,6 +4,7 @@ include 'header.php';
 
 echo '<h1>'.$lang['Top-h'] . '</h1>';
 ?>
+<div class="form">
 
     <form action="record_total.php" method="get" name="form">
     <?php 
@@ -11,16 +12,21 @@ echo '<h1>'.$lang['Top-h'] . '</h1>';
     include_once 'scripts/queue.php'; 
     include_once 'scripts/amount.php'; ?>
     <!-- <input type="submit"> -->
-    <button class="btn btn-success btn">&#128269;</button>
+    <button class="">&#128269;</button>
     <br>
-<br>    
+<br>  
+<div class="form">
+
 <form action="record_total.php" method="get" name="form">
 
-Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];}?>" placeholder="Введите ник">
+<?php echo $lang['Nick'];?>: <input name="nick" id="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];}?>" placeholder="<?php echo $lang['Nick_ph'];?>">
 <?php include 'scripts/region_search.php'; ?>
 <button class="btn btn-success btn">&#128269;</button>
 </form>
 </form>
+<script src="scripts/block.js"></script>
+</div>
+</div>
 
 
 
@@ -135,7 +141,7 @@ if (isset($_GET['region'])) {
         $sum_num = array_search($summoner_id, $sum_by_num);
         $page_summoner = ceil(($sum_num+1)/$amount);
         if ($sum_num !=0){
-            echo "<div class=\"sum_place\"> Призыватель " . $nick . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
+            echo "<div class=\"sum_place center\"> Призыватель " . $info[$summoner_id][0] . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
         }
     
         }
@@ -152,10 +158,10 @@ echo '<table id="sortable" border="1" >
 <thead>
 <tr>
 <th data-type="number"> № </th>
-<th> Ник </th>          
-<th data-type="number"> Лвл </th>
-<th data-type="number"> Очки </th>
-<th> Ранг </th></tr>
+<th>' . $lang['Nick'] . '</th>          
+<th data-type="number">' . $lang['Lvl'] . '</th>
+<th data-type="number">' . $lang['Point'] . '</th>
+<th>' . $lang['Rang'] . '</th></tr>
 </thead>
     <tbody>'
 ;
@@ -167,11 +173,11 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
         
         $img =  $add[$info_rang[$key][$l['tier']]] .  '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
         if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
-            $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['lp']];
+            $elo = $lang[$info_rang[$key][$l['tier']]] . ' ' . $info_rang[$key][$l['lp']];
         }
         else{
             
-            $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']];
+            $elo = $lang[$info_rang[$key][$l['tier']]] . ' ' . $info_rang[$key][$l['rank']];
         }
     }
     else{

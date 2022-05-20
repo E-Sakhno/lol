@@ -2,19 +2,19 @@
 include 'header.php';
 echo '<h1>'.$lang['Total-h'] . '</h1>';
 ?>
-
+<div class="form">
 <form action="full_info.php" method="get" name="form">
     <?php
     echo $lang['Nick'];
     ?>: 
-    <input name="nick" id="nick" type="text" class="inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>">
+    <input name="nick" id="nick" type="text" class="inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>" placeholder="<?php echo $lang['Nick_ph'];?>">
      
 <?php 
 
 include 'scripts/region_sum.php'; ?>  
     <button class="btn btn-success btn">&#128269;</button>
 </form>
-
+</div>
 <script src="scripts/block.js"></script>
 
 
@@ -230,23 +230,23 @@ include 'scripts/region_sum.php'; ?>
         // echo 'Уровень: ' . $summoner_info['summonerLevel'];
         // echo '<BR>';
         if ($rang[$num_rank]['tier'] == "CHALLENGER" and $rang[$num_rank]['rank'] == 'I'){
-            $elo_solo = $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['leaguePoints'];
+            $elo_solo = $lang[$rang[$num_rank]['tier']] . ' ' . $rang[$num_rank]['leaguePoints'];
         }
         else{
             
-            $elo_solo = $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['rank'];
+            $elo_solo = $lang[$rang[$num_rank]['tier']] . ' ' . $rang[$num_rank]['rank'];
         }
 
         if ($rang[$num_rank_flex]['tier'] == "CHALLENGER" and $rang[$num_rank_flex]['rank'] == 'I'){
-            $elo_flex = $rang[$num_rank_flex]['tier'] . ' ' . $rang[$num_rank_flex]['leaguePoints'];
+            $elo_flex = $lang[$rang[$num_rank_flex]['tier']] . ' ' . $rang[$num_rank_flex]['leaguePoints'];
         }
         else{
             
-            $elo_flex = $rang[$num_rank_flex]['tier'] . ' ' . $rang[$num_rank_flex]['rank'];
+            $elo_flex = $lang[$rang[$num_rank_flex]['tier']] . ' ' . $rang[$num_rank_flex]['rank'];
         }
 
 
-        echo '<table   style="margin: 0 0;"><tr><td>' .       
+        echo '<table><tr><td>' .       
         '<div class="summoner"><img src="http://ddragon.leagueoflegends.com/cdn/' .
             $version .
             '/img/profileicon/' .
@@ -259,18 +259,18 @@ include 'scripts/region_sum.php'; ?>
             '</div></div></div></td><td>' . 
             $summoner_info['summonerLevel'] . ' ' . $lang['lvl'] . "</td></tr><div class=\"rang\">";
             if (empty($rang)) {
-                echo '<tr><td>Ранг: - </td></tr>';
+                echo '<tr><td>'. $lang['Elo'] .':</td><td> - </td></tr>';
             } else {
                 if ($rang[$num_rank]){
     
-                    echo '<tr><td>Ранг (соло): </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . '</div></div></td></tr>';
+                    echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['solo'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . ' (' . $lang['w'] . ': ' . number_format($rang[$num_rank]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank]['wins'] / ($rang[$num_rank]['wins'] + $rang[$num_rank]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
                 }
                 if ($rang[$num_rank_flex]){
     
-                echo '<tr><td>Ранг (флекс): </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . '</div></div></td></tr>';
+                echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . ' (' . $lang['w'] . ': ' . number_format($rang[$num_rank_flex]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank_flex]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank_flex]['wins'] / ($rang[$num_rank_flex]['wins'] + $rang[$num_rank_flex]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
             }
             else{
-                echo '<tr><td>Ранг (флекс): </td></tr>';
+                echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .':</td><td> - </td></tr>';
     
             }
             }
@@ -301,9 +301,9 @@ include 'scripts/region_sum.php'; ?>
 
 
         echo '
-        <table border="1" style="border-collapse: collapse; margin: 0 0;">
+        <table border="1" style="border-collapse: collapse;">
         <tr>
-        <td>Ранг</td>
+        <td>' . $lang['Rang'] . '</td>
         <td>7</td>
         <td>6</td>
         <td>5</td>
@@ -313,7 +313,7 @@ include 'scripts/region_sum.php'; ?>
         <td>1</td>
         </tr>
         <tr>
-        <td>Кол-во</td>' .
+        <td>' . $lang['Amount'] . '</td>' .
         '<td>' . $seven . "</td>" .   
         '<td>' . $six . "</td>" .   
         '<td>' . $five . "</td>" .   
@@ -323,9 +323,9 @@ include 'scripts/region_sum.php'; ?>
         '<td>' . $one . "</td></tr>" .
         "</table>";
 
-        echo "<div>Сумма очков мастерства: " . 
+        echo "<div class=\"info_sum\"><div>". $lang["Sum_mastery"] . ": " . 
         $seven * 7 + $six * 6 + $five*5 + $four*4 + $three*3 + $two * 2 + $one  . 
-        '<a href="record_total_mastery.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '"> &#8658;</a></div>';
+        ' <a href="record_total_mastery.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a></div>';
 
         
         // print_r($masters);
@@ -337,9 +337,9 @@ include 'scripts/region_sum.php'; ?>
         }
         $total_masters = array_sum($masters_arr);
 
-        echo '<div>Всего очков на чемпионах: ' .
+        echo '<div>' . $lang['Sum_points'] . ': ' .
             number_format($total_masters, 0, '', '&nbsp;') . 
-            '<a href="record_total.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '"> &#8658;</a></div>';
+            ' <a href="record_total.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a></div>';
 
         $champs_name_json = json_decode(
             file_get_contents('json/' . $_COOKIE['lang'] . '_champs.json'),
@@ -358,9 +358,9 @@ include 'scripts/region_sum.php'; ?>
             $champs_name_arr[$value['key']] = $value['name'];
         }
 
-        echo '<div>Сыграно на ' .
+        echo '<div>' . $lang['Played_on'] . ' ' .
             count($masters_arr) .
-            ' из ' .
+            ' ' . $lang['of'] . ' ' .
             count($champs_name_json['data']) . 
             "</div>";
         // echo '<br><br>';
@@ -368,7 +368,7 @@ include 'scripts/region_sum.php'; ?>
 
         $dif_champ = array_diff_key($champs_name_arr, $masters_arr);
         if (count($masters_arr) != count($champs_name_json['data'])) {
-        echo '<div class="champsDP">Не сыграно на:<br>';
+        echo $lang['DidntPlayed_on'] . ':<br>';
             
         }
 
@@ -386,17 +386,18 @@ include 'scripts/region_sum.php'; ?>
         // print_r($dif_champ);
         $ctr = 1;
         foreach ($dif_champ as $key => $value) {
-            echo '<div class="champDP">' . $value . '</div>';
+            echo '<span class="champDP">' . $value . '</span>';
             if ($ctr == 5){
                 echo '<div class="champDP_cont" id="more" style="display: none;">';
             }
             $ctr++;
         }
+        echo '</div>';
         if ($ctr > 6){
         //    echo $ctr;
-            echo '</div><a href="javascript:void(0)" id="show_link" onclick="show(\'more\')">Все герои</a>';
+            echo '<a href="javascript:void(0)" id="show_link" onclick="show(\'more\')">' . $lang['AllChamps'] . '</a></div>';
         }
-        echo '</div>';
+        // echo '<br><br>';
         $last_play = [];
         foreach ($masters as $key => $row) {
             // echo $masters[$key]['championId'].' ';
@@ -410,18 +411,18 @@ include 'scripts/region_sum.php'; ?>
         // print_r ($masters);
         // print_r ($last_play);
         echo '<div class="blok"> 
-        <table id="sortable" border="1" >     
+        <table id="sortable" border="1" style="width: 100%; margin-top: 2em;" class="center">     
         
         <thead>
         <tr>
-        <th data-type="number"> № </th>         
-        <th> Ava </th>          
-        <th> Герой </th>          
-    <th data-type="number"> Очки  </th>
-    <th data-type="number"> Ранг  </th>
-    <th> Последний раз сыграно  </th>
-    <th> Сундук  </th>
-    <th > Жетонов в инвентаре </th>
+        <th data-type="number">№</th>         
+             
+    <th>' . $lang['Hero'] . '</th>          
+    <th data-type="number">' . $lang['Point'] . '</th>
+    <th data-type="number"> ' . $lang['Elo'] . '</th>
+    <th>' . $lang['LastGame'] . '</th>
+    <th>' . $lang['Chest'] . '</th>
+    <th>' . $lang['tokensEarned'] . '</th>
     </tr>
     </thead>
     <tbody>
@@ -442,17 +443,16 @@ include 'scripts/region_sum.php'; ?>
             echo '<tr><td>' .
                 $n +
                 1 .
-                '</td><td>' .
-                "<img src=\"http://ddragon.leagueoflegends.com/cdn/" .
+                '</td><td id="' .$masters[$n]['championId'] . '">' .
+                '<div class="fullchamp">' . 
+                "<img id=\"" . $champs_name_arr[$masters[$n]['championId']] ."\"" . "src=\"http://ddragon.leagueoflegends.com/cdn/" .
                 $version .
                 '/img/champion/' .
                 $ava[$masters[$n]['championId']] .
-                '">' .
-                "</td><td id=\"" .
-                $masters[$n]['championId'] .
-                "\">" .
+                '"><div class="fullchampname">' .
+                
                 $champs_name_arr[$masters[$n]['championId']] .
-                '</td><td>' .
+                '</div></div></td><td>' .
                 number_format($masters[$n]['championPoints'], 0, '', '&nbsp;') .
                 '</td><td>' .
                 $masters[$n]['championLevel'] .
