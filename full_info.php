@@ -263,11 +263,11 @@ include 'scripts/region_sum.php'; ?>
             } else {
                 if ($rang[$num_rank]){
     
-                    echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['solo'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . ' (' . $lang['w'] . ': ' . number_format($rang[$num_rank]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank]['wins'] / ($rang[$num_rank]['wins'] + $rang[$num_rank]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
+                    echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['solo'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . ' <br>(' . $lang['w'] . ': ' . number_format($rang[$num_rank]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank]['wins'] / ($rang[$num_rank]['wins'] + $rang[$num_rank]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
                 }
                 if ($rang[$num_rank_flex]){
     
-                echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . ' (' . $lang['w'] . ': ' . number_format($rang[$num_rank_flex]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank_flex]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank_flex]['wins'] / ($rang[$num_rank_flex]['wins'] + $rang[$num_rank_flex]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
+                echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . ' <br>(' . $lang['w'] . ': ' . number_format($rang[$num_rank_flex]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank_flex]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank_flex]['wins'] / ($rang[$num_rank_flex]['wins'] + $rang[$num_rank_flex]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
             }
             else{
                 echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .':</td><td> - </td></tr>';
