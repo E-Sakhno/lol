@@ -1,3 +1,6 @@
+<!-- <button onclick="alert('Тыктыктык');alert('Тыктыктык');alert('Тыктыктык');alert('Тыктыктык');alert('Тыктыктык');">Тык</button> -->
+
+
 <!-- <?php
 
 // echo "Hiiiii";
@@ -52,7 +55,7 @@ include "api.php";
     <?php if (isset($_COOKIE['lang'])){if ($_COOKIE['lang'] == "en_US"){echo 'selected';}} ?> 
 > Eng
 </select>
-<button class="btn btn-success btn">Кнопка</button>
+<button class="btn btn-success btn">Тык</button>
 </form>
 
 <?php
