@@ -1,64 +1,21 @@
-<script>
-    function show(element_id) {
-  var obj = document.getElementById(element_id)
-  if (obj.style.display != 'block') {
-    obj.style.display = 'block'
-  } else {
-    obj.style.display = 'none'
-  }
-}
-</script>
-<link rel="stylesheet" href="style/total.css">
+<?php
+include 'header.php';
+echo '<h1>'.$lang['Total-h'] . '</h1>';
+?>
+
 <form action="full_info.php" method="get" name="form">
-    Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>"><br>
-    <!-- Region: <select name="region"">
-<option value="ru" 
-    <?php if (isset($_GET['region'])) {
-        if ($_GET['region'] == 'ru') {
-            echo 'selected';
-        }
-    } ?> 
-> Ru
-    <option value="euw1" 
-    <?php if (isset($_GET['region'])) {
-        if ($_GET['region'] == 'euw1') {
-            echo 'selected';
-        }
-    } ?> 
-> EuW
-
-</select> -->
-
+    <?php
+    echo $lang['Nick'];
+    ?>: 
+    <input name="nick" id="nick" type="text" class="inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>">
+     
 <?php 
-if ($_COOKIE['tz']){
-    
-    $tz = $_COOKIE['tz'];
-    date_default_timezone_set($tz);
-   }
-include 'scripts/region.php'; ?>
-    
-    <br><br>    
-    <!-- <input type="submit"> -->
-    <button class="btn btn-success btn">Кнопка</button>
+
+include 'scripts/region_sum.php'; ?>  
+    <button class="btn btn-success btn">&#128269;</button>
 </form>
 
-<script>
-
-let inp = document.querySelector('input.inp');
-let btn = document.querySelector('.btn');
-btn.setAttribute('disabled', true);
- 
-inp.oninput = function(){
-let val = inp.value;
-  if (val.length < 1){
-    btn.setAttribute('disabled', true);
-  }else{
-    btn.removeAttribute('disabled');
-  }
-}
-</script>
-
-
+<script src="scripts/block.js"></script>
 
 
 <?php if (isset($_GET['nick'])) {
@@ -80,13 +37,15 @@ let val = inp.value;
     );
 
     if ($summoner_info == null) {
-        echo $_GET['nick'];
-        echo '<br>Такого пользователя не найдено! Проверьте имя и регион';
+        echo $lang['404'];
     } else {
         $summoner_id = $summoner_info['id'];
 
-        echo 'Имя призывателя: ' . $summoner_info['name'] . '<br>';
-        echo 'Регион: ' . $_GET['region'] . '<br>';
+        
+
+        // echo '<BR>';
+        // echo 'Имя призывателя: ' . $summoner_info['name'] . '<br>';
+        // echo 'Регион: ' . $_GET['region'] . '<br>';
 
         $rang = json_decode(
             file_get_contents(
@@ -99,7 +58,7 @@ let val = inp.value;
             ),
             true
         );
-        print_r($rang);
+        // print_r($rang);
         // $add = [
         //     'IRON' => '&zwnj;',
         //     'BRONZE' => '&zwnj;',
@@ -122,7 +81,7 @@ let val = inp.value;
             }
             $num_rank++;
         }
-        echo '<BR>';
+        // echo '<BR>';
         if (
             !empty($rang) and
             ($rang[$num_rank]['queueType'] == 'RANKED_SOLO_5x5')
@@ -167,7 +126,7 @@ let val = inp.value;
             }
             $num_rank_flex++;
         }
-        echo '<BR>';
+        // echo '<BR>';
         if (
             !empty($rang) and
             $rang[$num_rank_flex]['queueType'] == 'RANKED_FLEX_SR'
@@ -210,7 +169,7 @@ let val = inp.value;
             }
             $num_rank_tft++;
         }
-        echo '<BR>';
+        // echo '<BR>';
         if (
             !empty($rang) and
             $rang[$num_rank_tft]['queueType'] == 'RANKED_TFT_PAIRS'
@@ -259,34 +218,66 @@ let val = inp.value;
 
 
         //   echo empty($rank);
-        echo '<img src="http://ddragon.leagueoflegends.com/cdn/' .
+        // echo '<img src="http://ddragon.leagueoflegends.com/cdn/' .
+        //     $version .
+        //     '/img/profileicon/' .
+        //     $summoner_info['profileIconId'] .
+        //     '.png">';
+
+        // echo '<BR>';
+        
+        // echo '<BR>';
+        // echo 'Уровень: ' . $summoner_info['summonerLevel'];
+        // echo '<BR>';
+        if ($rang[$num_rank]['tier'] == "CHALLENGER" and $rang[$num_rank]['rank'] == 'I'){
+            $elo_solo = $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['leaguePoints'];
+        }
+        else{
+            
+            $elo_solo = $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['rank'];
+        }
+
+        if ($rang[$num_rank_flex]['tier'] == "CHALLENGER" and $rang[$num_rank_flex]['rank'] == 'I'){
+            $elo_flex = $rang[$num_rank_flex]['tier'] . ' ' . $rang[$num_rank_flex]['leaguePoints'];
+        }
+        else{
+            
+            $elo_flex = $rang[$num_rank_flex]['tier'] . ' ' . $rang[$num_rank_flex]['rank'];
+        }
+
+
+        echo '<table   style="margin: 0 0;"><tr><td>' .       
+        '<div class="summoner"><img src="http://ddragon.leagueoflegends.com/cdn/' .
             $version .
             '/img/profileicon/' .
             $summoner_info['profileIconId'] .
-            '.png">';
-
-        echo '<BR>';
-        if (empty($rang)) {
-            echo 'Ранг: - ';
-        } else {
-            if ($rang[$num_rank]){
-
-                echo 'Ранг (соло): ' . $rang[$num_rank]['tier'] . ' ' . $rang[$num_rank]['rank'];;
+            '.png">' . 
+            '<div class="nick">' . 
+            $summoner_info['name'] . 
+            '<div class="region">' . 
+            $_GET['region'] . 
+            '</div></div></div></td><td>' . 
+            $summoner_info['summonerLevel'] . ' ' . $lang['lvl'] . "</td></tr><div class=\"rang\">";
+            if (empty($rang)) {
+                echo '<tr><td>Ранг: - </td></tr>';
+            } else {
+                if ($rang[$num_rank]){
+    
+                    echo '<tr><td>Ранг (соло): </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . '</div></div></td></tr>';
+                }
+                if ($rang[$num_rank_flex]){
+    
+                echo '<tr><td>Ранг (флекс): </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . '</div></div></td></tr>';
             }
-            if ($rang[$num_rank_flex]){
-
-            echo '<BR>';
-            echo 'Ранг (флекс): ' . $rang[$num_rank_flex]['tier'] . ' ' . $rang[$num_rank_flex]['rank'];;
-        }
-        else{
-            echo 'Ранг (флекс): - ';
-
-        }
-        }
-        echo '<BR>';
-        echo 'Уровень: ' . $summoner_info['summonerLevel'];
-        echo '<BR>';
-
+            else{
+                echo '<tr><td>Ранг (флекс): </td></tr>';
+    
+            }
+            }
+            echo "</table>"; 
+            
+            
+        
         // print_r ($summoner_info);
         $masters = json_decode(
             file_get_contents(
@@ -330,9 +321,13 @@ let val = inp.value;
         '<td>' . $three . "</td>" .   
         '<td>' . $two . "</td>" .   
         '<td>' . $one . "</td></tr>" .
-        "<tr><td>Сумма очков мастерства</td>
-        <td colspan=7>" . $seven * 7 + $six * 6 + $five*5 + $four*4 + $three*3 + $two * 2 + $one   
-        . "</td><tr></table>";
+        "</table>";
+
+        echo "<div>Сумма очков мастерства: " . 
+        $seven * 7 + $six * 6 + $five*5 + $four*4 + $three*3 + $two * 2 + $one  . 
+        '<a href="record_total_mastery.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '"> &#8658;</a></div>';
+
+        
         // print_r($masters);
         // echo (array_count_values(array_column($masters, 'championLevel'))[7]);
         $masters_arr = [];
@@ -342,8 +337,9 @@ let val = inp.value;
         }
         $total_masters = array_sum($masters_arr);
 
-        echo 'Всего очков на чемпионах: ' .
-            number_format($total_masters, 0, '', '&nbsp;');
+        echo '<div>Всего очков на чемпионах: ' .
+            number_format($total_masters, 0, '', '&nbsp;') . 
+            '<a href="record_total.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '"> &#8658;</a></div>';
 
         $champs_name_json = json_decode(
             file_get_contents('json/' . $_COOKIE['lang'] . '_champs.json'),
@@ -362,18 +358,17 @@ let val = inp.value;
             $champs_name_arr[$value['key']] = $value['name'];
         }
 
-        echo '<br>';
-        echo '<div class="champsDP">Сыграно на ' .
+        echo '<div>Сыграно на ' .
             count($masters_arr) .
             ' из ' .
-            count($champs_name_json['data']);
+            count($champs_name_json['data']) . 
+            "</div>";
         // echo '<br><br>';
-        echo '<br>';
          
 
         $dif_champ = array_diff_key($champs_name_arr, $masters_arr);
         if (count($masters_arr) != count($champs_name_json['data'])) {
-        echo 'Не сыграно на:<br>';
+        echo '<div class="champsDP">Не сыграно на:<br>';
             
         }
 
@@ -393,12 +388,13 @@ let val = inp.value;
         foreach ($dif_champ as $key => $value) {
             echo '<div class="champDP">' . $value . '</div>';
             if ($ctr == 5){
-                echo '<div id="more" style="display: none;">';
+                echo '<div class="champDP_cont" id="more" style="display: none;">';
             }
             $ctr++;
         }
-        if ($ctr > 5){
-            echo '</div><a href="javascript:void(0)" onclick="show(\'more\')">Все герои</a>';
+        if ($ctr > 6){
+        //    echo $ctr;
+            echo '</div><a href="javascript:void(0)" id="show_link" onclick="show(\'more\')">Все герои</a>';
         }
         echo '</div>';
         $last_play = [];
