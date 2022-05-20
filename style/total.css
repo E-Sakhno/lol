@@ -2,6 +2,19 @@ html, body {
     width: 100%;
 }
 
+.body{
+    width: 70%;
+    margin: 0px auto;
+}
+
+.form{
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    margin: 0 auto;
+
+}
+
 h1{
     font-size: 1em;
     text-align: center;
@@ -12,8 +25,13 @@ select{
 }
 table {
     margin: 0 auto;
+    margin-top: 1em;
 }
 
+.blok{
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
 td{
     padding-right: 0.5em;
     padding-left: 0.5em;
@@ -23,8 +41,14 @@ td a{
     padding: 0;
 }
 
+
+.cgs{
+    margin-top: 1em;
+    /* margin-bottom: 1em; */
+}
 #nick {
     width: 10em;
+    margin-left: .5em;
     margin-right: 1em;
    } 
 
@@ -48,10 +72,19 @@ img{
 height: 1em;
 }
 
+.center{
+    text-align: center;
+}
+.info_sum{
+    margin-top: 1em;
+    /* margin-left: -3.3em; */
+    margin-bottom: 1em;
+}
 .champDP_cont{
     display: inline-block;
 }
 .champsDP{
+    /* float: left; */
     
     padding-top: .5em;
     padding-bottom: .5em;
@@ -60,7 +93,7 @@ height: 1em;
 }
 
 .champDP{
-    float:left;
+    float: left;
 
     padding-right: .5em;
 
@@ -132,10 +165,39 @@ position: relative;
     transform: translateY(-50%);
    
 }
-
+.curchamps{
+    
+    text-align: center;
+}
 .curchamps img{
-    height: 1em;
+    height: 2em;
+    /* padding-right: 0.5em; */
+    margin-bottom: .5em;
+}
+
+.topchamp img{
     padding-right: 0.5em;
+
+}
+
+
+.fullchamp{
+text-align: left;
+position: relative;
+}
+
+.fullchamp img{
+    height: 1.2em;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+.fullchamp .fullchampname{
+    padding-left: 1.5em;
+
 }
 
 .pages {
