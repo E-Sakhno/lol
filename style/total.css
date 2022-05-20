@@ -23,7 +23,14 @@ td a{
     padding: 0;
 }
 
+#nick {
+    width: 10em;
+    margin-right: 1em;
+   } 
 
+#more {
+    display: inline-block;
+}
 #sortable th {
     cursor: pointer;
     text-decoration: underline;
@@ -41,12 +48,20 @@ img{
 height: 1em;
 }
 
+.champDP_cont{
+    display: inline-block;
+}
 .champsDP{
+    
     padding-top: .5em;
     padding-bottom: .5em;
+    display: inline-block;
+
 }
 
 .champDP{
+    float:left;
+
     padding-right: .5em;
 
     display: inline-block;
@@ -90,6 +105,27 @@ position: relative;
 .rank img{
     height: 1.7em;
     padding-right: 0.5em;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+   
+}
+
+.rank_full {
+    position: relative;
+    
+}
+
+.elo_full{
+    display: inline-block;
+
+    padding-left: 1.5em;
+
+}
+.rank_full img{
+    height: 1.3em;
+    padding-right: 0.3em;
 
     position: absolute;
     top: 50%;
