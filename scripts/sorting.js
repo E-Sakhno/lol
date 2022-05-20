@@ -1,4 +1,5 @@
 Yone = document.getElementById('777');
+// console.log(Yone.innerHTML);
 document.addEventListener('DOMContentLoaded', function() {
     const table = document.getElementById('sortable');
     const headers = table.querySelectorAll('th');
@@ -20,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return parseFloat(content);
             case 'string':
             default:
+                // console.log(content);
+
                 return content;
         }
     };
@@ -63,11 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     [].forEach.call(headers, function(header, index) {
         header.addEventListener('click', function() {
-        if (Yone){if (Yone.innerHTML == "Ёнэ"){Yone.innerHTML = 'Енэ';}}
-
-            sortColumn(index);
-        if (Yone){if (Yone.innerHTML == "Енэ"){Yone.innerHTML = 'Ёнэ';}}
-
+        if (Yone){Yone2 = Yone.innerHTML.replaceAll('Ёнэ', "Енэ"); Yone.innerHTML = Yone2;}
+        sortColumn(index);
+        if (Yone){Yone2 = Yone.innerHTML.replaceAll('Енэ', "Ёнэ"); Yone.innerHTML = Yone2;}
+        
         });
     });
 });

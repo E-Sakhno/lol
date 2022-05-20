@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     [].forEach.call(headers, function(header, index) {
         header.addEventListener('click', function() {
-        if (Yone){if (Yone.innerHTML == "Ёнэ"){Yone.innerHTML = 'Енэ';}}
-
+            if (Yone){Yone2 = Yone.innerHTML.replaceAll('Ёнэ', "Енэ"); Yone.innerHTML = Yone2;}
             sortColumn(index);
-        if (Yone){if (Yone.innerHTML == "Енэ"){Yone.innerHTML = 'Ёнэ';}}
+            if (Yone){Yone2 = Yone.innerHTML.replaceAll('Енэ', "Ёнэ"); Yone.innerHTML = Yone2;}
+        
 
         });
     });
