@@ -1,6 +1,6 @@
  <?php
     echo $lang['Region'];
-    ?>: <select onchange="OnSelectionChange (this)" name="region" >
+    ?>: <select onchange="On (this)" name="region">
 <option value="br1" 
 <?php if (isset($_GET['region'])){if ($_GET['region'] == "br1"){echo 'selected';}} ?> 
 > BR
