@@ -70,3 +70,5 @@ $lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), tru
     
 ?>
 
+<div class="body">
+
