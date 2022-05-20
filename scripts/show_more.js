@@ -5,4 +5,7 @@ function show(element_id) {
   } else {
     obj.style.display = 'none'
   }
+  var obj2 = document.getElementById('show_link');
+  obj2.style.display = 'none';
+  
 }
