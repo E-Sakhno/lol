@@ -1,8 +1,16 @@
 <link rel="stylesheet" href="style/total.css">
+<script src="scripts/show_more.js"></script>
+<script src="scripts/select_click.js"></script>
+
 
 
 
 <?php
+if ($_COOKIE['tz']){
+    
+    $tz = $_COOKIE['tz'];
+    date_default_timezone_set($tz);
+   }
 
 $k = [
     'nick' => 0,
