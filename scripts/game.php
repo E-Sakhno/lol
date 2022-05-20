@@ -75,15 +75,15 @@
                 <div class="summoner">
                 <img src="http://ddragon.leagueoflegends.com/cdn/' . $version . '/img/profileicon/' . $value['profileIconId'] . '.png">' .
                 '<a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . 
-                '<div class="nick">' . $value['summonerName'] . '</div></div></td>' .
+                '<div class="nick">' . $value['summonerName'] . '</div></a></div>' .
             
-            '<td>'.  number_format($total_masters, 0, "", "&nbsp;") . "</td>". 
-            "<td>" . $champs_count . " / " . $champs_max . "</td>" . 
-            "<td id=\"" . $champs_name_arr[$info[$value['summonerId']][$k['max_key']]] . '"><div class="curchamps">' . $champs_of_player . "</div></td>" . 
+            "<div class=\"cgs\"><div>Всего очков: " . number_format($total_masters, 0, "", "&nbsp;") . 
+            "</div><div>Сыграно на " . $champs_count . " / " . $champs_max .  
+            "</div><div>Больше всего очков на: " . '<div class="topchamp">' . $champs_of_player . " (" . number_format($info[$value['summonerId']][$k['max_point']]/$total_masters*100, 2, ',', '') . "%)</div></div></div></td>" . 
             
             '<td id="'. $value['championId'] . '"><div class="curchamps"><img src="http://ddragon.leagueoflegends.com/cdn/' . $version . "/img/champion/" . $ava[$value['championId']] . 
                     
-             '">' . $champs_name_arr[$value['championId']] . '</div></td>' . 
+             '"><br>' . $champs_name_arr[$value['championId']] . '</div></td>' . 
             '<td>' . $tips . '</td></tr>'
     ;
         
