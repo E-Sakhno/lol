@@ -44,7 +44,8 @@ $champsInfo = json_decode(file_get_contents('json/'.$_COOKIE['lang'].'_champs.js
 
 foreach ($champsInfo['data'] as $key => $value){
 echo "
-<tr><td><img src=\"http://ddragon.leagueoflegends.com/cdn/". $version . "/img/champion/" . $value['image']['full'] . "\">" .  "</td><td>" .
+<tr><td><img src=\"http://ddragon.leagueoflegends.com/cdn/". $version . "/img/champion/" . $value['image']['full'] . "\">" .  "</td>".
+'<td id="' . $value['key'] . '">' .
 $value['name'] .
 '</td>
 <td>' . 
