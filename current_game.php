@@ -1,58 +1,30 @@
+<?php
+include 'header.php';
+echo '<h1>'.$lang['LiveGame'] . '</h1>';
+?>
+<div class="form">
 <form action="current_game.php" method="get" name="form">
-    Nick: <input name="nick" type="text" class="form-control inp" value="<?php if (
-        isset($_GET['nick'])
-    ) {
-        echo $_GET['nick'];
-    } ?>" 
-    placeholder="Введите ник"><br>
-    Region: <select name="region"">
-<option value="ru" 
-    <?php if (isset($_GET['region'])) {
-        if ($_GET['region'] == 'ru') {
-            echo 'selected';
-        }
-    } ?> 
-> Ru
-    <option value="euw1" 
-    <?php if (isset($_GET['region'])) {
-        if ($_GET['region'] == 'euw1') {
-            echo 'selected';
-        }
-    } ?> 
-> EuW
+    <?php
+    echo $lang['Nick'];
+    ?>: 
+    <input name="nick" id="nick" type="text" class="inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];} ?>" placeholder="<?php echo $lang['Nick_ph'];?>">
+     
+<?php 
 
-</select>
-    
-    <br><br>    
-    <!-- <input type="submit"> -->
-    <button class="btn btn-success btn">Кнопка</button>
+include 'scripts/region_sum.php'; ?>  
+    <button class="btn btn-success btn">&#128269;</button>
 </form>
-
-<script>
-
-let inp = document.querySelector('input.inp');
-let btn = document.querySelector('.btn');
-btn.setAttribute('disabled', true);
- 
-inp.oninput = function(){
-let val = inp.value;
-  if (val.length < 1){
-    btn.setAttribute('disabled', true);
-  }else{
-    btn.removeAttribute('disabled');
-  }
-}
-</script>
+</div>
+<script src="scripts/block.js"></script>
 
 
 <!-- <script src="scripts/show_more.js"></script> -->
 
 <?php
-include 'header.php';
 
 if (isset($_GET['nick'])) {
-    echo 'Имя призывателя: ' . $_GET['nick'] . '<br>';
-    echo 'Регион: ' . $_GET['region'] . '<br>';
+    // echo 'Имя призывателя: ' . $_GET['nick'] . '<br>';
+    // echo 'Регион: ' . $_GET['region'] . '<br>';
 
     include 'api.php';
     include 'scripts/info.php';
@@ -110,7 +82,7 @@ if (isset($_GET['nick'])) {
             return substr($headers[0], 9, 3);
         }
         if(get_http_response_code($url) != "200"){
-            echo "Призыватель не в игре. Попробуйте позже";
+            echo "<div class=\"center\">Призыватель не в игре. Попробуйте позже</div>";
         }else{
 
         $game = json_decode(
@@ -164,11 +136,11 @@ if (isset($_GET['nick'])) {
         
         <thead>
         <tr>
-        <th  width="9%"> Nick </th>          
-        <th data-type="number"  width="8%"> Total </th>          
+        <th  width="40%"> Информация о призывателе </th>          
+        <!-- <th data-type="number"  width="8%"> Total </th>          
         <th  width="8%"> Сыграно на </th>          
-        <th width="14%"> Чемпион с наибольшим количеством очков </th>          
-        <th width="10%"> Champ  </th>
+        <th width="14%"> Чемпион с наибольшим количеством очков </th>           -->
+        <th width="10%"> Играет на  </th>
         <th  width="50%"> Советы по игре <?php echo $advice[100]; ?>  </th>
     <!-- <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
@@ -205,11 +177,11 @@ if (isset($_GET['nick'])) {
         
         <thead>
         <tr>
-        <th  width="9%"> Nick </th>          
-        <th data-type="number"  width="8%"> Total </th>          
+        <th  width="40%"> Nick </th>          
+        <!-- <th data-type="number"  width="8%"> Total </th>          
         <th  width="8%"> Сыграно на </th>          
-        <th width="14%"> Чемпион с наибольшим количеством очков </th>          
-        <th width="10%"> Champ  </th>
+        <th width="14%"> Чемпион с наибольшим количеством очков </th>           -->
+        <th width="10%"> Играет на  </th>
         <th  width="50%"> Советы по игре <?php echo $advice[200]; ?>  </th>
     <!-- <th data-type="number"> Ранг  </th>
     <th> Последний раз сыграно  </th>
