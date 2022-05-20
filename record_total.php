@@ -135,7 +135,7 @@ if (isset($_GET['region'])) {
         $sum_num = array_search($summoner_id, $sum_by_num);
         $page_summoner = ceil(($sum_num+1)/$amount);
         if ($sum_num !=0){
-            echo "<div class=\"sum_place\"> Призыватель " . $summoner_info['name'] . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
+            echo "<div class=\"sum_place\"> Призыватель " . $nick . ': ' .  $sum_num+1 . ' <a href="record_total.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
         }
     
         }
