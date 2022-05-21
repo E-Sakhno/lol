@@ -83,7 +83,8 @@ if (isset($_GET['nick'])) {
         }
         if(get_http_response_code($url) != "200"){
             echo "<div class=\"center\">Призыватель не в игре. Попробуйте позже</div>";
-        }else{
+        }else
+        {
 
         $game = json_decode(
             file_get_contents(
@@ -96,7 +97,14 @@ if (isset($_GET['nick'])) {
             ),
             true
         );
+        // $game = json_decode(file_get_contents('json/game.json'), true);
 
+        $queue = json_decode(
+            file_get_contents('lang/' . 
+            $_COOKIE['lang'] . '_queues.json'
+            ),
+            true
+        );
         // file_put_contents('json/game.json', json_encode($game, JSON_UNESCAPED_UNICODE));
 
         // print_r ($game);
@@ -129,7 +137,7 @@ if (isset($_GET['nick'])) {
             $all_champs[$valu['key']] = $valu['name'];
         }
 
-        echo $game['mapId'] . ' ' . $game['gameMode'];
+        echo '<div class="center">' . $queue[$game['gameQueueConfigId']][1] . '</div>';
         ?>
 <div class="blok"> 
         <table id="sortable" border="1" >     
