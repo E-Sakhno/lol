@@ -119,7 +119,7 @@ if (isset($_GET['nick'])) {
                     $enemy = 100;
                 }
                 $vs = [$value['teamId'] => 'allytips', $enemy => 'enemytips'];
-                $advice = [$value['teamId'] => 'за', $enemy => 'против'];
+                $advice = [$value['teamId'] => $lang['with'], $enemy => $lang['vs']];
             }
         }
 
@@ -139,24 +139,20 @@ if (isset($_GET['nick'])) {
 
         echo '<div class="center">' . $queue[$game['gameQueueConfigId']][1] . '</div>';
         ?>
+<br>
+<div class="center" style="color: red;"><?php echo $lang['RedTeam'];?></div>        
+
 <div class="blok"> 
         <table id="sortable" border="1" >     
         
         <thead>
         <tr>
-        <th  width="40%"> Информация о призывателе </th>          
-        <!-- <th data-type="number"  width="8%"> Total </th>          
-        <th  width="8%"> Сыграно на </th>          
-        <th width="14%"> Чемпион с наибольшим количеством очков </th>           -->
-        <th width="10%"> Играет на  </th>
-        <th  width="50%"> Советы по игре <?php echo $advice[100]; ?>  </th>
-    <!-- <th data-type="number"> Ранг  </th>
-    <th> Последний раз сыграно  </th>
-    <th> Сундук  </th>
-    <th > Жетонов в инвентаре </th> -->
-    </tr>
-    </thead>
-    <tbody>
+        <th  width="40%"> <?php echo $lang['InfoAbout'];?> </th>          
+        <th width="10%"> <?php echo $lang['Playing'];?>  </th>
+        <th  width="50%"> <?php echo $lang['Advice'];?> <?php echo $advice[200]; ?>  </th>
+        </tr>
+        </thead>
+        <tbody>
 
     <?php
     $ava = json_decode(file_get_contents('json/ava_champs.json'), true);
@@ -169,7 +165,7 @@ if (isset($_GET['nick'])) {
     $champs_max = count($champs_name_json['data']);
 
     foreach ($game['participants'] as $key => $value) {
-        if ($value['teamId'] == '100') {
+        if ($value['teamId'] == '200') {
             include 'scripts/game.php';
         }
     }
@@ -179,30 +175,24 @@ if (isset($_GET['nick'])) {
 </div>
 <br>
 <br>
-<br>
+<div class="center" style="color: blue;"><?php echo $lang['BlueTeam'];?></div>        
+
 <div class="blok"> 
         <table id="srtble" border="1" >     
         
         <thead>
         <tr>
-        <th  width="40%"> Nick </th>          
-        <!-- <th data-type="number"  width="8%"> Total </th>          
-        <th  width="8%"> Сыграно на </th>          
-        <th width="14%"> Чемпион с наибольшим количеством очков </th>           -->
-        <th width="10%"> Играет на  </th>
-        <th  width="50%"> Советы по игре <?php echo $advice[200]; ?>  </th>
-    <!-- <th data-type="number"> Ранг  </th>
-    <th> Последний раз сыграно  </th>
-    <th> Сундук  </th>
-    <th > Жетонов в инвентаре </th> -->
-    </tr>
-    </thead>
-    <tbody>
+        <th  width="40%"> <?php echo $lang['InfoAbout'];?> </th>          
+        <th width="10%"> <?php echo $lang['Playing'];?>  </th>
+        <th  width="50%"> <?php echo $lang['Advice'];?> <?php echo $advice[100]; ?>  </th>
+        </tr>
+        </thead>
+        <tbody>
 
 
     <?php
     foreach ($game['participants'] as $key => $value) {
-        if ($value['teamId'] == '200') {
+        if ($value['teamId'] == '100') {
             include 'scripts/game.php';
         }
     }
