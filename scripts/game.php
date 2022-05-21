@@ -81,7 +81,7 @@
             "</div><div>Сыграно на " . $champs_count . " / " . $champs_max .  
             "</div><div>Больше всего очков на: " . '<div class="topchamp">' . $champs_of_player . " (" . number_format($info[$value['summonerId']][$k['max_point']]/$total_masters*100, 2, ',', '') . "%)</div></div></div></td>" . 
             
-            '<td id="'. $value['championId'] . '"><div class="curchamps"><img src="http://ddragon.leagueoflegends.com/cdn/' . $version . "/img/champion/" . $ava[$value['championId']] . 
+            '<td id="'. $value['championId'] . '"><div class="curchamps"><img id="' . $value['championId'] . '"src="http://ddragon.leagueoflegends.com/cdn/' . $version . "/img/champion/" . $ava[$value['championId']] . 
                     
              '"><br>' . $champs_name_arr[$value['championId']] . '</div></td>' . 
             '<td>' . $tips . '</td></tr>'
