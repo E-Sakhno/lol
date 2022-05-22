@@ -70,7 +70,10 @@
             $total_masters = $info[$value['summonerId']][$k['total']];
             $champs_count = $info[$value['summonerId']][$k['7']] + $info[$value['summonerId']][$k['6']] + $info[$value['summonerId']][$k['5']]+$info[$value['summonerId']][$k['4']] + $info[$value['summonerId']][$k['3']] + $info[$value['summonerId']][$k['2']] + $info[$value['summonerId']][$k['1']]; 
             if ($info[$value['summonerId']][$k['7']] >0 or $info[$value['summonerId']][$k['6']]>0){
-                $mast_echo = "<div style=\"margin-top: 0.5em; margin-bottom: 0.5em;\">" . $lang['Mastery'] . ":<br>";
+                $mast_echo = "<div style=\"margin-top: 0.5em; margin-bottom: 0.5em;\">" . $lang['Mastery'] . ":<br>";}
+                else{
+                    $mast_echo = '';
+                }
                 if ($info[$value['summonerId']][$k['7']]>0){
                     $mast_7 =  "<div>7 " . $lang['mastery_lvl']. ": " . $info[$value['summonerId']][$k['7']] . "</div>";
                 }
@@ -85,7 +88,7 @@
                     $mast_6 = '</div>';
                 }
 
-            } 
+            
     
                 echo '<tr><td>
                 <div class="summoner" style="margin-top: 0.5em; margin-bottom: 1em;">
