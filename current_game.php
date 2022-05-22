@@ -139,7 +139,7 @@ if (isset($_GET['nick'])) {
             $all_champs[$valu['key']] = $valu['name'];
         }
 
-        echo '<div class="center">' . $queue[$game['gameQueueConfigId']][1] . '</div>';
+        echo '<div class="center">' . $queue[$game['gameQueueConfigId']][0] . " (" . $queue[$game['gameQueueConfigId']][1] . ")" . '</div>';
         ?>
 <br>
 <div class="center" style="color: red;"><?php echo $lang['RedTeam'];?></div>        
