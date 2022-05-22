@@ -69,17 +69,36 @@
             $champs_of_player = "<img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $ava[$info[$value['summonerId']][$k['max_key']]] . '">' . $champs_name_arr[$info[$value['summonerId']][$k['max_key']]] . ': ' . number_format($info[$value['summonerId']][$k['max_point']], 0, '', '&nbsp;');
             $total_masters = $info[$value['summonerId']][$k['total']];
             $champs_count = $info[$value['summonerId']][$k['7']] + $info[$value['summonerId']][$k['6']] + $info[$value['summonerId']][$k['5']]+$info[$value['summonerId']][$k['4']] + $info[$value['summonerId']][$k['3']] + $info[$value['summonerId']][$k['2']] + $info[$value['summonerId']][$k['1']]; 
-                
+            if ($info[$value['summonerId']][$k['7']] >0 or $info[$value['summonerId']][$k['6']]>0){
+                $mast_echo = "<div style=\"margin-top: 0.5em; margin-bottom: 0.5em;\">" . $lang['Mastery'] . ":<br>";
+                if ($info[$value['summonerId']][$k['7']]>0){
+                    $mast_7 =  "<div>7 " . $lang['mastery_lvl']. ": " . $info[$value['summonerId']][$k['7']] . "</div>";
+                }
+                else{
+                    $mast_7 = '';
+                }
+
+                if ($info[$value['summonerId']][$k['6']]>0){
+                    $mast_6 =  "<div>6 " . $lang['mastery_lvl']. ": " . $info[$value['summonerId']][$k['6']] . "</div>";
+                }
+                else{
+                    $mast_6 = '</div>';
+                }
+
+            } 
     
                 echo '<tr><td>
-                <div class="summoner">
+                <div class="summoner" style="margin-top: 0.5em; margin-bottom: 1em;">
                 <img src="http://ddragon.leagueoflegends.com/cdn/' . $version . '/img/profileicon/' . $value['profileIconId'] . '.png">' .
                 '<a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . 
                 '<div class="nick">' . $value['summonerName'] . '</div></a></div>' .
             
             "<div class=\"cgs\"><div>Всего очков: " . number_format($total_masters, 0, "", "&nbsp;") . 
             "</div><div>Сыграно на " . $champs_count . " / " . $champs_max .  
-            "</div><div>Больше всего очков на: " . '<div class="topchamp">' . $champs_of_player . " (" . number_format($info[$value['summonerId']][$k['max_point']]/$total_masters*100, 2, ',', '') . "%)</div></div></div></td>" . 
+            "</div><div>Больше всего очков на: " . '<div class="topchamp">' . $champs_of_player . " (" . number_format($info[$value['summonerId']][$k['max_point']]/$total_masters*100, 2, ',', '') . "%)</div></div>" .
+            "<div style=\"margin-top: 0.5em;\">" .
+            $mast_echo . $mast_7 . $mast_6 .
+            "</div></div></td>" . 
             
             '<td id="'. $value['championId'] . '"><div class="curchamps"><img id="' . $value['championId'] . '"src="http://ddragon.leagueoflegends.com/cdn/' . $version . "/img/champion/" . $ava[$value['championId']] . 
                     
