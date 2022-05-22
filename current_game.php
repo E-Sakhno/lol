@@ -67,7 +67,7 @@ if (isset($_GET['nick'])) {
     // print_r ($summoner_info);
 
     if ($summoner_info == null) {
-        echo 'Такого пользователя не найдено!';
+        echo $lang['404'];
     } else {
 
         // print_r ($summoner_info);
@@ -84,7 +84,7 @@ if (isset($_GET['nick'])) {
             return substr($headers[0], 9, 3);
         }
         if(get_http_response_code($url) != "200"){
-            echo "<div class=\"center\">Призыватель не в игре. Попробуйте позже</div>";
+            echo "<div class=\"center\">" . $lang['NotInGame'] . "</div>";
         }else
         {
 
