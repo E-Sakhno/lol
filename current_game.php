@@ -2,6 +2,8 @@
 include 'header.php';
 echo '<h1>'.$lang['LiveGame'] . '</h1>';
 ?>
+<title><?php echo $lang['LiveGame']; if(isset($_GET['nick'])){echo ' – ' . $_GET['nick'];} ?></title>
+
 <div class="form">
 <form action="current_game.php" method="get" name="form">
     <?php
