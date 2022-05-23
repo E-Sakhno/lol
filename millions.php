@@ -1,37 +1,118 @@
 <?php
+$name_page = 'millions';
 include 'header.php';
 
-// $mln = json_decode(
-//     file_get_contents(
-//         'json/mln/ru_summoners_mln.json'
-//     ),
-//     true
-// );
-// print_r ($mln);
+
+echo '<h1>'.$lang['Millions'] . '</h1>';
 ?>
-<p>
-    Топ миллионщиков
+<title><?php echo $lang['Millions']; ?></title>
+<div class="form">
 
     <form action="millions.php" method="get" name="form">
     <?php 
     include_once 'scripts/region.php';
     include_once 'scripts/queue.php'; 
     include_once 'scripts/amount.php'; ?>
-    <br><br>    
     <!-- <input type="submit"> -->
-    <button class="btn btn-success btn">Кнопка</button>
+    <button class="">&#128269;</button>
+    <br>
+<br>  
+<div class="form">
+
+<form action="millions.php" method="get" name="form">
+
+<?php echo $lang['Nick'];?>: <input name="nick" id="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];}?>" placeholder="<?php echo $lang['Nick_ph'];?>">
+<?php include 'scripts/region_search.php'; ?>
+<button class="btn btn-success btn">&#128269;</button>
 </form>
+</form>
+<script src="scripts/block.js"></script>
+</div>
+</div>
 
-</p>
 
-<?php 
-include 'header.php';
+
+
+<?php
+include 'api.php';
 if (isset($_GET['region'])) {
     include 'scripts/info_mln.php';
     include 'scripts/info.php';
-
-    // print_r($mln);
+    if (isset($_GET['nick']) and $_GET['nick'] != ''){
+        $nick = $_GET['nick'];
+        $nick_repl = str_replace(' ', '%20', $nick);
+        $region_s = $_GET['region_s'];
+        $sum_ids = json_decode(
+            file_get_contents(
+                'json/ids/' . $_GET['region_s'] . '_summoners_ids.json'
+            ),
+            true
+        );
+        // print_r ($sum_ids);
+        if (array_key_exists(mb_strtolower($nick_repl, 'UTF-8'), $sum_ids)) {
+            $summoner_info = [];
     
+            $summoner_info['id'] = $sum_ids[mb_strtolower($nick_repl, 'UTF-8')];
+            $summoner_info['name'] = mb_strtolower($nick, 'UTF-8');
+            // print_r ($summoner_info);
+        } else {
+            // print_r($sum_ids);
+    
+        $summoner_info = json_decode(
+            file_get_contents(
+                'https://' .
+                    $region_s .
+                    '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
+                    $nick_repl .
+                    '?api_key=' .
+                    $api
+            ),
+            true
+        );
+        
+    }
+        // print_r ($summoner_info);
+        
+        if ($summoner_info == NULL){
+            echo $lang['404'];
+        }
+        else{
+        global $summoner_id;
+        $summoner_id = $summoner_info['id'];
+                
+        $sum_num = array_key_exists($summoner_id, $info);
+        // echo $summoner_id;
+        // print_r ($info);
+        // echo $sum_num;
+        if ($sum_num == 0){
+            // echo 'не нашли';
+            include "scripts/sum_info.php";
+            unset($info);
+            include 'scripts/info.php';
+         }}
+        }
+
+    $ava = json_decode(file_get_contents('json/ava_champs.json'), true);
+    
+    $champs_name_json = json_decode(
+        file_get_contents('json/' . $_COOKIE['lang'] . '_champs.json'),
+        true
+    );
+
+    $ava = json_decode(file_get_contents('json/ava_champs.json'), true);
+
+    // print_r (($champs_name_json)['key']);
+    $champs_name_arr = json_decode(
+        file_get_contents('json/' . $_COOKIE['lang'] . '_champs_name.json'),
+        true
+    );
+    // echo  count($champs_name_json['data']);
+    foreach ($champs_name_json['data'] as $key => $vale) {
+        $champs_name_arr[$vale['key']] = $vale['name'];
+    }
+
+    // print_r($info_rang);
+    // $time_start = microtime(true);
     $summoners_millions = [];
     foreach ($mln as $key => $row) {
         foreach ($row as $ky => $value){
@@ -39,89 +120,158 @@ if (isset($_GET['region'])) {
         }
         // $summoners[$key] = $row[$k['max_point']];
     }
-    arsort($summoners_millions);
-    print_r ($summoners_millions);
-
+    rsort($summoners_millions);
     // array_multisort($summoners, SORT_DESC, $info);
+
+    
+    $counter = 0;
+    $sum_by_num = [];
+    foreach ($summoners_millions as $key => $value){
+        $sum_by_num[$counter] = $value[2];
+        $counter++;
+
+    }
+    // print_r ($summoners_millions);
+// echo "<BR><BR>";
+    // print_r ($sum_by_num);
+    // // print_r  (array_count_values($sum_by_num)) ;
+    // echo '<B>' .  count($sum_by_num) . ' </B>';
+    // echo '<B>' .  count($summoners) . ' </B>';
+    // echo '<B>' .  count($info) . ' </B>';
     // echo "<BR>";
     // echo "<BR>";
     // print_r ($summoners);
-    
+    // echo "<BR>";
+    // echo "<BR>";
+    // print_r($sum_by_num);
+
     $champs_name = json_decode(
-        file_get_contents('json/'. $_COOKIE['lang'] . '_champs_name.json'),
-        true,
-        JSON_UNESCAPED_UNICODE
-    );
+            file_get_contents('json/'. $_COOKIE['lang'] . '_champs_name.json'),
+            true,
+            JSON_UNESCAPED_UNICODE
+        );
     // print_r($champs_name);
 
-    echo '<div>
-    <table id="sortable" border="1" >     
-    <thead>
+//    echo "KEY: ";
+//    (print_r($sum_num));
+    //    echo $sum_num;
+    // if (isset($_GET['nick']) and $_GET['nick'] != ''){
+        
     
-        <tr>
-            <th data-type="number"> № </th>
-            <th> Ник </th>
-            <th> Регион </th>
-            <th data-type="number"> Уровень </th>
-            <th> Эло </th>
-            <th data-type="number"> Очки </th>
-            <th> Чемпион </th>
-            </tr>
-            </thead>
-            <tbody>
-            
-            ';
-    
-    $ctr = 1;
+    // }
 
-    // print_r($info[$key]);
-    $ctr = 1;
-    foreach ($summoners_millions as $ky => $value){
-        $key = $value[2];
-        if (array_key_exists($key, $info_rang)){
-            $img = $add[$info_rang[$key][$l['tier']]]. '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
-            if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
-                $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['lp']];
-            }
-            else{
-                
-                $elo = $info_rang[$key][$l['tier']] . ' ' . $info_rang[$key][$l['rank']];
-            }
+
+
+    include "scripts/nav_var.php";
+
+    if (isset($_GET['nick']) and $_GET['nick'] != ''){
+
+        $sum_num = array_search($summoner_id, $sum_by_num);
+        $page_summoner = ceil(($sum_num+1)/$amount);
+        if ($sum_num !=0){
+            echo "<div class=\"sum_place center\"> Призыватель " . $info[$summoner_id][0] . ': ' .  $sum_num+1 . ' <a href="millions.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
+        }
+    
+        }
+        // $time_end = microtime(true);
+        // $time = $time_end - $time_start;
+        
+        // echo "Ничего не делал $time секунд\n";
+    include "scripts/nav_top.php";
+   
+
+    
+
+echo '<table id="sortable" border="1">
+<thead>
+<tr>
+<th data-type="number"> № </th>
+<th>' . $lang['Nick'] . '</th>          
+<th data-type="number">' . $lang['Lvl'] . '</th>
+<th data-type="number">' . $lang['Point'] . '</th>
+<th>' . $lang['Champ'] . '</th>
+<th>' . $lang['Rang'] . '</th></tr>
+</thead>
+    <tbody>'
+;
+
+for ($ctr; $ctr <= $amount*$page; $ctr++){
+
+    $key = $sum_by_num[$ctr-1];
+    // echo $sum_by_num[$key];
+    if (array_key_exists($key, $info_rang)){
+        
+        $img =  $add[$info_rang[$key][$l['tier']]] .  '<img src="img/Emblem_' . $info_rang[$key][$l['tier']] . ".png\">";
+        if ($info_rang[$key][$l['tier']] == "CHALLENGER" and $info_rang[$key][$l['rank']] == 'I'){
+            $elo = $lang[$info_rang[$key][$l['tier']]] . ' ' . $info_rang[$key][$l['lp']];
         }
         else{
-            $img = '';
-            $elo = '&zwnj;&zwnj; - ';
             
+            $elo = $lang[$info_rang[$key][$l['tier']]] . ' ' . $info_rang[$key][$l['rank']];
         }
-    
-        echo "<tr><td>" . 
-            $ctr . 
-            "</td><td><img src=\"http://ddragon.leagueoflegends.com/cdn/12.8.1/img/profileicon/" . $info[$key][$k['icon']] . '.png">'.    
-            "<a href='full_info.php?nick=" . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "'>" . 
-            $info[$key][$k['nick']].
-            '</a></td><td>'.
-            $info[$key][$k['region']].
-            '</td><td>'.
-            $info[$key][$k['lvl']].
-            '</td><td>' . 
-             $img .
-            $elo .  
-            
-        '</td><td>'.
-        number_format($value[0], 0, '', '&nbsp;') ."</td><td>".
-        $champs_name[$value[1]].
-        "</td></tr>";
-        $ctr++;
-            if (isset($_GET['amount'])) {
-                if ($ctr > $_GET['amount']) {
-                    break;
-                }
-            }
     }
-    
-    echo "</tbody></table></div>";     
-    
+    else{
+        $img = '&zwnj;&zwnj;';
+        $elo = '';
+        
     }
+     
+    if (isset($page_summoner)){
+        if ($ctr == $sum_num+1){
+        $add_param = ' current';
+    }
+    else{
+        $add_param = '';
+    }}
+    else{
+        $add_param = '';
+    }
+
+    echo '<tr class="' . $add_param . '" id="' . $ctr .'"><td>' . $ctr . 
+    "</td><td><div class=\"summoner\">
+    <img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/profileicon/" . $info[$key][$k['icon']] . '.png">
+    <a href="full_info.php?nick=' . $info[$key][$k['nick']] . "&region="  . $info[$key][$k['region']] . "\">" .
+    '<div class="nick">'  .  
+    $info[$key][$k['nick']] .
+        '</a><div class="region"> ' .
+        $info[$key][$k['region']] .
+        '</div></div></td><td class="center">'.
+        
+        $info[$key][$k['lvl']].
+        '</td>
+        <td class="center">' . 
+        number_format($summoners_millions[$ctr-1][0], 0, '', '&nbsp;') .
+    "</td><td id=\"" . $summoners_millions[$ctr-1][1] . "\">". '<div class="fullchamp">' . 
+    "<img id=\"" . $champs_name_arr[$summoners_millions[$ctr-1][1]] ."\"" . "src=\"http://ddragon.leagueoflegends.com/cdn/" .
+    $version .
+    '/img/champion/' .
+    $ava[$summoners_millions[$ctr-1][1]] .
+    '"><div class="fullchampname">' .
     
-    include 'footer.php';
-    ?>
+    $champs_name_arr[$summoners_millions[$ctr-1][1]] .
+    '</div></div>' .  
+    "</td>" .
+    // $value .
+        '</td><td>' . '<div class="rank">' .
+        $img .
+        '<div class="elo">' .  $elo .   
+        '</div></div>' 
+        .
+        '</td></tr>';
+        
+    if (isset($_GET['amount'])) {
+        if ($ctr == count($sum_by_num)) {
+            break;
+        }
+    }
+}
+echo '</tbody></table>';
+
+
+include "scripts/nav_bot.php";
+    
+}
+
+
+include 'footer.php';
+?>

@@ -1,35 +1,15 @@
 <?php  
-$name_page = 'record_rang';
+$name_page = 'antirecord_rank_winrate';
 
 include 'header.php';
 
 
-echo '<h1>'.$lang['RecRang'] . ' ';
-if (isset($_GET['rang'])){
-    echo $_GET['rang'];
-}
-echo ' ' . $lang['rangs'] . '</h1>';
+echo '<h1>'.$lang['AntiRecWinrate'] . " (" . $lang[$_GET['qu']] . ")" . '</h1>';
 ?>
-
-<title><?php echo $lang['RecRang'] . ' ' . $_GET['rang'] . ' ' . $lang['rangs']; ?></title>
+<title><?php echo $lang['AntiRecWinrate'] . " (" . $lang[$_GET['qu']] . ")"; ?></title>
 <div class="form">
 
-    <form action="record_rang.php" method="get" name="form">
-    <?php echo $lang['Rang']; ?>: <select name="rang">
-    <option value="7"> 7
-    <option value="6" 
-    <?php if (isset($_GET['rang'])){if ($_GET['rang'] == 6){echo 'selected';}} ?> > 6
-    <option value="5"
-    <?php if (isset($_GET['rang'])){if ($_GET['rang'] == 5){echo 'selected';}} ?> > 5
-    <option value="4"
-    <?php if (isset($_GET['rang'])){if ($_GET['rang'] == 4){echo 'selected';}} ?> > 4
-    <option value="3"
-    <?php if (isset($_GET['rang'])){if ($_GET['rang'] == 3){echo 'selected';}} ?> > 3
-    <option value="2"
-    <?php if (isset($_GET['rang'])){if ($_GET['rang'] == 2){echo 'selected';}} ?> > 2
-    <option value="1"
-    <?php if (isset($_GET['rang'])){if ($_GET['rang'] == 1){echo 'selected';}} ?> > 1
-    </select>
+    <form action="antirecord_rank_winrate.php" method="get" name="form">
     <?php 
     include_once 'scripts/region.php';
     include_once 'scripts/queue.php'; 
@@ -40,7 +20,7 @@ echo ' ' . $lang['rangs'] . '</h1>';
 <br>  
 <div class="form">
 
-<form action="record_rang.php" method="get" name="form">
+<form action="antirecord_rank_winrate.php" method="get" name="form">
 
 <?php echo $lang['Nick'];?>: <input name="nick" id="nick" type="text" class="form-control inp" value="<?php if (isset($_GET['nick'])) {echo $_GET['nick'];}?>" placeholder="<?php echo $lang['Nick_ph'];?>">
 <?php include 'scripts/region_search.php'; ?>
@@ -115,11 +95,10 @@ if (isset($_GET['region'])) {
     // print_r($info_rang);
     // $time_start = microtime(true);
     $summoners = [];
-    foreach ($info as $key => $row) {
-        $summoners[$key] = $row[$k[$_GET['rang']]];
-        // $summoners[$key] = $row[$k['total']];
+    foreach ($info_rang as $key => $row) {
+        $summoners[$key] = $row[$l['wins']] / ($row[$l['wins']] + $row[$l['losses']]) * 100;
     }
-    array_multisort($summoners, SORT_DESC, $info);
+    array_multisort($summoners, SORT_ASC, $info_rang);
 
     
     $counter = 0;
@@ -159,15 +138,13 @@ if (isset($_GET['region'])) {
 
 
     include "scripts/nav_var.php";
-    $urlParams = '&rang=' . $_GET['rang'] .  $urlParams;
-
 
     if (isset($_GET['nick']) and $_GET['nick'] != ''){
 
         $sum_num = array_search($summoner_id, $sum_by_num);
         $page_summoner = ceil(($sum_num+1)/$amount);
         if ($sum_num !=0){
-            echo "<div class=\"sum_place center\">" .$lang['Summoner'] . " " . $info[$summoner_id][0] . ': ' .  $sum_num+1 . ' <a href="record_rang.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
+            echo "<div class=\"sum_place center\"> Призыватель " . $info[$summoner_id][0] . ': ' .  $sum_num+1 . ' <a href="antirecord_rank_winrate.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
         }
     
         }
@@ -180,13 +157,16 @@ if (isset($_GET['region'])) {
 
     
 
-echo '<table id="sortable" border="1" >
+echo '<table id="sortable" border="1">
 <thead>
 <tr>
 <th data-type="number"> № </th>
 <th>' . $lang['Nick'] . '</th>          
 <th data-type="number">' . $lang['Lvl'] . '</th>
-<th data-type="number">' . $lang['Amount'] . '</th>
+<th data-type="number">' . $lang['Winrate'] . '</th>
+<th data-type="number">' . $lang['Matches'] . '</th>
+<th data-type="number">' . $lang['W'] . '</th>
+<th data-type="number">' . $lang['L'] . '</th>
 <th>' . $lang['Rang'] . '</th></tr>
 </thead>
     <tbody>'
@@ -223,7 +203,6 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
         $add_param = '';
     }
 
-
     echo '<tr class="' . $add_param . '" id="' . $ctr .'"><td>' . $ctr . 
     "</td><td><div class=\"summoner\">
     <img src=\"http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/profileicon/" . $info[$key][$k['icon']] . '.png">
@@ -232,13 +211,22 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
     $info[$key][$k['nick']] .
         '</a><div class="region"> ' .
         $info[$key][$k['region']] .
-        '</div></div></td><td class="center">'.
+        '</div></div></td>
+        <td class="center">'.
         
         $info[$key][$k['lvl']].
-        '</td><td class="center">' . 
-        number_format($info[$key][$k[$_GET['rang']]], 0, '', '&nbsp;') .
-        // $value .
-        '</td><td>' . '<div class="rank">' .
+        '</td>
+        <td class="center">' . 
+            number_format( $info_rang[$key][$l['wins']] / ($info_rang[$key][$l['wins']] + $info_rang[$key][$l['losses']])*100 , 2, ',', '') .
+            '</td>
+            <td>' .
+            number_format($info_rang[$key][$l['wins']] + $info_rang[$key][$l['losses']], 0, '', ' ') .
+            '</td><td>' .
+            number_format($info_rang[$key][$l['wins']], 0, '', ' ') .
+            '</td><td>' .
+            number_format($info_rang[$key][$l['losses']], 0, '', ' ') .
+            '</td>' .
+        '<td>' . '<div class="rank">' .
         $img .
         '<div class="elo">' .  $elo .   
         '</div></div>' 
@@ -255,7 +243,6 @@ echo '</tbody></table>';
 
 
 include "scripts/nav_bot.php";
-// $urlParams = '&rang=' . $_GET['rang'] .'&region=' . $_GET['region'] . '&qu=' . $_GET['qu'] . '&amount=' . $amount . '&nick=' . $nick . "&region_s=" . $region_s. '&p=';
     
 }
 
