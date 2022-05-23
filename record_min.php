@@ -232,7 +232,7 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
         $info[$key][$k['lvl']].
         '</td>
         <td class="center">' . 
-        $info[$key][$k['min_point']] .
+        number_format($info[$key][$k['min_point']], 0, '', '&nbsp;') .
     "</td><td id=\"" . $info[$key][$k['min_key']] . "\">". '<div class="fullchamp">' . 
     "<img id=\"" . $champs_name_arr[$info[$key][$k['min_key']]] ."\"" . "src=\"http://ddragon.leagueoflegends.com/cdn/" .
     $version .
