@@ -257,17 +257,17 @@ include 'scripts/region_sum.php'; ?>
             '<div class="region">' . 
             $_GET['region'] . 
             '</div></div></div></td><td>' . 
-            $summoner_info['summonerLevel'] . ' ' . $lang['lvl'] . "</td></tr><div class=\"rang\">";
+            $summoner_info['summonerLevel'] . ' ' . $lang['lvl'] . ' <a href="record_lvl.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td></tr><div class=\"rang\">";
             if (empty($rang)) {
                 echo '<tr><td>'. $lang['Elo'] .':</td><td> - </td></tr>';
             } else {
                 if ($rang[$num_rank]){
     
-                    echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['solo'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . ' <br>(' . $lang['w'] . ': ' . number_format($rang[$num_rank]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank]['wins'] / ($rang[$num_rank]['wins'] + $rang[$num_rank]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
+                    echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['solo'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_solo . ' <br>(' . $lang['w'] . ': ' . number_format($rang[$num_rank]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank]['wins'] / ($rang[$num_rank]['wins'] + $rang[$num_rank]['losses'])*100, 2, ',', ' ') . '%' . ' <a href="record_rank_winrate.php?qu=solo&region=all&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . ')</div></div></td></tr>';
                 }
                 if ($rang[$num_rank_flex]){
     
-                echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . ' <br>(' . $lang['w'] . ': ' . number_format($rang[$num_rank_flex]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank_flex]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank_flex]['wins'] / ($rang[$num_rank_flex]['wins'] + $rang[$num_rank_flex]['losses'])*100, 2, ',', ' ') . '%)</div></div></td></tr>';
+                echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .': </td><td>' . '<div class="rank_full"><img src="img/Emblem_' . $rang[$num_rank_flex]['tier'] . ".png\"><div class=\"elo_full\">" . $elo_flex . ' <br>(' . $lang['w'] . ': ' . number_format($rang[$num_rank_flex]['wins'], 0, '', ' ') . ', ' . $lang['l'] . ': ' . number_format($rang[$num_rank_flex]['losses'], 0, '', ' ') . ' – ' . number_format( $rang[$num_rank_flex]['wins'] / ($rang[$num_rank_flex]['wins'] + $rang[$num_rank_flex]['losses'])*100, 2, ',', ' ') . '%' . ' <a href="record_rank_winrate.php?qu=flex&region=all&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . ')</div></div></td></tr>';
             }
             else{
                 echo '<tr><td>'. $lang['Elo'] . ' (' . $lang['flex'] . ')' .':</td><td> - </td></tr>';
@@ -314,13 +314,13 @@ include 'scripts/region_sum.php'; ?>
         </tr>
         <tr>
         <td>' . $lang['Amount'] . '</td>' .
-        '<td>' . $seven . "</td>" .   
-        '<td>' . $six . "</td>" .   
-        '<td>' . $five . "</td>" .   
-        '<td>' . $four . "</td>" .   
-        '<td>' . $three . "</td>" .   
-        '<td>' . $two . "</td>" .   
-        '<td>' . $one . "</td></tr>" .
+        '<td>' . $seven . ' <a href="record_rang.php?rang=7&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' .  "</td>" .   
+        '<td>' . $six . ' <a href="record_rang.php?rang=6&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td>" .   
+        '<td>' . $five . ' <a href="record_rang.php?rang=5&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td>" .   
+        '<td>' . $four . ' <a href="record_rang.php?rang=4&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td>" .   
+        '<td>' . $three . ' <a href="record_rang.php?rang=3&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td>" .   
+        '<td>' . $two . ' <a href="record_rang.php?rang=2&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td>" .   
+        '<td>' . $one . ' <a href="record_rang.php?rang=1&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td></tr>" .
         "</table>";
 
         echo "<div class=\"info_sum\"><div>". $lang["Sum_mastery"] . ": " . 
@@ -362,6 +362,7 @@ include 'scripts/region_sum.php'; ?>
             count($masters_arr) .
             ' ' . $lang['of'] . ' ' .
             count($champs_name_json['data']) . 
+            ' <a href="record_true_mainers.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' .
             "</div>";
         // echo '<br><br>';
          
