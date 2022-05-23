@@ -1,10 +1,23 @@
 html, body {
     width: 100%;
+    background-color:  #373737;
+    color: #f4f4f4;
 }
 
 .body{
     width: 70%;
     margin: 0px auto;
+}
+a:link{
+    color: #e3faff;
+}
+
+a:hover, a:active{
+    color: #f4f4f4;
+}
+
+a:visited {
+    color: #b6b5b5;
 }
 
 
@@ -14,7 +27,7 @@ ul {
     margin: 1px;
     padding: 1px;
     overflow: auto;
-    background-color: #8842d5;
+    background-color: #4c2872;
 }
 
 li {
@@ -24,16 +37,18 @@ li {
 li a {
     font-size: 21px;
     display: block;
-    color: white;
+    color: #e3faff;
     text-align: center;
     padding: 12px 12px;
     text-decoration: none;
 }
 
-
+li a:visited{
+    color: #e3faff;
+}
 
 li a:hover {
-    background-color: #7300ff;
+    background-color: #352c41;
 }
 
 nav ul ul {
@@ -257,11 +272,11 @@ position: relative;
 
 
 .pagenum a{
-    border:1px solid black;
+    border:1px solid rgb(136, 136, 136);
 
 }
 .pagenum a:hover, .pagenum a:visited, .pagenum a:link, .pagenum a:active
-{
+{   
     padding-left: 0.3em;
     padding-right: 0.3em;
     /* padding: 0.2em; */
@@ -269,11 +284,11 @@ position: relative;
 }
 
 .current{
-    background-color: rgb(243, 222, 225);
+    background-color: rgb(177, 134, 168);
 
 }
 .pagenum :hover{
-    background-color: rgb(243, 222, 225);
+    background-color: rgb(177, 134, 168);
 }
 
 .sum_place{
