@@ -36,14 +36,14 @@ include "api.php";
 <a href="record_total_mastery.php?region=ru&qu=solo&amount=10"> Total mastery</a><br>
 <a href="record_true_mainers.php?region=all&qu=solo&amount=10"> True mainer</a><br>
 <a href="record_early.php?region=all&qu=solo&amount=10"> Didn't play</a><br>
-<br>
-<br>
 <a href="record_min.php?region=all&qu=solo&amount=10"> Min</a><br>
 <a href="record_max.php?region=all&qu=solo&amount=10"> Max</a><br>
-<a href="record_rang.php?rang=7&region=all&amount=10"> <b>Rang</b></a><br>
-<a href="record_rank_winrate.php?qu=solo&region=ru&amount=10"> Winrate</a><br>
-<a href="antirecord_rank_winrate.php?qu=solo&region=ru&amount=10"> <b>ANTIWinrate</b></a><br>
+<a href="record_rang.php?rang=7&region=all&qu=solo&amount=10"> <b>Rang</b></a><br>
+<a href="record_rank_winrate.php?qu=solo&region=all&amount=10"> Winrate</a><br>
+<a href="antirecord_rank_winrate.php?qu=solo&region=all&amount=10"> <b>ANTIWinrate</b></a><br>
 <a href="millions.php?qu=solo&region=ru&amount=10"> <b>Millions</b></a><br>
+<br>
+<br>
 <a href="current_game.php"> Current game</a><br>
 <a href="full_info.php"> My page</a><br>
 <a href="champs.php"> Champs</a><br>
