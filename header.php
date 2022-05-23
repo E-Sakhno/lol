@@ -1,71 +1,14 @@
 <link rel="stylesheet" href="style/switcher.css">
-<link rel="stylesheet" href="style/total.css">
+<link id="themechange" rel="stylesheet" href="style/total<?php if ($_COOKIE['theme'] == 'dark'){echo '-dark';}?>.css">
 <head>
 <!-- <link rel="stylesheet" title="theme" href="#"> -->
 <script src="scripts/show_more.js"></script>
 <script src="scripts/cookies.js"></script>
 <script src="scripts/select_click.js"></script>
-<script>
-if (!get_cookie('tz')){
-    
-var timezone = (Intl.DateTimeFormat().resolvedOptions().timeZone);
-set_cookie('tz', timezone);
 
-}
-</script>
-
-<script>
-    if (!get_cookie('lang')){    
-        set_cookie('lang', "en_US");
-    }
-    </script>
-
-
-<script>
-    let changeThemeButtons = document.querySelectorAll('.changeTheme'); // Помещаем кнопки смены темы в переменную
-
-changeThemeButtons.forEach(button => {
-    button.addEventListener('click', function () { // К каждой добавляем обработчик событий на клик
-        let theme = this.dataset.theme; // Помещаем в переменную название темы из атрибута data-theme
-        applyTheme(theme); // Вызываем функцию, которая меняет тему и передаем в нее её название
-    });
-});
-
-function applyTheme(themeName) {
-    document.querySelector('[title="theme"]').setAttribute('href', `css/theme-${themeName}.css`); // Помещаем путь к файлу темы в пустой link в head
-    changeThemeButtons.forEach(button => {
-        button.style.display = 'block'; // Показываем все кнопки смены темы
-    });
-    document.querySelector(`[data-theme="${themeName}"]`).style.display = 'none'; // Но скрываем кнопку для активной темы
-}
-
-let changeThemeButtons = document.querySelectorAll('.changeTheme');
-
-changeThemeButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        let theme = this.dataset.theme;
-        applyTheme(theme);
-    });
-});
-
-function applyTheme(themeName) {
-    document.querySelector('[title="theme"]').setAttribute('href', `css/theme-${themeName}.css`);
-    changeThemeButtons.forEach(button => {
-        button.style.display = 'block';
-    });
-    document.querySelector(`[data-theme="${themeName}"]`).style.display = 'none';
-    localStorage.setItem('theme', themeName);
-}
-
-let activeTheme = localStorage.getItem('theme'); // Проверяем есть ли в LocalStorage записано значение для 'theme' и присваиваем его переменной.
-
-if(activeTheme === null || activeTheme === 'light') { // Если значение не записано, или оно равно 'light' - применяем светлую тему
-    applyTheme('light');
-} else if (activeTheme === 'dark') { // Если значение равно 'dark' - применяем темную
-    applyTheme('dark');
-}
-    
-    </script>
+<script src="scripts/timezone.js"></script>
+<script src="scripts/lang.js"></script>
+<script src="scripts/default_theme.js"></script>
 
 <?php
 if ($_COOKIE['tz']){
@@ -153,6 +96,7 @@ $lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), tru
                     <ul>
                         <li><a href="record_min.php?region=all&qu=solo&amount=10"><?php echo $lang['Min'];?></a></li>
                         <li><a href="record_max.php?region=all&qu=solo&amount=10"><?php echo $lang['Max'];?></a></li>
+                        <li><a href="record_percent.php?region=all&qu=solo&amount=10">%</a></li>
                         <li><a href="millions.php?qu=solo&region=all&amount=10"><?php echo $lang['Millions'];?></a></li>
                     </ul>
                 </li>
@@ -190,25 +134,29 @@ $lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), tru
                     </div>
 
                 </li>
-                <li>
-                <label class="switch">
-        <input type="checkbox" class="theme-switcher">
+                <li style="float: right; margin-right: 0.5em;">
+                <div class="grid theme-container">
+  <div class="content">
+    <div class="demo">
+      <label class="switch">
+        <input type="checkbox" id="theme" class="theme-switcher" 
+        <?php if ($_COOKIE['theme'] == 'light'){echo ' checked';}?>
+        >
         <span class="slider round"></span>
       </label>
+    </div>
+  </div>
+</div>
                 
 </li>
-            </ul>
+</ul>
         </nav>
         
 
     </div>
-    <script>
-        function AtChange (select) {
-    var selectedOption = select.options[select.selectedIndex].value;
-    console.log(selectedOption);
-    set_cookie('lang', selectedOption);
-}
-    </script>
+<script src="scripts/change_lang.js"></script>
+<script src="scripts/change_theme.js"></script>
+
 
 </head>
 <div class="body">
