@@ -1,51 +1,24 @@
-<!-- <button onclick="alert('Тыктыктык');alert('Тыктыктык');alert('Тыктыктык');alert('Тыктыктык');alert('Тыктыктык');">Тык</button> -->
-
-
-<!-- <?php
-
-// echo "Hiiiii";
-include "api.php";
-// $nick = 'Медоed';
-// $region = "ru";
-
-// $summoner_info = json_decode(file_get_contents('https://'.$region.'.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$nick.'?api_key='.$api), true);
-// $summoner_id = $summoner_info["id"];
-// echo $summoner_id;
-// echo ' '; 
-
-// $masters = json_decode(file_get_contents('https://'.$region.'.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/'.$summoner_id.'?api_key='.$api), true);
-// var_dump(count($masters));
-// echo ' '; 
-
-// echo $masters[0]["championPoints"];
-// echo ' '; 
-// $masters_arr = array();
-// for($i=0; $i<count($masters); $i++){
-//     $masters_arr[$masters[$i]["championId"]] = $masters[$i]["championPoints"];
-    
-// }
-// $total_masters = array_sum($masters_arr);
-// echo ' '; 
-// echo ' '; 
-// echo ' '; 
-// echo $total_masters;
-
-?> -->
-
+<?php
+include "header.php";
+?>
 <a href="record_total.php?region=all&qu=solo&amount=10"> Total</a><br>
-<a href="record_total_mastery.php?region=ru&qu=solo&amount=10"> Total mastery</a><br>
+<a href="record_total_mastery.php?region=all&qu=solo&amount=10"> Total mastery</a><br>
 <a href="record_true_mainers.php?region=all&qu=solo&amount=10"> True mainer</a><br>
+<a href="record_lvl.php?region=all&qu=solo&amount=10">Lvl</a><br>
 <a href="record_early.php?region=all&qu=solo&amount=10"> Didn't play</a><br>
+<a href="record_rang.php?rang=7&region=all&qu=solo&amount=10"> <b>Rang</b></a><br>
+
 <a href="record_min.php?region=all&qu=solo&amount=10"> Min</a><br>
 <a href="record_max.php?region=all&qu=solo&amount=10"> Max</a><br>
-<a href="record_rang.php?rang=7&region=all&qu=solo&amount=10"> <b>Rang</b></a><br>
+<a href="millions.php?qu=solo&region=all&amount=10"> <b>Millions</b></a><br>
+
 <a href="record_rank_winrate.php?qu=solo&region=all&amount=10"> Winrate</a><br>
 <a href="antirecord_rank_winrate.php?qu=solo&region=all&amount=10"> <b>ANTIWinrate</b></a><br>
-<a href="millions.php?qu=solo&region=ru&amount=10"> <b>Millions</b></a><br>
-<br>
-<br>
+
 <a href="current_game.php"> Current game</a><br>
 <a href="full_info.php"> My page</a><br>
+<br>
+<br>
 <a href="champs.php"> Champs</a><br>
 
 <form action="index.php" method="post" name="form">
