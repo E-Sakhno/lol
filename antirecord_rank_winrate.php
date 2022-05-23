@@ -219,11 +219,11 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
         <td class="center">' . 
             number_format( $info_rang[$key][$l['wins']] / ($info_rang[$key][$l['wins']] + $info_rang[$key][$l['losses']])*100 , 2, ',', '') .
             '</td>
-            <td>' .
+            <td class="center">' .
             number_format($info_rang[$key][$l['wins']] + $info_rang[$key][$l['losses']], 0, '', ' ') .
-            '</td><td>' .
+            '</td><td class="center">' .
             number_format($info_rang[$key][$l['wins']], 0, '', ' ') .
-            '</td><td>' .
+            '</td><td class="center">' .
             number_format($info_rang[$key][$l['losses']], 0, '', ' ') .
             '</td>' .
         '<td>' . '<div class="rank">' .

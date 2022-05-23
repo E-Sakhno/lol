@@ -210,10 +210,10 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
     $info[$key][$k['nick']] .
         '</a><div class="region"> ' .
         $info[$key][$k['region']] .
-        '</div></div></td><td>'.
+        '</div></div></td><td class="center">'.
         
         $info[$key][$k['lvl']].
-        '</td><td>' . 
+        '</td><td class="center">' . 
         number_format($summoners[$key], 0, '', '&nbsp;') .
         // $value .
         '</td><td>' . '<div class="rank">' .
