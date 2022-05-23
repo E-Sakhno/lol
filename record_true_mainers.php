@@ -72,7 +72,7 @@ if (isset($_GET['region'])) {
         // print_r ($summoner_info);
         
         if ($summoner_info == NULL){
-            echo "Такого пользователя не найдено!";
+            echo $lang['404'];
         }
         else{
         global $summoner_id;
@@ -100,7 +100,7 @@ if (isset($_GET['region'])) {
         // $summoners[$key] = $row[$k['7']]*7 + $row[$k['6']]*6 + $row[$k['5']]*5 + $row[$k['4']]*4 + $row[$k['3']]*3 + $row[$k['2']]*2 + $row[$k['1']];
         // $summoners[$key] = $row[$k['total']];
     }
-    array_multisort($summoners, SORT_DESC, $info);
+    array_multisort($summoners, SORT_ASC, $info);
 
     
     $counter = 0;
