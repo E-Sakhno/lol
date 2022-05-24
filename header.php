@@ -111,11 +111,15 @@ $lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), tru
                 <li><a href="full_info.php"><?php echo $lang['About_sum'];?></a>
                 </li>
                 <li></li>
-                <li><a href=".php"><?php echo $lang['About_champs'];?></a>
+                <li><a href="champs_about.php"><?php echo $lang['About_champs'];?></a>
                     <ul>
-                        <li><a href=".php">HP</a></li>
-                        <li><a href=".php">Resist</a></li>
-                        <li><a href=".php">ПРОЧЕЕ</a></li>
+                        <li><a href="champs_hp.php"><?php echo $lang['HP'];?></a></li>
+                        <li><a href="champs_mp.php"><?php echo $lang['MP'];?></a></li>
+                        <li><a href="champs_attack.php"><?php echo $lang['Attack'];?></a></li>
+                        <li><a href="champs_attackrange.php"><?php echo $lang['Attackrange'];?></a></li>
+                        <li><a href="champs_armor.php"><?php echo $lang['Armor'];?></a></li>
+                        <li><a href="champs_spellblock.php"><?php echo $lang['Spellblock'];?></a></li>
+                        <li><a href="champs_movespeed.php"><?php echo $lang['Movespeed'];?></a></li>
                     </ul>
                 </li>
                 <li style="float: right; margin-right: 0.5em;">
@@ -159,5 +163,7 @@ $lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), tru
 
 
 </head>
+<body>
+
 <div class="body">
 
