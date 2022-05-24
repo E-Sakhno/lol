@@ -4,6 +4,10 @@ html, body {
     color: #f4f4f4;
 }
 
+body {
+    margin-left: 0;
+}
+
 .body{
     width: 70%;
     margin: 0px auto;
