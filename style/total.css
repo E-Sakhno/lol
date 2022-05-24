@@ -119,6 +119,13 @@ td a{
     vertical-align: middle;
 }
 
+#sortable3 th {
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+    vertical-align: middle;
+}
+
 img{
 height: 1em;
 }

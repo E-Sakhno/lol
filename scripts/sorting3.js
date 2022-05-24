@@ -1,5 +1,5 @@
-Yone = document.getElementsByClassName('777');
-// console.log(Yone.innerHTML);
+Yone_class = document.getElementsByClassName('777');
+// console.log(Yone_class.innerHTML);
 document.addEventListener('DOMContentLoaded', function() {
     const table = document.getElementById('sortable3');
     const headers = table.querySelectorAll('th');
@@ -67,16 +67,16 @@ document.addEventListener('DOMContentLoaded', function() {
     [].forEach.call(headers, function(header, index) {
         header.addEventListener('click', function() {
 
-        if (Yone){
-            for(var i=0; i<Yone.length; i++ ) {
-                var Yone_cur = Yone[i];
-                Yone2 = Yone_cur.innerHTML.replaceAll('Ёнэ', "Енэ"); Yone_cur.innerHTML = Yone2;
+        if (Yone_class){
+            for(var i=0; i<Yone_class.length; i++ ) {
+                var Yone_class_cur = Yone_class[i];
+                Yone_class2 = Yone_class_cur.innerHTML.replaceAll('Ёнэ', "Енэ"); Yone_class_cur.innerHTML = Yone_class2;
            }}
         sortColumn(index);
-        if (Yone){
-            for(var i=0; i<Yone.length; i++ ) {
-                var Yone_cur = Yone[i];
-                Yone2 = Yone_cur.innerHTML.replaceAll('Енэ', "Ёнэ"); Yone_cur.innerHTML = Yone2;
+        if (Yone_class){
+            for(var i=0; i<Yone_class.length; i++ ) {
+                var Yone_class_cur = Yone_class[i];
+                Yone_class2 = Yone_class_cur.innerHTML.replaceAll('Енэ', "Ёнэ"); Yone_class_cur.innerHTML = Yone_class2;
            }}
         
         });
