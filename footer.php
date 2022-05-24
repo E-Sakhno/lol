@@ -3,6 +3,7 @@
 <script src="scripts/show_more.js"></script>
 <script src="scripts/sorting.js"></script>
 <script src="scripts/sorting2.js"></script>
+<script src="scripts/sorting3.js"></script>
 
 
 

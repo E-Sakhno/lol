@@ -175,7 +175,7 @@ if (isset($_GET['region'])) {
 
     
 
-echo '<table id="sortable" border="1">
+echo '<table id="sortable3" border="1">
 <thead>
 <tr>
 <th data-type="number"> № </th>
@@ -233,16 +233,10 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
         '</td>
         <td class="center">' . 
         number_format($info[$key][$k['max_point']]/$info[$key][$k['total']]*100, 2, ',', '') .
-    "</td><td id=\"" . $info[$key][$k['max_key']] . "\">". '<div class="fullchamp">' . 
-    "<img id=\"" . $champs_name_arr[$info[$key][$k['max_key']]] ."\"" . "src=\"http://ddragon.leagueoflegends.com/cdn/" .
-    $version .
-    '/img/champion/' .
-    $ava[$info[$key][$k['max_key']]] .
-    '"><div class="fullchampname">' .
-    
-    $champs_name_arr[$info[$key][$k['max_key']]] .
-    '</div></div>' .  
     "</td>" .
+    "<td class=\"" . $info[$key][$k['max_key']] . "\"><div class=\"fullchamp\"><img id=\"" . $champs_name_arr[$info[$key][$k['max_key']]]. "\" src=\"http://ddragon.leagueoflegends.com/cdn/". $version . "/img/champion/" . $ava[$info[$key][$k['max_key']]] . "\">" .
+'<div class="fullchampname">' . $champs_name_arr[$info[$key][$k['max_key']]] .'</div></div></td>' .
+
     // $value .
         '</td><td>' . '<div class="rank">' .
         $img .

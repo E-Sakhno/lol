@@ -175,7 +175,7 @@ if (isset($_GET['region'])) {
 
     
 
-echo '<table id="sortable" border="1">
+echo '<table id="sortable3" border="1">
 <thead>
 <tr>
 <th data-type="number"> № </th>
@@ -233,7 +233,7 @@ for ($ctr; $ctr <= $amount*$page; $ctr++){
         '</td>
         <td class="center">' . 
         number_format($info[$key][$k['min_point']], 0, '', '&nbsp;') .
-    "</td><td id=\"" . $info[$key][$k['min_key']] . "\">". '<div class="fullchamp">' . 
+    "</td><td class=\"" . $info[$key][$k['min_key']] . "\">". '<div class="fullchamp">' . 
     "<img id=\"" . $champs_name_arr[$info[$key][$k['min_key']]] ."\"" . "src=\"http://ddragon.leagueoflegends.com/cdn/" .
     $version .
     '/img/champion/' .
