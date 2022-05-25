@@ -1,6 +1,23 @@
 <?php
 include "header.php";
 ?>
+<img style="height:20em;" src = "https://sun9-26.userapi.com/impf/c621513/v621513214/6a1b5/4PpD0eFT82s.jpg?size=1280x720&quality=96&sign=c4634c0fa75be98cfad95972f5f4cd07&c_uniq_tag=eGJPpinaYRXXG2CUxNFf42KqYoWiKJRFQV5VuSE_UG0&type=album">
+Узнай о себе на 120%
+<br>
+KnowYourChampion
+KYC
+<br>
+<br>
+Product Awesome is a very easy to calculate total points of each summoner. Also there is different top of summoners such as
+tops by total mastery score, mastery levels, levels, last games, min and max points on champs, winrate in ranked games.
+Also there is information about champions stats (HP, MP, attack damage etc).
+Also every player can see tips for playing with and again champs in LiveGame.
+The APIs we are using are: CHAMPION-MASTERY-V4, LEAGUE-V4, and SUMMONER-V4 and Data Dragon.
+<br>
+<br>
+
+
+
 <a href="record_total.php?region=all&qu=solo&amount=10"> Total</a><br>
 <a href="record_total_mastery.php?region=all&qu=solo&amount=10"> Total mastery</a><br>
 <a href="record_true_mainers.php?region=all&qu=solo&amount=10"> True mainer</a><br>
@@ -55,3 +72,6 @@ set_cookie('tz', timezone);
 
 }
 </script>
+<?php
+include "footer.php";
+?>

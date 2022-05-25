@@ -106,21 +106,25 @@ $lang = json_decode(file_get_contents('lang/' . $_COOKIE['lang'] . '.json'), tru
                         <li><a href="antirecord_rank_winrate.php?qu=solo&region=all&amount=10"><?php echo $lang['AntiWinrate'];?></a></li>
                     </ul>
                 </li>
-                <li><a href="current_game.php"><?php echo $lang['LiveGame'];?></a>
-                </li>
-                <li><a href="full_info.php"><?php echo $lang['About_sum'];?></a>
-                </li>
+                
+                
                 <li></li>
                 <li><a href="champs_about.php"><?php echo $lang['About_champs'];?></a>
                     <ul>
                         <li><a href="champs_hp.php"><?php echo $lang['HP'];?></a></li>
                         <li><a href="champs_mp.php"><?php echo $lang['MP'];?></a></li>
+                        <li><a href="champs_regen.php"><?php echo $lang['Regen'] . ' ' . $lang['HPs'];?></a></li>
+                        <li><a href="champs_regenMP.php"><?php echo $lang['Regen'] . ' ' . $lang['MPs'];?></a></li>
                         <li><a href="champs_attack.php"><?php echo $lang['Attack'];?></a></li>
                         <li><a href="champs_attackrange.php"><?php echo $lang['Attackrange'];?></a></li>
                         <li><a href="champs_armor.php"><?php echo $lang['Armor'];?></a></li>
                         <li><a href="champs_spellblock.php"><?php echo $lang['Spellblock'];?></a></li>
                         <li><a href="champs_movespeed.php"><?php echo $lang['Movespeed'];?></a></li>
                     </ul>
+                </li>
+                <li><a href="full_info.php"><?php echo $lang['About_sum'];?></a>
+                </li>
+                <li><a href="current_game.php"><?php echo $lang['LiveGame'];?></a>
                 </li>
                 <li style="float: right; margin-right: 0.5em;">
                     <div style="margin-top: .5em; ">
