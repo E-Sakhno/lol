@@ -96,7 +96,7 @@
                 '<a href="full_info.php?nick='. $value['summonerName'] . "&region="  . $_GET['region'] . '">' . 
                 '<div class="nick">' . $value['summonerName'] . '</div></a></div>' .
             
-            "<div class=\"cgs\"><div>" . $lang['Total_points'] . " " . number_format($total_masters, 0, "", "&nbsp;") . 
+            "<div class=\"cgs\"><div>" . $lang['Total_points'] . ": " . number_format($total_masters, 0, "", "&nbsp;") . 
             "</div><div>" . $lang['Played_on'] . " " . $champs_count . " / " . $champs_max .  
             "</div><div>" . $lang['Most_points'] . ": " . '<div class="topchamp">' . $champs_of_player . " (" . number_format($info[$value['summonerId']][$k['max_point']]/$total_masters*100, 2, ',', '') . "%)</div></div>" .
             "<div style=\"margin-top: 0.5em;\">" .
