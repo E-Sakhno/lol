@@ -1,4 +1,4 @@
-
+</div>
 
 <script src="scripts/show_more.js"></script>
 <script src="scripts/sorting.js"></script>

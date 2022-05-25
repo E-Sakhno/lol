@@ -10,18 +10,19 @@ KnowYourChampion
 KYC
 <br>
 <br>
-Product 'KnowYourChampion' is a very easy to calculate total points of each summoner. Also there is different top of summoners such as
+Product 'KnowYourChampion' is a very easy to calculate total points of each summoner. The player can find out information about time of last game or earned chest for any champs.
+There is different top of summoners such as
 tops by total mastery score, mastery levels, levels, last games, min and max points on champs, winrate in ranked games.
 Also there is information about champions stats (HP, MP, attack damage etc).
 Also every player can see tips for playing with and again champs in LiveGame.
-To minimizade the amount of requests, my site checkes the exist of IDs in my files. Information in LiveGame send the request for current game of the summoner and for other, if there is no information in site's files.
-If you will approve my project, I will upgrade hosting for more users and buy domain-name with SSL. Also I will add favicon and advertising and nformation about helping to site (translation, donation). 
+To minimize the amount of requests, my site checks the exist of IDs in my files. Information in LiveGame send the request for current game of the summoner and for other, if there is no information in site's files.
+The project supports all regions.
 The APIs site is using are: CHAMPION-MASTERY-V4, LEAGUE-V4, and SUMMONER-V4 and Data Dragon.
 <br>
 <br>
 
 
-
+<!-- 
 <a href="record_total.php?region=all&qu=solo&amount=10"> Total</a><br>
 <a href="record_total_mastery.php?region=all&qu=solo&amount=10"> Total mastery</a><br>
 <a href="record_true_mainers.php?region=all&qu=solo&amount=10"> True mainer</a><br>
@@ -37,15 +38,23 @@ The APIs site is using are: CHAMPION-MASTERY-V4, LEAGUE-V4, and SUMMONER-V4 and 
 <a href="antirecord_rank_winrate.php?qu=solo&region=all&amount=10"> <b>ANTIWinrate</b></a><br>
 
 <a href="current_game.php"> Current game</a><br>
-<a href="full_info.php"> My page</a><br>
+<a href="full_info.php"> My page</a><br> -->
 <br>
-<br>
+<br><br>
+<br><br>
+
 <!-- <a href="champs.php"> Champs</a><br> -->
 <br>
 <br>
 
 <script src="scripts/cookies.js"></script>
-
+<br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br>
 <?php
 include "footer.php";
 ?>
