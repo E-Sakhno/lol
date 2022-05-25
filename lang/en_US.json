@@ -86,6 +86,7 @@
     "Attack": "Attack",
     "Defense": "Defense",
     "Armor": "Armor",
+    "Default": "Default value",
     "Spellblock": "Spellblock",
     "Movespeed": "Movespeed",
     "Attackrange": "Attackrange",
