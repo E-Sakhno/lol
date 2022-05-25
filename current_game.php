@@ -177,7 +177,7 @@ if (isset($_GET['nick'])) {
 </div>
 <br>
 <br>
-<div class="center" style="color: blue;"><?php echo $lang['BlueTeam'];?></div>        
+<div class="center blue"><?php echo $lang['BlueTeam'];?></div>        
 
 <div class="blok"> 
         <table id="srtble" border="1" >     

@@ -85,6 +85,11 @@ h1{
 
 select{
     margin: .5em;
+    background-color: #e1e1e1;
+}
+
+input{
+    background-color: #e1e1e1;
 }
 table {
     margin: 0 auto;
@@ -138,6 +143,11 @@ height: 1em;
 .center{
     text-align: center;
 }
+
+.blue{
+    color: rgb(71, 157, 255);
+}
+
 .info_sum{
     margin-top: 1em;
     /* margin-left: -3.3em; */
@@ -297,4 +307,13 @@ position: relative;
 
 .sum_place{
     margin-bottom: 1em;
+}
+
+footer{
+    
+    width: 100%;
+    background-color: #4c2872;
+    font-size: smaller;
+    bottom: 0px;
+    margin-bottom: 0;
 }
