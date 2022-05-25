@@ -37,7 +37,7 @@ include 'scripts/region_sum.php'; ?>
     );
 
     if ($summoner_info == null) {
-        echo $lang['404'];
+        echo '<div class="center">' . $lang['404'] . '</div>';
     } else {
         $summoner_id = $summoner_info['id'];
 
@@ -322,9 +322,9 @@ include 'scripts/region_sum.php'; ?>
         '<td>' . $two . ' <a href="record_rang.php?rang=2&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td>" .   
         '<td>' . $one . ' <a href="record_rang.php?rang=1&region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a>' . "</td></tr>" .
         "</table>";
-
+        $tmp = $seven * 7 + $six * 6 + $five*5 + $four*4 + $three*3 + $two * 2 + $one;
         echo "<div class=\"info_sum\"><div>". $lang["Sum_mastery"] . ": " . 
-        $seven * 7 + $six * 6 + $five*5 + $four*4 + $three*3 + $two * 2 + $one  . 
+        $tmp  . 
         ' <a href="record_total_mastery.php?region=all&qu=solo&amount=10&nick=' . $nick_repl . '&region_s=' . $region . '">&#8658;</a></div>';
 
         
@@ -440,10 +440,9 @@ include 'scripts/region_sum.php'; ?>
                 $millons[$masters[$n]['championId']] = $masters[$n]['championPoints'];   
 
             }
-
+            $n_1 = $n + 1;
             echo '<tr><td>' .
-                $n +
-                1 .
+                $n_1 .
                 '</td><td id="' .$masters[$n]['championId'] . '">' .
                 '<div class="fullchamp">' . 
                 "<img id=\"" . $champs_name_arr[$masters[$n]['championId']] ."\"" . "src=\"http://ddragon.leagueoflegends.com/cdn/" .

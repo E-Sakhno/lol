@@ -25,13 +25,16 @@ $champsInfo = json_decode(file_get_contents('json/'.$_COOKIE['lang'].'_champs.js
 
 
 foreach ($champsInfo['data'] as $key => $value){
+    $hp = $value['stats']['hpregen']/5;
+    $hppl = $value['stats']['hpregenperlevel']/5;
+    $hp18 = $hp +  17 * $hppl;
 echo "
 <tr>
 <td id=\"" . $value['key'] . "\"><div class=\"fullchamp\"><img id=\"" . $value['name']. "\" src=\"http://ddragon.leagueoflegends.com/cdn/". $version . "/img/champion/" . $value['image']['full'] . "\">" .
 '<div class="fullchampname">' . $value['name'] .'</div></div></td>' .
-'<td class="center">' . $value['stats']['hpregen']/5 . '</td>' . 
-'<td class="center">' . $value['stats']['hpregenperlevel']/5 . '</td>' . 
-'<td class="center">' . $value['stats']['hpregen']/5 +  17 * $value['stats']['hpregenperlevel']/5 . '</td>' . 
+'<td class="center">' . $hp . '</td>' . 
+'<td class="center">' . $hppl . '</td>' . 
+'<td class="center">' . $hp18 . '</td>' . 
 '</tr>';
 
 }

@@ -1,18 +1,22 @@
 <?php
 include "header.php";
 ?>
-<img style="height:20em;" src = "https://sun9-26.userapi.com/impf/c621513/v621513214/6a1b5/4PpD0eFT82s.jpg?size=1280x720&quality=96&sign=c4634c0fa75be98cfad95972f5f4cd07&c_uniq_tag=eGJPpinaYRXXG2CUxNFf42KqYoWiKJRFQV5VuSE_UG0&type=album">
-Узнай о себе на 120%
+<!-- <img style="height:20em;" src = "https://sun9-26.userapi.com/impf/c621513/v621513214/6a1b5/4PpD0eFT82s.jpg?size=1280x720&quality=96&sign=c4634c0fa75be98cfad95972f5f4cd07&c_uniq_tag=eGJPpinaYRXXG2CUxNFf42KqYoWiKJRFQV5VuSE_UG0&type=album"> -->
+<br>
+<br>
+Know about yourself at 120%
 <br>
 KnowYourChampion
 KYC
 <br>
 <br>
-Product Awesome is a very easy to calculate total points of each summoner. Also there is different top of summoners such as
+Product 'KnowYourChampion' is a very easy to calculate total points of each summoner. Also there is different top of summoners such as
 tops by total mastery score, mastery levels, levels, last games, min and max points on champs, winrate in ranked games.
 Also there is information about champions stats (HP, MP, attack damage etc).
 Also every player can see tips for playing with and again champs in LiveGame.
-The APIs we are using are: CHAMPION-MASTERY-V4, LEAGUE-V4, and SUMMONER-V4 and Data Dragon.
+To minimizade the amount of requests, my site checkes the exist of IDs in my files. Information in LiveGame send the request for current game of the summoner and for other, if there is no information in site's files.
+If you will approve my project, I will upgrade hosting for more users and buy domain-name with SSL. Also I will add favicon and advertising and nformation about helping to site (translation, donation). 
+The APIs site is using are: CHAMPION-MASTERY-V4, LEAGUE-V4, and SUMMONER-V4 and Data Dragon.
 <br>
 <br>
 
@@ -36,42 +40,12 @@ The APIs we are using are: CHAMPION-MASTERY-V4, LEAGUE-V4, and SUMMONER-V4 and D
 <a href="full_info.php"> My page</a><br>
 <br>
 <br>
-<a href="champs.php"> Champs</a><br>
+<!-- <a href="champs.php"> Champs</a><br> -->
+<br>
+<br>
 
-<form action="index.php" method="post" name="form">
-<select name="lang">
-<option value="ru_RU" 
-    <?php if (isset($_COOKIE['lang'])){if ($_COOKIE['lang'] == "ru_RU"){echo 'selected';}} ?> 
-> Рус
-    <option value="en_US" 
-    <?php if (isset($_COOKIE['lang'])){if ($_COOKIE['lang'] == "en_US"){echo 'selected';}} ?> 
-> Eng
-</select>
-<button class="btn btn-success btn">Тык</button>
-</form>
-
-<?php
-if (!isset($_COOKIE['lang'])){
-    setcookie('lang', 'en_US');
-}
-if (!empty($_POST)){
-    print_r ($_POST);
-    $lang = $_POST['lang'];
-    setcookie("lang", $lang);
-    header("Refresh:0");
-}
-
-?>
 <script src="scripts/cookies.js"></script>
 
-<script>
-if (!get_cookie('tz')){
-    
-var timezone = (Intl.DateTimeFormat().resolvedOptions().timeZone);
-set_cookie('tz', timezone);
-
-}
-</script>
 <?php
 include "footer.php";
 ?>

@@ -3,7 +3,8 @@
 if ($page_last <=6){
     echo '<div class="pages">';
     if ($page != 1){
-        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page-1 . '"> < </a></div>';
+        $page_minus = $page-1;
+        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page_minus . '"> < </a></div>';
 
     }
 
@@ -19,7 +20,8 @@ if ($page_last <=6){
 
     }
     if ($page != $page_last){
-        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page+1 . '"> > </a></div></div>';
+        $page_plus = $page+1;
+        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page_plus . '"> > </a></div></div>';
 
     }
     
@@ -28,8 +30,8 @@ if ($page_last <=6){
     if ($amount > 10){
     echo '<div class="pages">';
     if ($page > 1){
-
-        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page-1 . '"> < </a></div>';
+        $page_minus = $page-1;
+        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page_minus . '"> < </a></div>';
     }
 
     if ($page >= 5 and $page_last >= 7 and $page < $page_last - 3){
@@ -93,8 +95,8 @@ if ($page_last <=6){
 
 
     if ($page < ceil(count($sum_by_num)/$amount)){
-
-        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page+1 . '"> > </a></div>';
+        $page_plus = $page + 1;
+        echo '<div class="pagenum"><a href="' . $name_page . '.php?'. $urlParams . $page_plus . '"> > </a></div>';
     }
     echo "</div>";
 }

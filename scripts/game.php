@@ -48,7 +48,7 @@
                     $value['summonerName'],
                     $_GET['region'],
                     $value['profileIconId'],
-                    '?',
+                    '0',
                     $total_masters,
                     array_key_last($masters_arr),
                     $masters_arr[array_key_last($masters_arr)],

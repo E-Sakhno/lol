@@ -14,11 +14,13 @@
 
 <footer>
 <div style="margin: 0.5em;">
-    © 2022 [Your product] - Data provided by the official League of Legends API
+    © 2022 KnowYourChampion - Data provided by the official League of Legends API
 <Br>
 <Br>
 
-[Your product] isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+KnowYourChampion isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+<Br>
+This website uses cookies to ensure you get the best experience on our website.
 </div>
 <!-- _________________
 <br>

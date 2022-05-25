@@ -169,7 +169,8 @@ if (isset($_GET['region'])) {
         $sum_num = array_search($summoner_id, $sum_by_num);
         $page_summoner = ceil(($sum_num+1)/$amount);
         if ($sum_num !=0){
-            echo "<div class=\"sum_place center\"> Призыватель " . $info[$summoner_id][0] . ': ' .  $sum_num+1 . ' <a href="millions.php' . '?'.$urlParams . $page_summoner . '#' .$sum_num+1  . '">&#8658;</a></div>';
+            $sum_plus = $sum_num+1;
+            echo "<div class=\"sum_place center\"> Призыватель " . $info[$summoner_id][0] . ': ' . $sum_plus . ' <a href="millions.php' . '?'.$urlParams . $page_summoner . '#' .  $sum_plus . '">&#8658;</a></div>';
         }
     
         }

@@ -25,13 +25,14 @@ $champsInfo = json_decode(file_get_contents('json/'.$_COOKIE['lang'].'_champs.js
 
 
 foreach ($champsInfo['data'] as $key => $value){
+    $mp18 = $value['stats']['mp'] +  17 * $value['stats']['mpperlevel'];
 echo "
 <tr>
 <td id=\"" . $value['key'] . "\"><div class=\"fullchamp\"><img id=\"" . $value['name']. "\" src=\"http://ddragon.leagueoflegends.com/cdn/". $version . "/img/champion/" . $value['image']['full'] . "\">" .
 '<div class="fullchampname">' . $value['name'] .'</div></div></td>' .
 '<td class="center">' . $value['stats']['mp'] . '</td>' . 
 '<td class="center">' . $value['stats']['mpperlevel'] . '</td>' . 
-'<td class="center">' . $value['stats']['mp'] +  17 * $value['stats']['mpperlevel'] . '</td>' . 
+'<td class="center">' . $mp18 . '</td>' . 
 '</tr>';
 
 }

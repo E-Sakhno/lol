@@ -264,6 +264,27 @@ if (isset($_GET['nick'])) {
     // echo '</div><br><a href="javascript:void(0)" onclick="show(\'more\')">Все герои</a>';
 
     }
+    foreach ($game['participants'] as $key => $value) {
+        if ($info[$value['summonerId']][$k['lvl']] == '0'){
+            $nick_repl_cur = str_replace(' ', '%20', $value['summonerName']);
+
+            $summoner_info = json_decode(
+                file_get_contents(
+                    'https://' .
+                        $region .
+                        '.api.riotgames.com/lol/summoner/v4/summoners/by-name/' .
+                        $nick_repl_cur .
+                        '?api_key=' .
+                        $api
+                ),
+                true
+            );
+
+            $info[$value['summonerId']][$k['lvl']] = $summoner_info['summonerLevel'];
+        }
+
+    }
+
     file_put_contents(
         'json/' . $_GET['region'] . '_summoners_arr.json',
         json_encode($info, JSON_UNESCAPED_UNICODE)
